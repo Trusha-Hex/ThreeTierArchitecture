@@ -1,0 +1,16 @@
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.deps.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.runtimeconfig.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.runtimeconfig.dev.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.csproj.AssemblyReference.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.AssemblyInfoInputs.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.AssemblyInfo.cs
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.csproj.CoreCompileInputs.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTie.16B4BCB4.Up2Date
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.genruntimeconfig.cache
