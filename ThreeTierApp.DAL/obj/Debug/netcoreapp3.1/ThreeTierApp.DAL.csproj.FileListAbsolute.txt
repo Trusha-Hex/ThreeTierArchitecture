@@ -10,6 +10,7 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.AssemblyInfoInputs.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.AssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.csproj.CoreCompileInputs.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.sourcelink.json
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTie.16B4BCB4.Up2Date
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.DAL\obj\Debug\netcoreapp3.1\ThreeTierApp.DAL.pdb

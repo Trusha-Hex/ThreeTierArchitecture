@@ -19,11 +19,11 @@ namespace ThreeTierApp.Web.Controllers
         }
 
 
-        [HttpGet("/")]
-        public ActionResult<string> HelloWorld()
-        {
-            return "Hello World!";
-        }
+        //[HttpGet("/")]
+        //public ActionResult<string> HelloWorld()
+        //{
+        //    return "Hello World!";
+        //}
 
      
         [HttpGet("employees")]
@@ -53,7 +53,7 @@ namespace ThreeTierApp.Web.Controllers
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
         }
 
-        [HttpPut("employee/{id}")]
+        [HttpPut("employees/{id}")]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
             if (id != employee.Id)
