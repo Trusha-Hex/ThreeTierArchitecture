@@ -51,21 +51,62 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
+        // Get employee by username
+        [HttpGet("employees/username/{username}")]
+        public async Task<ActionResult<Employee>> GetEmployeeByUsername(string username)
+        {
+            try
+            {
+                var employee = await _employeeService.GetEmployeeByUsernameAsync(username);
+                if (employee == null)
+                {
+                    return NotFound(new { message = "Employee not found" });
+                }
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error retrieving employee: {ex.Message}" });
+            }
+        }
+
+        // Get employees by role
+        [HttpGet("employees/role/{role}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByRole(string role)
+        {
+            try
+            {
+                var employees = await _employeeService.GetEmployeesByRoleAsync(role);
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error retrieving employees by role: {ex.Message}" });
+            }
+        }
+
         // Add new employee
         [HttpPost("employees")]
         public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
         {
-            var validationResult = await _employeeService.AddEmployeeAsync(employee);
-
-            if (validationResult != null) // Validation failed
+            try
             {
-                return BadRequest(validationResult);  // Return validation errors
-            }
+                var validationResult = await _employeeService.AddEmployeeAsync(employee);
 
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+                if (validationResult != null) // Validation failed
+                {
+                    return BadRequest(validationResult);  // Return validation errors
+                }
+
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error adding employee: {ex.Message}" });
+            }
         }
 
-        // Update employee by ID
+        // Update employee
         [HttpPut("employees/{id}")]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
@@ -77,20 +118,12 @@ namespace ThreeTierApp.Web.Controllers
                     return BadRequest(new { message = "Employee ID mismatch" });
                 }
 
-                // Retrieve the existing employee from the database
-                var existingEmployee = await _employeeService.GetEmployeeByIdAsync(id);
-                if (existingEmployee == null)
+                var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
+
+                if (validationResult != null) // Validation failed
                 {
-                    return NotFound(new { message = "Employee not found" });
+                    return BadRequest(validationResult);  // Return validation errors
                 }
-
-                // Update the employee properties
-                existingEmployee.Name = employee.Name;
-                existingEmployee.Department = employee.Department;
-                existingEmployee.Salary = employee.Salary;
-
-                // Call the service method to save changes
-                await _employeeService.UpdateEmployeeAsync(existingEmployee);
 
                 return NoContent();  // Successfully updated
             }
@@ -100,7 +133,7 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-        // Delete employee by ID
+        // Delete employee
         [HttpDelete("employees/{id}")]
         public async Task<ActionResult> DeleteEmployee(int id)
         {
@@ -114,5 +147,42 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
             }
         }
+
+        // Get all active employees
+        [HttpGet("employees/active")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetActiveEmployees()
+        {
+            try
+            {
+                var employees = await _employeeService.GetActiveEmployeesAsync();
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error retrieving active employees: {ex.Message}" });
+            }
+        }
+
+
+        [HttpPatch("employees/{id}/status")]
+        public async Task<IActionResult> ChangeEmployeeStatus(int id, [FromBody] bool isActive)
+        {
+            try
+            {
+                var result = await _employeeService.ChangeEmployeeStatusAsync(id, isActive);
+                if (!result)
+                {
+                    return NotFound(new { message = "Employee not found or status update failed" });
+                }
+
+                return Ok(new { message = "Employee status updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error changing employee status: {ex.Message}" });
+            }
+        }
+
+
     }
 }

@@ -24,7 +24,7 @@ namespace ThreeTierApp
         {
          
             services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"))
+                options.UseMySql(_configuration.GetConnectionString("DefaultConnection"))
             );
 
             
