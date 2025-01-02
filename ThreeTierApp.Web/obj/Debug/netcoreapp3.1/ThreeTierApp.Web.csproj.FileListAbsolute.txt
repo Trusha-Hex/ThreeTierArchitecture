@@ -1,4 +1,5 @@
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\appsettings.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.StaticWebAssets.xml
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.exe
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.deps.json
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.runtimeconfig.json
@@ -7,6 +8,12 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.pdb
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.Views.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\ThreeTierApp.Web.Views.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
@@ -25,10 +32,13 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microso
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Hosting.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Hosting.Abstractions.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Configuration.dll
@@ -39,6 +49,8 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microso
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\MySqlConnector.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Npgsql.dll
@@ -54,6 +66,7 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.AssemblyInfoInputs.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.AssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.csproj.CoreCompileInputs.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.MvcApplicationPartsAssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.MvcApplicationPartsAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorAssemblyInfo.cs
@@ -62,6 +75,8 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.TagHelpers.output.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorCoreGenerate.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\wwwroot\index.cshtml.g.cs
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorTargetAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorTargetAssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.Views.pdb
@@ -71,8 +86,8 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\staticw
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.ThreeTierApp.Web.props
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.ThreeTierApp.Web.props
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.ThreeTierApp.Web.props
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\staticwebassets\ThreeTierApp.Web.StaticWebAssets.xml
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTie.7D03C295.Up2Date
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.pdb
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.genruntimeconfig.cache
-E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs

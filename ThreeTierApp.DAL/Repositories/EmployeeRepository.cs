@@ -22,7 +22,15 @@ namespace ThreeTierApp.DAL.Repositories
         public async Task<IEnumerable<Employee>> GetAllAsync() => await _context.Employees.ToListAsync();
 
         // Get employee by ID
-        public async Task<Employee> GetByIdAsync(int id) => await _context.Employees.FindAsync(id);
+        //public async Task<Employee> GetByIdAsync(int id) => await _context.Employees.FindAsync(id);
+
+        public async Task<Employee> GetByIdAsync(int id)
+        {
+            // Assuming you are using Entity Framework or similar ORM, ensure that the method signature matches
+            var employee = await _context.Employees.FindAsync(id);
+            return employee;
+        }
+
 
         // Add a new employee
         public async Task AddAsync(Employee employee)
@@ -40,7 +48,7 @@ namespace ThreeTierApp.DAL.Repositories
             if (existingEmployee != null)
             {
                 existingEmployee.Name = employee.Name;
-                existingEmployee.Username = employee.Username;
+                existingEmployee.UserName = employee.UserName;
                 existingEmployee.Email = employee.Email;
                 existingEmployee.PasswordHash = employee.PasswordHash;
                 existingEmployee.Department = employee.Department;
@@ -69,7 +77,7 @@ namespace ThreeTierApp.DAL.Repositories
         // Get employee by username
         public async Task<Employee> GetByUsernameAsync(string username)
         {
-            return await _context.Employees.FirstOrDefaultAsync(e => e.Username == username);
+            return await _context.Employees.FirstOrDefaultAsync(e => e.UserName == username);
         }
 
         // Get employees by role

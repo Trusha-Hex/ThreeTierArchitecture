@@ -430,9 +430,11 @@
             $(".error-message").hide();
 
             if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
-                isValid = false;
-                $("#error-message").text("All fields are required and salary must be greater than 0.").show();
-            }
+            console.log("Validation failed: ", { name, username, email, password, department, salary });
+            isValid = false;
+            $("#error-message").text("All fields are required and salary must be greater than 0.").show();
+        }
+
 
             if (isValid) {
                 const employee = {

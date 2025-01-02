@@ -8,6 +8,8 @@ using ThreeTierApp.DAL.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using ThreeTierApp.Core.Models;
 
 namespace ThreeTierApp
 {
@@ -22,15 +24,16 @@ namespace ThreeTierApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-         
             services.AddDbContext<AppDbContext>(options =>
                 options.UseMySql(_configuration.GetConnectionString("DefaultConnection"))
             );
 
-            
+            services.AddIdentity<Employee, IdentityRole<int>>()
+                    .AddEntityFrameworkStores<AppDbContext>()
+                    .AddDefaultTokenProviders();
+
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
-
 
             services.AddControllersWithViews();
         }
@@ -52,16 +55,16 @@ namespace ThreeTierApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                     name: "default",
+                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
-
-
     }
 }

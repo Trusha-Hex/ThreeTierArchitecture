@@ -22,15 +22,21 @@ namespace ThreeTierApp.Core.Services
             return await _repository.GetAllAsync();
         }
 
-        // Get employee by ID
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            if (id <= 0)
-                throw new ArgumentException("Employee ID must be greater than 0.");
-
-            return await _repository.GetByIdAsync(id)
-                ?? throw new KeyNotFoundException($"Employee with ID {id} not found.");
+            return await _repository.GetByIdAsync(id);
         }
+
+
+        // Get employee by ID
+        //public async Task<Employee> GetEmployeeByIdAsync(int id)
+        //{
+        //    if (id <= 0)
+        //        throw new ArgumentException("Employee ID must be greater than 0.");
+
+        //    return await _repository.GetByIdAsync(id)
+        //        ?? throw new KeyNotFoundException($"Employee with ID {id} not found.");
+        //}
 
         // Get employee by username
         public async Task<Employee> GetEmployeeByUsernameAsync(string username)
@@ -129,7 +135,7 @@ namespace ThreeTierApp.Core.Services
             if (employee.Salary <= 0)
                 validationErrors.Errors.Add("Salary", "Employee salary must be greater than 0.");
 
-            if (string.IsNullOrWhiteSpace(employee.Username))
+            if (string.IsNullOrWhiteSpace(employee.UserName))
                 validationErrors.Errors.Add("Username", "Username cannot be empty.");
 
             if (string.IsNullOrWhiteSpace(employee.Email))

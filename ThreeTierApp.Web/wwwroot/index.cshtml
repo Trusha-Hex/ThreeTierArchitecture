@@ -68,11 +68,12 @@
     </table>
 
     <script>
-        const apiBaseUrl = "https://localhost:65391/api/employees";
+        const apiBaseUrl = "https://localhost:65391/api/Employee";  // Updated URL to match API endpoint
 
         // Function to load all employees
+               // Function to load all employees
         function loadEmployees() {
-            $.get(apiBaseUrl, function(data) {
+            $.get(`${apiBaseUrl}/employees`, function(data) {
                 const tbody = $("#employees-table tbody");
                 tbody.empty(); // Clear previous rows
 
@@ -93,6 +94,7 @@
             });
         }
 
+
         // Add a new employee
         $("#add-btn").click(function() {
             const employee = {
@@ -101,7 +103,7 @@
                 salary: $("#employee-salary").val()
             };
 
-            $.post(apiBaseUrl, JSON.stringify(employee), function() {
+            $.post(`${apiBaseUrl}/employees`, JSON.stringify(employee), function() {
                 loadEmployees();
                 clearForm();
                 alert("Employee added successfully!");
@@ -110,9 +112,10 @@
             });
         });
 
-        // Edit an existing employee
+
+               // Edit an existing employee
         function editEmployee(id) {
-            $.get(`${apiBaseUrl}/${id}`, function(employee) {
+            $.get(`${apiBaseUrl}/employees/${id}`, function(employee) {
                 $("#employee-id").val(employee.id);
                 $("#employee-name").val(employee.name);
                 $("#employee-department").val(employee.department);
@@ -123,7 +126,8 @@
             });
         }
 
-        // Update an existing employee
+
+               // Update an existing employee
         $("#update-btn").click(function() {
             const id = $("#employee-id").val();
             const employee = {
@@ -134,7 +138,7 @@
             };
 
             $.ajax({
-                url: `${apiBaseUrl}/${id}`,
+                url: `${apiBaseUrl}/employees/${id}`,
                 type: "PUT",
                 data: JSON.stringify(employee),
                 contentType: "application/json",
@@ -151,11 +155,12 @@
             });
         });
 
-        // Delete an employee
+
+               // Delete an employee
         function deleteEmployee(id) {
             if (confirm("Are you sure you want to delete this employee?")) {
                 $.ajax({
-                    url: `${apiBaseUrl}/${id}`,
+                    url: `${apiBaseUrl}/employees/${id}`,
                     type: "DELETE",
                     success: function() {
                         loadEmployees();
@@ -167,6 +172,7 @@
                 });
             }
         }
+
 
         // Clear form inputs
         function clearForm() {

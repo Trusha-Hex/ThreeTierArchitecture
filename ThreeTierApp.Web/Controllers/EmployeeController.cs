@@ -1,20 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ThreeTierApp.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeTierApp.Core.Interfaces;
 using System;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
+using ThreeTierApp.Web.Models; 
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace ThreeTierApp.Web.Controllers
 {
     [ApiController]
-    public class EmployeeController : ControllerBase
+    [Route("api/[controller]")]
+    public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly UserManager<Employee> _userManager;
+        private readonly SignInManager<Employee> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public EmployeeController(IEmployeeService employeeService)
+        // Constructor to inject services
+        public EmployeeController(
+            IEmployeeService employeeService,
+            UserManager<Employee> userManager,
+            SignInManager<Employee> signInManager,
+            IConfiguration configuration)
         {
             _employeeService = employeeService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
+        }
+
+        public IActionResult Login()
+        {
+            return View(); // Ensure Login.cshtml exists in Views/Account/
         }
 
         // Get all employees
@@ -49,6 +74,77 @@ namespace ThreeTierApp.Web.Controllers
             {
                 return BadRequest(new { message = $"Error retrieving employee: {ex.Message}" });
             }
+        }
+
+
+        // Login API (JWT Token)
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(LoginModel model)
+        {
+            // Check if input is an email or username
+            var user = await FindUserAsync(model.EmailOrUsername);
+
+            if (user == null)
+            {
+                return BadRequest(new { message = "Invalid login attempt." });
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Login successful" });
+            }
+
+            return BadRequest(new { message = "Invalid password" });
+        }
+
+        private async Task<Employee> FindUserAsync(string emailOrUsername)
+        {
+            // Check if input is a valid email
+            if (IsValidEmail(emailOrUsername))
+            {
+                return await _userManager.FindByEmailAsync(emailOrUsername);  
+            }
+            else
+            {
+                return await _userManager.FindByNameAsync(emailOrUsername); 
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            return emailRegex.IsMatch(email);
+        }
+
+        // Signup API
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync(RegisterModel model)
+        {
+            if (model.Password != model.ConfirmPassword)
+            {
+                return BadRequest(new { message = "Passwords do not match" });
+            }
+
+            var employee = new Employee
+            {
+                UserName = model.Username,
+                Email = model.Email,
+                Name = model.Name,
+                Department = model.Department,
+                Salary = model.Salary,
+                Role = model.Role,
+            };
+
+            var result = await _userManager.CreateAsync(employee, model.Password);
+
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Employee registered successfully" });
+            }
+
+            return BadRequest(new { message = string.Join(", ", result.Errors.Select(e => e.Description)) });
         }
 
         // Get employee by username
@@ -163,7 +259,7 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-
+        // Change employee status
         [HttpPatch("employees/{id}/status")]
         public async Task<IActionResult> ChangeEmployeeStatus(int id, [FromBody] bool isActive)
         {
@@ -182,7 +278,5 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error changing employee status: {ex.Message}" });
             }
         }
-
-
     }
 }

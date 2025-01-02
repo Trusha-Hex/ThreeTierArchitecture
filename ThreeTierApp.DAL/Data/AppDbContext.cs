@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using ThreeTierApp.Core.Models;
 
 namespace ThreeTierApp.DAL.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<Employee, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -14,21 +16,24 @@ namespace ThreeTierApp.DAL.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Apply a global naming convention for all entities and properties
+            // Configure the Employee Id to be of type int
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Id)
+                .HasColumnType("int");
+
+            // Convert property names to snake_case
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
                 foreach (var property in entity.GetProperties())
                 {
-                    // Convert property names to snake_case (lowercase with underscores)
                     property.SetColumnName(ToSnakeCase(property.Name));
                 }
             }
 
-            // Explicitly set the table name for the Employee entity (optional)
+            // Configure the table name for Employee
             modelBuilder.Entity<Employee>().ToTable("employees");
         }
 
-        // Helper method to convert PascalCase to snake_case
         private string ToSnakeCase(string propertyName)
         {
             var stringBuilder = new StringBuilder();
@@ -42,6 +47,5 @@ namespace ThreeTierApp.DAL.Data
             }
             return stringBuilder.ToString();
         }
-
     }
 }
