@@ -1,4 +1,5 @@
-﻿<head>
+﻿﻿
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,20 +19,20 @@
 
         h1 {
             color: #CDC1FF;
-            margin-bottom: 10px; 
-            font-size: 36px; 
+            margin-bottom: 10px;
+            font-size: 36px;
             font-weight: bold;
         }
 
         h3 {
             color: #CDC1FF;
-            margin-bottom: 20px; 
-            font-size: 26px; 
+            margin-bottom: 20px;
+            font-size: 26px;
             font-weight: bold;
         }
 
         button.btn-primary {
-            margin-top: 40px; 
+            margin-top: 40px;
         }
 
 
@@ -46,7 +47,7 @@
         }
 
         th, td {
-            padding: 8px 12px; 
+            padding: 8px 12px;
             text-align: left;
         }
 
@@ -99,7 +100,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border: none; 
+            border: none;
         }
 
         .modal-header {
@@ -115,7 +116,7 @@
             display: flex;
             justify-content: space-between;
             border-radius: 0 0 10px 10px;
-            border-top: none; 
+            border-top: none;
         }
 
         .modal-title {
@@ -137,7 +138,7 @@
 
         .form-control, .form-select {
             height: 38px;
-            padding: 10px; 
+            padding: 10px;
         }
 
         .btn {
@@ -188,12 +189,12 @@
             }
 
         .modal-dialog {
-            max-width: 800px; 
+            max-width: 800px;
         }
 
         .modal-body {
-            max-height: 80vh; 
-            overflow-y: auto; 
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
 
@@ -202,16 +203,16 @@
             margin: 0 5px;
         }
 
-        .alert-box { 
-            display: none; 
-            position: fixed; 
-            top: 20px; 
-            right: 20px; 
+        .alert-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
             z-index: 9999;
             width: 300px;
         }
 
-   
+
 
         .modal-footer .btn:hover {
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -219,11 +220,11 @@
 
         .modal-footer .btn-primary,
         .modal-footer .btn-warning {
-            width: auto; 
-            height: auto; 
-            padding: 10px 20px; 
-            font-size: 16px; 
-            border-radius: 5px; 
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
         }
 
         td:last-child {
@@ -234,9 +235,8 @@
             td:last-child .action-buttons {
                 display: flex;
                 justify-content: center;
-                gap: 10px; 
+                gap: 10px;
             }
-
 
     </style>
 </head>
@@ -342,51 +342,58 @@
         const apiBaseUrl = "https://localhost:65391/employees";
 
           // Load employee data
-          function loadEmployees() {
-              $.get(apiBaseUrl, function(data) {
-                  const tbody = $("#employees-table tbody");
-                  tbody.empty();
+        function loadEmployees() {
+            $.get(apiBaseUrl, function(data) {
+                const tbody = $("#employees-table tbody");
+                tbody.empty();
 
-                  data.forEach(employee => {
-                      tbody.append(`
-                          <tr>
-                              <td>${employee.id}</td>
-                              <td>${employee.name}</td>
-                              <td>${employee.username}</td>
-                              <td>${employee.email}</td>
-                              <td>${employee.department}</td>
-                              <td>${employee.salary}</td>
-                              <td>${employee.role}</td>
-                              <td>
-                                  <!-- Toggle for Is Active -->
-                                  <div class="form-check form-switch">
-                                      <input class="form-check-input" type="checkbox" id="active-toggle-${employee.id}" ${employee.isActive ? 'checked' : ''} onchange="toggleActive(${employee.id}, this)">
-                                  </div>
-                              </td>
-                              <td>
-                                  <button class="btn btn-warning" onclick="editEmployee(${employee.id})">
-                                      <i class="fas fa-edit"></i>
-                                  </button>
-                                  <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
-                                      <i class="fas fa-trash"></i>
-                                  </button>
-                              </td>
-                          </tr>
-                      `);
-                  });
+                data.forEach(employee => {
+                    tbody.append(`
+                        <tr>
+                            <td>${employee.id}</td>
+                            <td>${employee.name}</td>
+                            <td>${employee.username}</td>
+                            <td>${employee.email}</td>
+                            <td>${employee.department}</td>
+                            <td>${employee.salary}</td>
+                            <td>${employee.role}</td>
+                            <td>
+                                <!-- Toggle for Is Active -->
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="active-toggle-${employee.id}" ${employee.isActive ? 'checked' : ''} onchange="toggleActive(${employee.id}, this)">
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editEmployee(${employee.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `);
+                });
 
-                  $('#employees-table').DataTable();
-              });
-          }
+                // Initialize DataTables
+                if ($.fn.dataTable.isDataTable('#employees-table')) {
+                    $('#employees-table').DataTable().clear().destroy(); // Destroy any existing DataTable instance
+                }
+
+                // Re-initialize DataTable after adding data
+                $('#employees-table').DataTable();
+            });
+        }
+
 
           // Toggle Is Active status
           function toggleActive(employeeId, toggle) {
               const isActive = toggle.checked;
 
               $.ajax({
-                  url: `${apiBaseUrl}/${employeeId}/status`, 
-                  method: 'PATCH', 
-                  data: JSON.stringify(isActive), 
+                  url: `${apiBaseUrl}/${employeeId}/status`,
+                  method: 'PATCH',
+                  data: JSON.stringify(isActive),
                   contentType: 'application/json',
                   success: function(response) {
                       console.log(`Employee ${employeeId} is now ${isActive ? 'active' : 'inactive'}`);
@@ -413,8 +420,6 @@
             setTimeout(() => alertBox.fadeOut(), 3000);
         }
 
-
-
         // Add employee
         $("#add-btn").click(function() {
             const name = $("#employee-name").val();
@@ -434,8 +439,6 @@
             isValid = false;
             $("#error-message").text("All fields are required and salary must be greater than 0.").show();
         }
-
-
             if (isValid) {
                 const employee = {
                     name: name,

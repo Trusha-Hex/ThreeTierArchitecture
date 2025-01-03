@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ThreeTierApp.Web.Controllers
 {
@@ -6,7 +9,14 @@ namespace ThreeTierApp.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View(); // This will render Views/Home/index.cshtml
+            return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
     }
 }

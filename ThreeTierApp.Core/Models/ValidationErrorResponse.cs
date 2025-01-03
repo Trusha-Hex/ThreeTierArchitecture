@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-// Core/Models/ValidationErrorResponse.cs
 namespace ThreeTierApp.Core.Models
 {
     public class ValidationErrorResponse

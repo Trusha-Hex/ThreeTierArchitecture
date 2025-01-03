@@ -2,7 +2,8 @@
 {
     public class LoginModel
     {
-        public string EmailOrUsername { get; set; }  // Can be email or username
-        public string Password { get; set; }         // Password
+        public string EmailOrUsername { get; set; }
+        public string Password { get; set; }
     }
 }
+

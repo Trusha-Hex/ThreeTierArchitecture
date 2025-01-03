@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Text;
 using ThreeTierApp.Core.Models;
 
 namespace ThreeTierApp.DAL.Data
 {
-    public class AppDbContext : IdentityDbContext<Employee, IdentityRole<int>, int>
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -20,6 +18,7 @@ namespace ThreeTierApp.DAL.Data
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Id)
                 .HasColumnType("int");
+
 
             // Convert property names to snake_case
             foreach (var entity in modelBuilder.Model.GetEntityTypes())

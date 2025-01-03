@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using ThreeTierApp.Core.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ThreeTierApp
 {
@@ -24,18 +25,28 @@ namespace ThreeTierApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(_configuration.GetConnectionString("DefaultConnection"))
-            );
-
-            services.AddIdentity<Employee, IdentityRole<int>>()
-                    .AddEntityFrameworkStores<AppDbContext>()
-                    .AddDefaultTokenProviders();
-
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
-
+            // Add Controllers with Views
             services.AddControllersWithViews();
+
+            // Register Core services
+            services.AddScoped<IEmployeeService, EmployeeService>();  // Register IEmployeeService and EmployeeService
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();  // Register IEmployeeRepository and EmployeeRepository
+
+            // Add Authentication with cookies
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Home/Index";
+                    options.LogoutPath = "/Home/Logout";
+                    options.AccessDeniedPath = "/Home/AccessDenied";
+                });
+
+            services.AddAuthorization();
+
+            // Register DbContext (assuming you're using EF Core for data access)
+            services.AddDbContext<AppDbContext>(options =>
+               options.UseMySql(_configuration.GetConnectionString("DefaultConnection"))
+           );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,16 +66,18 @@ namespace ThreeTierApp
 
             app.UseRouting();
 
+            // Add Authentication and Authorization Middleware
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                // This will point to the Login action of HomeController
                 endpoints.MapControllerRoute(
-                     name: "default",
-                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+                    name: "default",
+                    pattern: "{controller=Employee}/{action=Login}/{id?}");
             });
         }
+
     }
 }

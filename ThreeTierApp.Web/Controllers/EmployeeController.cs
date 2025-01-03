@@ -1,48 +1,37 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ThreeTierApp.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeTierApp.Core.Interfaces;
-using System;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using ThreeTierApp.Web.Models;
 using System.Security.Claims;
-using System.Text;
-using ThreeTierApp.Web.Models; 
-using System.Text.RegularExpressions;
-using System.Linq;
+using System;
 
 namespace ThreeTierApp.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    [Controller]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly UserManager<Employee> _userManager;
-        private readonly SignInManager<Employee> _signInManager;
-        private readonly IConfiguration _configuration;
 
-        // Constructor to inject services
-        public EmployeeController(
-            IEmployeeService employeeService,
-            UserManager<Employee> userManager,
-            SignInManager<Employee> signInManager,
-            IConfiguration configuration)
+        public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
         }
 
         public IActionResult Login()
         {
-            return View(); // Ensure Login.cshtml exists in Views/Account/
+            return View();
         }
 
-        // Get all employees
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet("employees")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
@@ -57,7 +46,6 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-        // Get employee by ID
         [HttpGet("employees/{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
@@ -76,139 +64,84 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-
-        // Login API (JWT Token)
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(LoginModel model)
-        {
-            // Check if input is an email or username
-            var user = await FindUserAsync(model.EmailOrUsername);
-
-            if (user == null)
-            {
-                return BadRequest(new { message = "Invalid login attempt." });
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-
-            if (result.Succeeded)
-            {
-                return Ok(new { message = "Login successful" });
-            }
-
-            return BadRequest(new { message = "Invalid password" });
-        }
-
-        private async Task<Employee> FindUserAsync(string emailOrUsername)
-        {
-            // Check if input is a valid email
-            if (IsValidEmail(emailOrUsername))
-            {
-                return await _userManager.FindByEmailAsync(emailOrUsername);  
-            }
-            else
-            {
-                return await _userManager.FindByNameAsync(emailOrUsername); 
-            }
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-            return emailRegex.IsMatch(email);
-        }
-
-        // Signup API
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(RegisterModel model)
-        {
-            if (model.Password != model.ConfirmPassword)
-            {
-                return BadRequest(new { message = "Passwords do not match" });
-            }
-
-            var employee = new Employee
-            {
-                UserName = model.Username,
-                Email = model.Email,
-                Name = model.Name,
-                Department = model.Department,
-                Salary = model.Salary,
-                Role = model.Role,
-            };
-
-            var result = await _userManager.CreateAsync(employee, model.Password);
-
-            if (result.Succeeded)
-            {
-                return Ok(new { message = "Employee registered successfully" });
-            }
-
-            return BadRequest(new { message = string.Join(", ", result.Errors.Select(e => e.Description)) });
-        }
-
-        // Get employee by username
-        [HttpGet("employees/username/{username}")]
-        public async Task<ActionResult<Employee>> GetEmployeeByUsername(string username)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             try
             {
-                var employee = await _employeeService.GetEmployeeByUsernameAsync(username);
+                // Validate if email or username and password are provided
+                if (string.IsNullOrEmpty(loginModel.EmailOrUsername) || string.IsNullOrEmpty(loginModel.Password))
+                {
+                    return BadRequest(new { message = "Email/Username and Password are required." });
+                }
+
+                // Fetch employee by email or username using the service
+                var employee = await _employeeService.GetEmployeeByEmailOrUsernameAsync(loginModel.EmailOrUsername);
                 if (employee == null)
                 {
-                    return NotFound(new { message = "Employee not found" });
+                    return Unauthorized(new { message = "Invalid credentials." });
                 }
-                return Ok(employee);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error retrieving employee: {ex.Message}" });
-            }
-        }
 
-        // Get employees by role
-        [HttpGet("employees/role/{role}")]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByRole(string role)
-        {
-            try
-            {
-                var employees = await _employeeService.GetEmployeesByRoleAsync(role);
-                return Ok(employees);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error retrieving employees by role: {ex.Message}" });
-            }
-        }
+                // Now use the service's HashPassword method to verify the entered password
+                var hashedPassword = HashPassword(loginModel.Password); // Hash the entered password
 
-        // Add new employee
-        [HttpPost("employees")]
-        public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
-        {
-            try
-            {
-                var validationResult = await _employeeService.AddEmployeeAsync(employee);
-
-                if (validationResult != null) // Validation failed
+                // Check if the hashed password matches the stored hash in the database
+                if (employee.PasswordHash != hashedPassword)
                 {
-                    return BadRequest(validationResult);  // Return validation errors
+                    return Unauthorized(new { message = "Invalid credentials." });
                 }
 
-                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+                // Create claims for the employee
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+            new Claim(ClaimTypes.Name, employee.Name),
+            new Claim(ClaimTypes.Email, employee.Email),
+            new Claim(ClaimTypes.Role, employee.Role ?? "Employee")
+        };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                // Sign the user in with the cookie authentication
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                return Ok(new { message = "Login successful.", redirectUrl = "/Employee/Index" });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = $"Error adding employee: {ex.Message}" });
+                return BadRequest(new { message = $"Error during login: {ex.Message}" });
             }
         }
 
-        // Update employee
+        private string HashPassword(string password)
+        {
+            return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+
+        [HttpPost("employees")]
+        public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
+        {
+            if (employee == null)
+            {
+                return BadRequest(new { message = "Employee data is required." });
+            }
+
+            var result = await _employeeService.AddEmployeeAsync(employee);
+
+            if (result != null)
+            {
+                return BadRequest(result);
+            }
+
+            return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+        }
+
         [HttpPut("employees/{id}")]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
             try
             {
-                // Ensure the ID in the URL matches the ID in the request body
                 if (id != employee.Id)
                 {
                     return BadRequest(new { message = "Employee ID mismatch" });
@@ -216,12 +149,12 @@ namespace ThreeTierApp.Web.Controllers
 
                 var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
 
-                if (validationResult != null) // Validation failed
+                if (validationResult != null)
                 {
-                    return BadRequest(validationResult);  // Return validation errors
+                    return BadRequest(validationResult);
                 }
 
-                return NoContent();  // Successfully updated
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -229,53 +162,17 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-        // Delete employee
         [HttpDelete("employees/{id}")]
         public async Task<ActionResult> DeleteEmployee(int id)
         {
             try
             {
                 await _employeeService.DeleteEmployeeAsync(id);
-                return NoContent();  // Successfully deleted
+                return NoContent();
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
-            }
-        }
-
-        // Get all active employees
-        [HttpGet("employees/active")]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetActiveEmployees()
-        {
-            try
-            {
-                var employees = await _employeeService.GetActiveEmployeesAsync();
-                return Ok(employees);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error retrieving active employees: {ex.Message}" });
-            }
-        }
-
-        // Change employee status
-        [HttpPatch("employees/{id}/status")]
-        public async Task<IActionResult> ChangeEmployeeStatus(int id, [FromBody] bool isActive)
-        {
-            try
-            {
-                var result = await _employeeService.ChangeEmployeeStatusAsync(id, isActive);
-                if (!result)
-                {
-                    return NotFound(new { message = "Employee not found or status update failed" });
-                }
-
-                return Ok(new { message = "Employee status updated successfully" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error changing employee status: {ex.Message}" });
             }
         }
     }

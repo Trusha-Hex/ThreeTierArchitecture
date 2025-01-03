@@ -1,191 +1,607 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
+﻿<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Employee Management</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 40px;
+            background-color: #ffffff;
         }
+
+        h1 {
+            color: #CDC1FF;
+            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #CDC1FF;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        button.btn-primary {
+            margin-top: 40px;
+        }
+
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 50px;
         }
+
         table, th, td {
             border: 1px solid #ddd;
         }
+
         th, td {
-            padding: 10px;
+            padding: 8px 12px;
             text-align: left;
         }
+
         th {
-            background-color: #f4f4f4;
+            background-color: #f1f1f1;
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
         }
+
+        td {
+            font-size: 15px;
+            color: #333;
+        }
+
+            td:nth-child(2), th:nth-child(2) {
+                width: 20%;
+            }
+
+            td:nth-child(3), th:nth-child(3) {
+                width: 20%;
+            }
+
+            td:nth-child(4), th:nth-child(4) {
+                width: 20%;
+            }
+
+            td:nth-child(5), th:nth-child(5) {
+                width: 10%;
+            }
+
+            td:nth-child(8), th:nth-child(8) {
+                width: 8%;
+            }
+
+            td:nth-child(9), th:nth-child(9) {
+                width: 10%;
+            }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #FFCCEA;
+        }
+
+        .modal-content {
+            background-color: #FFF6E3;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        .modal-header {
+            background-color: #CDC1FF;
+            color: #FFF6E3;
+            padding: 20px;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-footer {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 0 0 10px 10px;
+            border-top: none;
+        }
+
+        .modal-title {
+            font-size: 22px;
+        }
+
         .form-control {
-            margin-bottom: 10px;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
+
+            .form-control:focus {
+                border-color: #CDC1FF;
+                box-shadow: 0 0 5px rgba(205, 193, 255, 0.5);
+            }
+
+        .form-control, .form-select {
+            height: 38px;
+            padding: 10px;
+        }
+
+        .btn {
+            min-width: 40px;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .btn-light {
+            background-color: #FFF6E3;
+            border-color: #FFCCEA;
+        }
+
+            .btn-light:hover {
+                background-color: #FFCCEA;
+                border-color: #CDC1FF;
+            }
+
+        .btn-primary {
+            background-color: #CDC1FF;
+            border-color: #CDC1FF;
+            margin-bottom: 30px;
+        }
+
+            .btn-primary:hover {
+                background-color: #B8A4FF;
+                border-color: #B8A4FF;
+            }
+
+        .btn-square {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            font-size: 20px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .btn-warning, .btn-danger {
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+
+            .btn-warning i,
+            .btn-danger i {
+                font-size: 18px;
+            }
+
+        .modal-dialog {
+            max-width: 800px;
+        }
+
+        .modal-body {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+
+        .modal-footer .btn {
+            width: 45%;
+            margin: 0 5px;
+        }
+
+        .alert-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 300px;
+        }
+
+
+
+        .modal-footer .btn:hover {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-footer .btn-primary,
+        .modal-footer .btn-warning {
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        td:last-child {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+            td:last-child .action-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
     </style>
 </head>
+
 <body>
     <h1>Employee Management</h1>
-    <div>
-        <h3>Add / Update Employee</h3>
-        <input type="hidden" id="employee-id">
-        <div class="form-control">
-            <label>Name:</label>
-            <input type="text" id="employee-name">
-        </div>
-        <div class="form-control">
-            <label>Department:</label>
-            <input type="text" id="employee-department">
-        </div>
-        <div class="form-control">
-            <label>Salary:</label>
-            <input type="number" id="employee-salary">
-        </div>
-        <button id="add-btn">Add Employee</button>
-        <button id="update-btn" style="display: none;">Update Employee</button>
-    </div>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
+        Add New Employee
+    </button>
+
+    <div id="alert-box" style="display: none;"></div>
+
 
     <h3>All Employees</h3>
-    <table id="employees-table">
+    <table id="employees-table" class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Department</th>
                 <th>Salary</th>
+                <th>Role</th>
+                <th>Is Active</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Rows will be added dynamically -->
         </tbody>
     </table>
 
+    <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="employeeModalLabel">Add / Update Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="error-message" style="color: red; display: none;"></div>
+                <div class="modal-body">
+                    <input type="hidden" id="employee-id">
+                    <div class="form-group">
+                        <label for="employee-name">Name:</label>
+                        <input type="text" id="employee-name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="employee-username">Username:</label>
+                        <input type="text" id="employee-username" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="employee-email">Email:</label>
+                                <input type="email" id="employee-email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="employee-password">Password:</label>
+                                <input type="password" id="employee-password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="employee-department">Department:</label>
+                                <input type="text" id="employee-department" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="employee-salary">Salary:</label>
+                                <input type="number" id="employee-salary" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employee-role">Role:</label>
+                        <select id="employee-role" class="form-select">
+                            <option value="Admin">Admin</option>
+                            <option value="Manager">Manager</option>
+                            <option value="HR">HR</option>
+                            <option value="Employee">Employee</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="ml-auto">
+                        <button type="button" id="add-btn" class="btn btn-primary">Add Employee</button>
+                        <button type="button" id="update-btn" class="btn btn-warning" style="display: none;">Update Employee</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const apiBaseUrl = "https://localhost:65391/api/Employee";  // Updated URL to match API endpoint
+        const apiBaseUrl = "https://localhost:65391/api/Employee/employees";
 
-        // Function to load all employees
-               // Function to load all employees
-        function loadEmployees() {
-            $.get(`${apiBaseUrl}/employees`, function(data) {
-                const tbody = $("#employees-table tbody");
-                tbody.empty(); // Clear previous rows
-
-                data.forEach(employee => {
-                    tbody.append(`
-                        <tr>
-                            <td>${employee.id}</td>
-                            <td>${employee.name}</td>
-                            <td>${employee.department}</td>
-                            <td>${employee.salary}</td>
-                            <td>
-                                <button onclick="editEmployee(${employee.id})">Edit</button>
-                                <button onclick="deleteEmployee(${employee.id})">Delete</button>
-                            </td>
-                        </tr>
-                    `);
-                });
+        // Initialize DataTable
+        function initializeDataTable() {
+            $("#employees-table").DataTable({
+                processing: true,
+                serverSide: false,
+                ajax: {
+                    url: apiBaseUrl,
+                    type: "GET",
+                    dataSrc: "",
+                    error: function (xhr) {
+                        console.error("Error loading data: ", xhr);
+                        showAlert("danger", "Failed to load employee data.");
+                    },
+                },
+                columns: [
+                    { data: "id" },
+                    { data: "name" },
+                    { data: "username" },
+                    { data: "email" },
+                    { data: "department" },
+                    { data: "salary", render: $.fn.dataTable.render.number(',', '.', 2, '₹') },
+                    { data: "role" },
+                    {
+                        data: "isActive",
+                        render: function (data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="active-toggle-${row.id}" ${data ? "checked" : ""} onchange="toggleActive(${row.id}, this)">
+                                </div>
+                            `;
+                        },
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return `
+                                <button class="btn btn-warning btn-sm" onclick="editEmployee(${row.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteEmployee(${row.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            `;
+                        },
+                    },
+                ],
+                order: [[0, "asc"]],
+                responsive: true,
             });
         }
 
+        // Reload DataTable
+        function reloadDataTable() {
+            const table = $("#employees-table").DataTable();
+            table.ajax.reload(null, false); // Reload without resetting pagination
+        }
 
-        // Add a new employee
-        $("#add-btn").click(function() {
-            const employee = {
-                name: $("#employee-name").val(),
-                department: $("#employee-department").val(),
-                salary: $("#employee-salary").val()
-            };
+              // Toggle IsActive Status
+        function toggleActive(employeeId, toggle) {
+            const isActive = toggle.checked;
 
-            $.post(`${apiBaseUrl}/employees`, JSON.stringify(employee), function() {
-                loadEmployees();
-                clearForm();
-                alert("Employee added successfully!");
-            }).fail(function() {
-                alert("Failed to add employee.");
+            $.ajax({
+                url: `${apiBaseUrl}/${employeeId}/status`,
+                method: "PATCH",
+                data: JSON.stringify(isActive),
+                contentType: "application/json",
+                success: function () {
+                    showAlert("success", `Employee ${employeeId} status updated.`);
+                },
+                error: function (error) {
+                    console.error("Error updating status: ", error);
+                    showAlert("danger", "Error updating employee status.");
+                    toggle.checked = !isActive; // Revert toggle state
+                },
             });
+        }
+
+        // Show Alert
+        function showAlert(type, message) {
+            const alertBox = $("#alert-box");
+            alertBox.removeClass();
+            alertBox.addClass(`alert alert-${type} alert-dismissible fade show`);
+            alertBox.html(`
+                <strong>${type === "success" ? "Success!" : "Error!"}</strong> ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `);
+            alertBox.fadeIn();
+            setTimeout(() => alertBox.fadeOut(), 3000);
+        }
+
+        // Add employee
+        $("#add-btn").click(function() {
+            const name = $("#employee-name").val();
+            const username = $("#employee-username").val();
+            const email = $("#employee-email").val();
+            const password = $("#employee-password").val();
+            const department = $("#employee-department").val();
+            const salary = parseFloat($("#employee-salary").val());
+            const role = $("#employee-role").val();
+
+            let isValid = true;
+
+            $(".error-message").hide();
+
+            if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
+            console.log("Validation failed: ", { name, username, email, password, department, salary });
+            isValid = false;
+            $("#error-message").text("All fields are required and salary must be greater than 0.").show();
+        }
+
+
+            if (isValid) {
+                const employee = {
+                    name: name,
+                    username: username,
+                    email: email,
+                    passwordHash: password, // Store the hashed password
+                    department: department,
+                    salary: salary,
+                    role: role
+                };
+
+                $.ajax({
+                    url: apiBaseUrl,
+                    type: "POST",
+                    data: JSON.stringify(employee),
+                    contentType: "application/json",
+                    success: function() {
+                        loadEmployees();
+                        clearForm();
+                        $("#employeeModal").modal("hide");
+                        showSuccess("Employee added successfully!");
+                    },
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON?.message || "Failed to add employee.";
+                        showError(errorMessage);
+                    }
+                });
+            }
         });
 
+        // Update employee
+        $("#update-btn").click(function() {
+            const id = $("#employee-id").val();
+            const name = $("#employee-name").val();
+            const username = $("#employee-username").val();
+            const email = $("#employee-email").val();
+            const password = $("#employee-password").val();
+            const department = $("#employee-department").val();
+            const salary = parseFloat($("#employee-salary").val());
+            const role = $("#employee-role").val();
 
-               // Edit an existing employee
+            let isValid = true;
+
+            $(".error-message").hide();
+
+            if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
+                isValid = false;
+                $("#error-message").text("All fields are required and salary must be greater than 0.").show();
+            }
+
+            if (isValid) {
+                const employee = {
+                    id: parseInt(id),
+                    name: name,
+                    username: username,
+                    email: email,
+                    passwordHash: password, // Store the hashed password
+                    department: department,
+                    salary: salary,
+                    role: role
+                };
+
+                $.ajax({
+                    url: `${apiBaseUrl}/${id}`,
+                    type: "PUT",
+                    data: JSON.stringify(employee),
+                    contentType: "application/json",
+                    success: function() {
+                        loadEmployees();
+                        clearForm();
+                        $("#add-btn").show();
+                        $("#update-btn").hide();
+                        $("#employeeModal").modal("hide");
+                        showSuccess("Employee updated successfully!");
+                    },
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON?.message || "Failed to update employee.";
+                        showError(errorMessage);
+                    }
+                });
+            }
+        });
+
+        // Edit employee
         function editEmployee(id) {
-            $.get(`${apiBaseUrl}/employees/${id}`, function(employee) {
+            $.get(`${apiBaseUrl}/${id}`, function(employee) {
                 $("#employee-id").val(employee.id);
                 $("#employee-name").val(employee.name);
+                $("#employee-username").val(employee.username);
+                $("#employee-email").val(employee.email);
+                $("#employee-password").val(""); // Clear password field
                 $("#employee-department").val(employee.department);
                 $("#employee-salary").val(employee.salary);
+                $("#employee-role").val(employee.role); // Set the role in the dropdown
+
+                $("#employeeModal").modal("show");
 
                 $("#add-btn").hide();
                 $("#update-btn").show();
             });
         }
 
-
-               // Update an existing employee
-        $("#update-btn").click(function() {
-            const id = $("#employee-id").val();
-            const employee = {
-                id: id,
-                name: $("#employee-name").val(),
-                department: $("#employee-department").val(),
-                salary: $("#employee-salary").val()
-            };
-
-            $.ajax({
-                url: `${apiBaseUrl}/employees/${id}`,
-                type: "PUT",
-                data: JSON.stringify(employee),
-                contentType: "application/json",
-                success: function() {
-                    loadEmployees();
-                    clearForm();
-                    $("#add-btn").show();
-                    $("#update-btn").hide();
-                    alert("Employee updated successfully!");
-                },
-                error: function() {
-                    alert("Failed to update employee.");
-                }
-            });
-        });
-
-
-               // Delete an employee
+        // Delete employee
         function deleteEmployee(id) {
             if (confirm("Are you sure you want to delete this employee?")) {
                 $.ajax({
-                    url: `${apiBaseUrl}/employees/${id}`,
+                    url: `${apiBaseUrl}/${id}`,
                     type: "DELETE",
                     success: function() {
                         loadEmployees();
-                        alert("Employee deleted successfully!");
+                        showSuccess("Employee deleted successfully!");
                     },
-                    error: function() {
-                        alert("Failed to delete employee.");
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON?.message || "Failed to delete employee.";
+                        showError(errorMessage);
                     }
                 });
             }
         }
 
-
-        // Clear form inputs
+            // Clear and Reset Form
         function clearForm() {
             $("#employee-id").val("");
             $("#employee-name").val("");
+            $("#employee-username").val("");
+            $("#employee-email").val("");
+            $("#employee-password").val("");
             $("#employee-department").val("");
             $("#employee-salary").val("");
+            $("#employee-role").val("Employee");
+            $("#error-message").hide();
+            $("#add-btn").show();
+            $("#update-btn").hide();
         }
 
-        // Load employees on page load
-        $(document).ready(function() {
-            loadEmployees();
+        // Show success message
+        function showSuccess(message) {
+            $("#alert-message").text(message);
+            $("#alert-box").removeClass("alert-danger").addClass("alert-success").show();
+        }
+
+        // Show error message
+        function showError(message) {
+            $("#alert-message").text(message);
+            $("#alert-box").removeClass("alert-success").addClass("alert-danger").show();
+        }
+
+             $(document).ready(function () {
+            initializeDataTable();
         });
     </script>
+
 </body>
-</html>

@@ -7,12 +7,10 @@ using System.Text.Json.Serialization;
 namespace ThreeTierApp.Core.Models
 {
     [Table("employees")]
-    public class Employee : IdentityUser<int>  // Inherit from IdentityUser
+    public class Employee  
     {
         // Ignore the inherited Id property to avoid serialization conflict
-        [JsonIgnore]
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public new int Id { get; set; }  // Ensure it's an int
 
@@ -20,9 +18,10 @@ namespace ThreeTierApp.Core.Models
         [Column("name")]
         public string Name { get; set; }
 
-        // Remove the conflicting "Username" property and use the inherited UserName from IdentityUser
-        [JsonPropertyName("employee_user_name")]  // Custom serialization name to avoid collision
-        public override string UserName { get; set; }  // Inherit from IdentityUser, and serialize with a custom name
+        [Required]
+        [Column("username")]
+        [MaxLength(50)] // Restricts username length to 50 characters
+        public string Username { get; set; }
 
         [Required]
         [EmailAddress] // Ensures the field is a valid email format
@@ -57,40 +56,5 @@ namespace ThreeTierApp.Core.Models
 
         [Column("updated_at")]
         public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow; // Automatically update when modified
-
-        [Column("access_failed_count")]
-        public int AccessFailedCount { get; set; }
-
-        [Column("lockout_enabled")]
-        public bool LockoutEnabled { get; set; }
-
-        // Ignore the inherited LockoutEnd property to avoid serialization conflict
-        [JsonIgnore]
-        [Column("lockout_end")]
-        public DateTime? LockoutEnd { get; set; }
-
-        [Column("security_stamp")]
-        public string SecurityStamp { get; set; }
-
-        [Column("concurrency_stamp")]
-        public string ConcurrencyStamp { get; set; }
-
-        [Column("email_confirmed")]
-        public bool EmailConfirmed { get; set; }
-
-        [Column("normalized_email")]
-        public string NormalizedEmail { get; set; }
-
-        [Column("normalized_user_name")]
-        public string NormalizedUserName { get; set; }
-
-        [Column("phone_number")]
-        public string PhoneNumber { get; set; }
-
-        [Column("phone_number_confirmed")]
-        public bool PhoneNumberConfirmed { get; set; }
-
-        [Column("two_factor_enabled")]
-        public bool TwoFactorEnabled { get; set; }
     }
 }

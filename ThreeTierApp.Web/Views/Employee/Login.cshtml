@@ -1,0 +1,62 @@
+﻿@model ThreeTierApp.Web.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form id="loginForm">
+    <div class="form-group">
+        <label for="EmailOrUsername">Email or Username</label>
+        <input type="text" class="form-control" id="EmailOrUsername" name="EmailOrUsername" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" id="loginButton">Login</button> <!-- Changed type to button -->
+    </div>
+
+    <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+                $('#loginButton').click(function (event) {
+            event.preventDefault();  // Prevent any default action
+            console.log('Login button clicked!');  // Add logging here
+
+            let emailOrUsername = $('#EmailOrUsername').val();
+            let password = $('#Password').val();
+
+            console.log('Form data:', emailOrUsername, password);  // Add logging here
+
+            let loginData = {
+                EmailOrUsername: emailOrUsername,
+                Password: password
+            };
+
+            $.ajax({
+                url: '/login',  // Corrected the route here
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(loginData),
+                success: function (result) {
+                    console.log('API call success', result);  // Add logging here
+                    if (result && result.redirectUrl) {
+                        window.location.replace(result.redirectUrl);  // Use replace to redirect
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('API call failed:', xhr.responseJSON);  // Add logging here
+                    $('#errorMessage').text(xhr.responseJSON.message || 'Login failed').show();
+                }
+            });
+        });
+
+    </script>
+}
