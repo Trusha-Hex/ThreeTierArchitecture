@@ -3,7 +3,6 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.AssemblyInfoInputs.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.AssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.csproj.CoreCompileInputs.cache
-E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.MvcApplicationPartsAssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.MvcApplicationPartsAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorAssemblyInfo.cs
@@ -77,6 +76,7 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\wwwroot\index.cshtml.g.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Index.cshtml.g.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Login.cshtml.g.cs
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorTargetAssemblyInfo.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.RazorTargetAssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.Views.pdb

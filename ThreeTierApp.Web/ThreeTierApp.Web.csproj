@@ -26,8 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ThreeTierApp.Core\ThreeTierApp.Core.csproj" />
-		<ProjectReference Include="..\ThreeTierApp.DAL\ThreeTierApp.DAL.csproj" />
+	  <ProjectReference Include="..\ThreeTierApp.Core\ThreeTierApp.Core.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,81 +4,6 @@
     "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj": {}
   },
   "projects": {
-    "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj",
-        "projectName": "ThreeTierApp.Core",
-        "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj",
-        "packagesPath": "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\",
-        "outputPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\Hex-Dev-7\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "http://111.93.85.26:6555/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
-          "dependencies": {
-            "Microsoft.AspNetCore.Identity": {
-              "target": "Package",
-              "version": "[2.1.39, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.1.1, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -106,11 +31,7 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {
-              "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj": {
-                "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {

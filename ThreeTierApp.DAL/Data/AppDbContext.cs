@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text;
-using ThreeTierApp.Core.Models;
+using ThreeTierApp.DAL.Models;
 
 namespace ThreeTierApp.DAL.Data
 {

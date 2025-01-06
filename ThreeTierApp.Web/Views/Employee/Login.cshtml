@@ -4,36 +4,128 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-<form id="loginForm">
-    <div class="form-group">
-        <label for="EmailOrUsername">Email or Username</label>
-        <input type="text" class="form-control" id="EmailOrUsername" name="EmailOrUsername" required />
-    </div>
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" class="form-control" id="Password" name="Password" required />
-    </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-primary" id="loginButton">Login</button> <!-- Changed type to button -->
+    <!-- Include Bootstrap CSS for base styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Inline CSS for the page styling -->
+    <style>
+        /* Custom theme colors */
+        :root {
+            --primary-bg-color: #BFECFF;
+            --secondary-bg-color: #CDC1FF;
+            --content-bg-color: #FFF6E3;
+            --button-bg-color: #FFCCEA;
+            --button-text-color: black;
+            --error-bg-color: #FFDDC1;
+            --error-text-color: #D9534F;
+        }
+
+        /* Body styling */
+        body {
+            background-color: var(--content-bg-color);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the login form on the page */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Page title */
+        h2 {
+            text-align: center;
+            color: var(--primary-bg-color);
+        }
+
+        /* Form elements */
+        .form-group label {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary-bg-color);
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid var(--secondary-bg-color);
+        }
+
+            .form-control:focus {
+                border-color: var(--primary-bg-color);
+                box-shadow: 0 0 0 0.2rem rgba(191, 236, 255, 0.5);
+            }
+
+        .btn-primary {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            padding: 12px;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--secondary-bg-color);
+            }
+
+        /* Error message styling */
+        #errorMessage {
+            background-color: var(--error-bg-color);
+            color: var(--error-text-color);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>@ViewData["Title"]</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="EmailOrUsername">Email or Username</label>
+                <input type="text" class="form-control" id="EmailOrUsername" name="EmailOrUsername" required />
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" id="Password" name="Password" required />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" id="loginButton">Login</button>
+            </div>
+        </form>
+
+        <!-- Error Message Display -->
+        <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
     </div>
 
-    <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
-</form>
-
-@section Scripts {
+    <!-- Include jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
-                $('#loginButton').click(function (event) {
+        $('#loginButton').click(function (event) {
             event.preventDefault();  // Prevent any default action
-            console.log('Login button clicked!');  // Add logging here
+            console.log('Login button clicked!');
 
             let emailOrUsername = $('#EmailOrUsername').val();
             let password = $('#Password').val();
 
-            console.log('Form data:', emailOrUsername, password);  // Add logging here
+            console.log('Form data:', emailOrUsername, password);
 
             let loginData = {
                 EmailOrUsername: emailOrUsername,
@@ -41,22 +133,22 @@
             };
 
             $.ajax({
-                url: '/login',  // Corrected the route here
+                url: 'https://localhost:65391/login',  // API endpoint
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(loginData),
                 success: function (result) {
-                    console.log('API call success', result);  // Add logging here
+                    console.log('API call success', result);
                     if (result && result.redirectUrl) {
-                        window.location.replace(result.redirectUrl);  // Use replace to redirect
+                        window.location.replace(result.redirectUrl);  // Redirect to the provided URL
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error('API call failed:', xhr.responseJSON);  // Add logging here
+                    console.error('API call failed:', xhr.responseJSON);
                     $('#errorMessage').text(xhr.responseJSON.message || 'Login failed').show();
                 }
             });
         });
-
     </script>
-}
+</body>
+</html>

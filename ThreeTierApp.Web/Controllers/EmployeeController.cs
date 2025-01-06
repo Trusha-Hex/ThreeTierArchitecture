@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ThreeTierApp.Core.Models;
+using ThreeTierApp.DAL.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeTierApp.Core.Interfaces;
@@ -131,11 +131,12 @@ namespace ThreeTierApp.Web.Controllers
 
             if (result != null)
             {
-                return BadRequest(result);
+                return BadRequest(new { message = result });
             }
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
         }
+
 
         [HttpPut("employees/{id}")]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
@@ -175,5 +176,38 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
             }
         }
+
+        [HttpPut("update-status/{employeeId}")]
+        public async Task<IActionResult> UpdateStatus(int employeeId, [FromQuery] string isActive)
+        {
+            Console.WriteLine($"Received isActive: {isActive}"); // Debug log
+
+            if (employeeId <= 0)
+            {
+                return BadRequest("Invalid employee ID.");
+            }
+
+            // Validate the isActive query parameter
+            if (string.IsNullOrEmpty(isActive))
+            {
+                return BadRequest("isActive is required in the query parameters.");
+            }
+
+            // Convert the string to boolean (true or false)
+            bool isActiveBool;
+            if (!bool.TryParse(isActive, out isActiveBool))
+            {
+                return BadRequest("Invalid value for 'isActive'. Must be 'true' or 'false'.");
+            }
+
+            var result = await _employeeService.UpdateStatusAsync(employeeId, isActiveBool);
+
+            if (result)
+                return Ok(new { message = "Employee status updated successfully." });
+
+            return NotFound(new { message = "Employee not found." });
+        }
+
+
     }
 }

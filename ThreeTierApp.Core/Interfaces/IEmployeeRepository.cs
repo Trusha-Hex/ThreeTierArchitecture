@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ThreeTierApp.Core.Models;
+using ThreeTierApp.DAL.Models;
 
 namespace ThreeTierApp.Core.Interfaces
 {
@@ -12,5 +12,6 @@ namespace ThreeTierApp.Core.Interfaces
         Task UpdateAsync(Employee employee);
         Task DeleteAsync(int id);
         Task<Employee> GetEmployeeByEmailOrUsernameAsync(string emailOrUsername);
+        Task<bool> UpdateStatusAsync(int employeeId, bool isActive);
     }
 }

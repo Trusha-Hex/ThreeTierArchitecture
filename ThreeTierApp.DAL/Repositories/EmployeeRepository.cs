@@ -1,15 +1,13 @@
-﻿using ThreeTierApp.Core.Interfaces;
-using ThreeTierApp.Core.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ThreeTierApp.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using ThreeTierApp.DAL.Data;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ThreeTierApp.DAL.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository
     {
         private readonly AppDbContext _context;
 
@@ -66,5 +64,21 @@ namespace ThreeTierApp.DAL.Repositories
             return await _context.Employees
                 .FirstOrDefaultAsync(e => e.Email == emailOrUsername || e.Username == emailOrUsername);
         }
+
+        public async Task<bool> UpdateStatusAsync(int employeeId, bool isActive)
+        {
+            var employee = await _context.Employees.FindAsync(employeeId);
+            if (employee == null)
+            {
+                return false;
+            }
+
+            Console.WriteLine($"Repository: Setting isActive = {isActive}");
+            employee.IsActive = isActive;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
     }
 }

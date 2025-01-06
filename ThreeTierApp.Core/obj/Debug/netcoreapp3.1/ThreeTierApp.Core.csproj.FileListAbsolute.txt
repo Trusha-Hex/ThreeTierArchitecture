@@ -1,11 +1,14 @@
-E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.deps.json
-E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.dll
-E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.pdb
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.csproj.AssemblyReference.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.GeneratedMSBuildEditorConfig.editorconfig
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.AssemblyInfoInputs.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.AssemblyInfo.cs
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.csproj.CoreCompileInputs.cache
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.sourcelink.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.deps.json
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.Core.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\bin\Debug\netcoreapp3.1\ThreeTierApp.DAL.pdb
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTie.DF3BC32D.Up2Date
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Core\obj\Debug\netcoreapp3.1\ThreeTierApp.Core.pdb

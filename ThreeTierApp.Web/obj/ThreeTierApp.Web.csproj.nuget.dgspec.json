@@ -31,7 +31,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj": {
+                "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -106,11 +110,7 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {
-              "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj": {
-                "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -198,9 +198,6 @@
             "projectReferences": {
               "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj": {
                 "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Core\\ThreeTierApp.Core.csproj"
-              },
-              "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj": {
-                "projectPath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.DAL\\ThreeTierApp.DAL.csproj"
               }
             }
           }

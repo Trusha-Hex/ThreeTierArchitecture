@@ -1,9 +1,11 @@
 ﻿using ThreeTierApp.Core.Interfaces;
+using ThreeTierApp.DAL.Models;
 using ThreeTierApp.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using ThreeTierApp.DAL.Repositories;
 
 namespace ThreeTierApp.Core.Services
 {
@@ -107,5 +109,13 @@ namespace ThreeTierApp.Core.Services
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
         }
+
+        public async Task<bool> UpdateStatusAsync(int employeeId, bool isActive)
+        {
+            Console.WriteLine($"Service: Updating employee {employeeId} to {isActive}");
+            return await _repository.UpdateStatusAsync(employeeId, isActive);
+        }
+
+
     }
 }

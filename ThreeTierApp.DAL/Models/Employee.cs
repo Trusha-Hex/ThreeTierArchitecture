@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace ThreeTierApp.Core.Models
+namespace ThreeTierApp.DAL.Models
 {
     [Table("employees")]
     public class Employee  
