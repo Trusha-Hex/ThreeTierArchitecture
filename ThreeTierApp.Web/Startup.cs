@@ -42,7 +42,7 @@ namespace ThreeTierApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Home/Index";
+                    options.LoginPath = "/Employee/Login";
                     options.LogoutPath = "/Home/Logout";
                     options.AccessDeniedPath = "/Home/AccessDenied";
                 });

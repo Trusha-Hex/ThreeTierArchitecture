@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using ThreeTierApp.Web.Models;
 using System.Security.Claims;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace ThreeTierApp.Web.Controllers
 {
@@ -22,23 +24,57 @@ namespace ThreeTierApp.Web.Controllers
             _employeeService = employeeService;
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        // Get All Employees (only Admin can access)
         [HttpGet("employees")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
             try
             {
+                // Get the logged-in user's ID and role
+                var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+                // Fetch all employees
                 var employees = await _employeeService.GetAllEmployeesAsync();
-                return Ok(employees);
+
+                // Logic for Admin: Admin can see all employees
+                if (userRole == "Admin")
+                {
+                    return Ok(employees);
+                }
+
+                // Logic for Manager: Managers can see all employees except Admins
+                if (userRole == "Manager")
+                {
+                    var filteredEmployees = employees.Where(e => e.Role != "Admin").ToList();
+                    return Ok(filteredEmployees);
+                }
+
+                // Logic for Employee: Employees can only see their own record
+                if (userRole == "Employee")
+                {
+                    var employee = employees.FirstOrDefault(e => e.Id == loggedInUserId);
+                    if (employee != null)
+                    {
+                        return Ok(new List<Employee> { employee }); // Return a list with only their own record
+                    }
+                    return NotFound(new { message = "Employee not found" });
+                }
+
+                return Unauthorized(new { message = "Unauthorized role" });
             }
             catch (Exception ex)
             {
@@ -46,7 +82,9 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
+
         [HttpGet("employees/{id}")]
+        [Authorize]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
             try
@@ -65,45 +103,40 @@ namespace ThreeTierApp.Web.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             try
             {
-                // Validate if email or username and password are provided
                 if (string.IsNullOrEmpty(loginModel.EmailOrUsername) || string.IsNullOrEmpty(loginModel.Password))
                 {
                     return BadRequest(new { message = "Email/Username and Password are required." });
                 }
 
-                // Fetch employee by email or username using the service
                 var employee = await _employeeService.GetEmployeeByEmailOrUsernameAsync(loginModel.EmailOrUsername);
                 if (employee == null)
                 {
                     return Unauthorized(new { message = "Invalid credentials." });
                 }
 
-                // Now use the service's HashPassword method to verify the entered password
-                var hashedPassword = HashPassword(loginModel.Password); // Hash the entered password
+                var hashedPassword = HashPassword(loginModel.Password);
 
-                // Check if the hashed password matches the stored hash in the database
                 if (employee.PasswordHash != hashedPassword)
                 {
                     return Unauthorized(new { message = "Invalid credentials." });
                 }
 
-                // Create claims for the employee
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
-            new Claim(ClaimTypes.Name, employee.Name),
-            new Claim(ClaimTypes.Email, employee.Email),
-            new Claim(ClaimTypes.Role, employee.Role ?? "Employee")
-        };
+                {
+                    new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+                    new Claim(ClaimTypes.Name, employee.Name),
+                    new Claim(ClaimTypes.Email, employee.Email),
+                    new Claim(ClaimTypes.Role, employee.Role ?? "Employee")
+                };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
-                // Sign the user in with the cookie authentication
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 return Ok(new { message = "Login successful.", redirectUrl = "/Employee/Index" });
@@ -120,6 +153,7 @@ namespace ThreeTierApp.Web.Controllers
         }
 
         [HttpPost("employees")]
+        [Authorize]
         public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
         {
             if (employee == null)
@@ -127,35 +161,75 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = "Employee data is required." });
             }
 
-            var result = await _employeeService.AddEmployeeAsync(employee);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            if (result != null)
+            // Admin: Can add any employee
+            if (userRole == "Admin")
             {
-                return BadRequest(new { message = result });
+                var result = await _employeeService.AddEmployeeAsync(employee);
+                if (result != null)
+                {
+                    return BadRequest(new { message = result });
+                }
+
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
             }
 
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+            // Manager/Employee: Cannot add employees
+            return Unauthorized(new { message = "You do not have permission to add employees." });
         }
 
 
+
         [HttpPut("employees/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
             try
             {
+                var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+                // Ensure the employee ID matches the URL parameter
                 if (id != employee.Id)
                 {
                     return BadRequest(new { message = "Employee ID mismatch" });
                 }
 
-                var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
-
-                if (validationResult != null)
+                // Admin: Can update any employee
+                if (userRole == "Admin")
                 {
-                    return BadRequest(validationResult);
+                    var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
+                    if (validationResult != null)
+                    {
+                        return BadRequest(validationResult);
+                    }
+                    return NoContent();
                 }
 
-                return NoContent();
+                // Manager: Can update any employee except Admins
+                if (userRole == "Manager" && employee.Role != "Admin")
+                {
+                    var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
+                    if (validationResult != null)
+                    {
+                        return BadRequest(validationResult);
+                    }
+                    return NoContent();
+                }
+
+                // Employee: Can only update their own record
+                if (userRole == "Employee" && employee.Id == loggedInUserId)
+                {
+                    var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
+                    if (validationResult != null)
+                    {
+                        return BadRequest(validationResult);
+                    }
+                    return NoContent();
+                }
+
+                return Unauthorized(new { message = "You do not have permission to update this employee" });
             }
             catch (Exception ex)
             {
@@ -164,12 +238,28 @@ namespace ThreeTierApp.Web.Controllers
         }
 
         [HttpDelete("employees/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteEmployee(int id)
         {
             try
             {
-                await _employeeService.DeleteEmployeeAsync(id);
-                return NoContent();
+                var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+                // Admin: Can delete any employee
+                if (userRole == "Admin")
+                {
+                    await _employeeService.DeleteEmployeeAsync(id);
+                    return NoContent();
+                }
+
+                // Manager/Employee: Cannot delete any employee
+                if (userRole == "Manager" || userRole == "Employee")
+                {
+                    return Unauthorized(new { message = "You do not have permission to delete employees" });
+                }
+
+                return NotFound(new { message = "Employee not found" });
             }
             catch (Exception ex)
             {
@@ -178,6 +268,7 @@ namespace ThreeTierApp.Web.Controllers
         }
 
         [HttpPut("update-status/{employeeId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateStatus(int employeeId, [FromQuery] string isActive)
         {
             Console.WriteLine($"Received isActive: {isActive}"); // Debug log
@@ -207,6 +298,22 @@ namespace ThreeTierApp.Web.Controllers
 
             return NotFound(new { message = "Employee not found." });
         }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return Ok(new { message = "Logout successful.", redirectUrl = "/Employee/Login" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error during logout: {ex.Message}" });
+            }
+        }
+
 
 
     }

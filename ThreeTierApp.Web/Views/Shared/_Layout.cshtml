@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Management</title>
 
-    <!-- Inline CSS for the side panel -->
     <style>
-        /* Color theme */
         :root {
             --primary-bg-color: #BFECFF;
             --menu-bg-color: #CDC1FF;
             --content-bg-color: #FFF6E3;
             --menu-font-color: black;
-            --menu-border-color: #ccc; /* Light grey border color */
+            --menu-border-color: #ccc; 
         }
 
-        /* Side Panel Styles */
         .side-panel {
             position: fixed;
             top: 0;
@@ -25,7 +22,7 @@
             height: 100%;
             background-color: var(--primary-bg-color);
             color: white;
-            transform: translateX(0); /* Initially visible */
+            transform: translateX(0); 
             transition: transform 0.3s ease;
             z-index: 9999;
             box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
@@ -34,13 +31,13 @@
             .side-panel ul {
                 list-style: none;
                 padding: 0;
-                margin-top: 50px; /* Some space from the top */
+                margin-top: 50px; 
             }
 
             .side-panel li {
                 padding: 15px;
                 background-color: var(--menu-bg-color);
-                border-bottom: 1px solid var(--menu-border-color); /* Grey border */
+                border-bottom: 1px solid var(--menu-border-color);
             }
 
                 .side-panel li a {
@@ -58,48 +55,67 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
-        /* Side Panel Closed */
         .side-panel.closed {
-            transform: translateX(-100%); /* Move off the screen */
+            transform: translateX(-100%); 
         }
 
-        /* Content Area */
         #contentArea {
             transition: margin-left 0.3s ease;
         }
 
-            /* Open content area when side panel is closed */
             #contentArea.open {
-                margin-left: 250px; /* Adjust for the width of the side panel */
+                margin-left: 250px;
             }
 
-        /* Hamburger Icon */
         #hamburgerIcon {
             font-size: 30px;
             color: var(--menu-font-color);
             cursor: pointer;
-            display: none; /* Hidden by default, shown when the panel is closed */
+            display: none;
         }
 
-        /* Make the hamburger icon visible when the panel is closed */
         .side-panel.closed + #hamburgerIcon {
             display: block;
         }
+
+        #alert-box {
+            position: fixed;
+            top: 20px; 
+            right: 20px; 
+            z-index: 1050; 
+            max-width: 300px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        }
+
+        .alert {
+            border-radius: 4px; 
+            padding: 10px 15px; 
+        }
+
+        .btn-close {
+            float: right;
+        }
     </style>
 
-    <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body style="background-color: var(--content-bg-color);">
+    @* <div id="alert-box" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1050; max-width: 300px;"></div> *@
+
 
     <!-- Side Panel -->
     <div id="sidePanel" class="side-panel">
         <ul>
             <li><a href="/Employee/Index">Employee Management</a></li>
             <li><a href="#">Task Management</a></li>
+            <li style="display: flex; justify-content: center; align-items: center;">
+                <button id="logoutButton" style="background-color: red; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; text-align: center;">
+                    Logout
+                </button>
+            </li>
         </ul>
     </div>
 
@@ -148,6 +164,45 @@
                 $(this).hide(); // Hide hamburger icon
             });
         });
+
+               $('#logoutButton').on('click', function () {
+            // Show confirmation prompt
+            const userConfirmed = confirm('Are you sure you want to logout?');
+
+            if (userConfirmed) {
+                // Proceed with logout if confirmed
+                $.post('/logout')
+                    .done(function (response) {
+                        showAlert('success', response.message); // Trigger success alert
+                        window.location.href = response.redirectUrl; // Redirect to login page
+                    })
+                    .fail(function (error) {
+                        const errorMessage = error.responseJSON?.message || 'Logout failed.';
+                        showAlert('danger', errorMessage); // Trigger error alert
+                    });
+            } else {
+                // Show an alert if the user cancels logout
+                showAlert('info', 'Logout cancelled.');
+            }
+        });
+
+
+            function showAlert(type, message) {
+            const alertBox = $('#alert-box');
+            alertBox.removeClass(); // Clear all existing classes
+            alertBox.addClass(`alert alert-${type} alert-dismissible fade show`); // Set proper classes
+            alertBox.html(`
+                <strong>${type === 'success' ? 'Success!' : type === 'danger' ? 'Error!' : 'Info!'}</strong> ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `);
+
+            console.log(`Showing ${type} alert:`, message); // Debugging log
+
+            alertBox.fadeIn(); // Show the alert
+
+            // Automatically fade out after 3 seconds
+            setTimeout(() => alertBox.fadeOut(), 3000);
+        }
     </script>
 
 </body>
