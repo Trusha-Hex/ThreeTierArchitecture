@@ -29,6 +29,14 @@ namespace ThreeTierApp
             // Add Controllers with Views
             services.AddControllersWithViews();
 
+            services.AddScoped<TaskDetailsRepository>();
+
+            // Register TaskRepositoryWrapper
+            services.AddScoped<ITaskRepository, TaskRepositoryWrapper>();
+
+            // Register TaskDetailsService
+            services.AddScoped<TaskDetailsService>();
+
             // Register Core services
             services.AddScoped<IEmployeeService, EmployeeService>();  // Register IEmployeeService and EmployeeService
 

@@ -1,0 +1,251 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<!-- Task Management Page -->
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Popper.js (necessary for Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="TaskController">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Task Management</h2>
+                <button ng-click="openTaskModal()" class="btn btn-primary mb-3">Add Task</button>
+            </div>
+        </div>
+
+        <div class="alert alert-success alert-dismissible fade show" ng-if="notification.message" role="alert">
+            {{notification.message}}
+            <button type="button" class="btn-close" aria-label="Close" ng-click="closeNotification()"></button>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Task Name</th>
+                            <th>Description</th>
+                            <th>Assigned Employees</th>
+                            <th>Deadline</th>
+                            <th>Is Completed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in tasks">
+                            <td>{{$index + 1}}</td>
+                            <td>{{task.title}}</td>
+                            <td>{{task.description}}</td>
+                            <td>{{task.assignedEmployeeIds.join(', ')}}</td>
+                            <td>{{task.dueDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{task.isCompleted ? 'Yes' : 'No'}}</td>
+                            <td>
+                                <button ng-click="openTaskModal(task)" class="btn btn-sm btn-warning">Edit</button>
+                                <button ng-click="deleteTask(task.id)" class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{task.id ? 'Edit Task' : 'Add Task'}}</h5>
+                    <button type="button" class="btn-close" ng-click="closeTaskModal()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="taskForm">
+                        <input type="hidden" ng-model="task.id" />
+                        <div class="mb-3">
+                            <label for="taskName" class="form-label">Task Name</label>
+                            <input type="text" class="form-control" ng-model="task.title" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" ng-model="task.description" rows="3" required></textarea>
+                        </div>
+
+                        <!-- Employee Selection Checkboxes -->
+                        <div class="mb-3">
+                            <label for="assignedTo" class="form-label">Assigned To</label>
+                            <div ng-repeat="employee in employees">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                           ng-model="employee.selected"
+                                           ng-change="updateAssignedEmployees()" />
+                                    <label class="form-check-label">{{employee.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="deadline" class="form-label">Deadline</label>
+                            <input type="date" class="form-control" ng-model="task.dueDate" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" ng-model="task.isCompleted" required>
+                                <option value="false">Pending</option>
+                                <option value="true">Completed</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" ng-click="closeTaskModal()">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveTask()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        angular.module('taskApp', [])
+            .controller('TaskController', function ($scope, $http, $timeout) {
+                // Initialize task and notification models
+                $scope.tasks = [];
+                $scope.employees = [];
+                $scope.notification = { message: '' };
+
+                // Function to load all tasks
+                $scope.loadTasks = function () {
+                    $http.get('/tasks')  // Adjusted URL
+                        .then(function (response) {
+                            if (response.data.data) {
+                                $scope.tasks = response.data.data;
+                            }
+                        });
+                };
+
+                // Function to load employees
+                $scope.loadEmployees = function () {
+                    $http.get('https://localhost:65391/employees') // Ensure this is the correct URL for employees
+                        .then(function (response) {
+                            $scope.employees = response.data;
+                        });
+                };
+
+                // Show notifications
+                $scope.showNotification = function (message) {
+                    $scope.notification.message = message;
+                    $timeout($scope.closeNotification, 5000);
+                };
+
+                // Close notifications
+                $scope.closeNotification = function () {
+                    $scope.notification.message = '';
+                };
+
+                // Open the modal for adding or editing a task
+                $scope.openTaskModal = function (task) {
+                    if (task) {
+                        $scope.task = angular.copy(task);  // Copy the task for editing
+                    } else {
+                        $scope.task = { assignedEmployeeIds: [] };  // New task for adding
+                    }
+
+                    // Update the checkboxes based on the task's assigned employees
+                    angular.forEach($scope.employees, function (employee) {
+                        employee.selected = $scope.task.assignedEmployeeIds.includes(employee.id);
+                    });
+
+                    // Open modal
+                    $timeout(function () {
+                        $('#taskModal').modal('show');
+                    }, 0);
+                };
+
+                // Close the modal
+                $scope.closeTaskModal = function () {
+                    $('#taskModal').modal('hide');
+                };
+
+                // Save task (create or update)
+                $scope.saveTask = function () {
+                    const taskData = {
+                        Title: $scope.task.title,
+                        Description: $scope.task.description,
+                        AssignedEmployeeIds: $scope.task.assignedEmployeeIds,
+                        DueDate: new Date($scope.task.dueDate).toISOString().slice(0, 10),
+                        IsCompleted: $scope.task.isCompleted === 'true' || $scope.task.isCompleted === true
+                    };
+
+                    let url = '';
+                    let method = '';
+
+                    if ($scope.task.id) {
+                        url = '/tasks/' + $scope.task.id;
+                        method = 'PUT';
+                    } else {
+                        url = '/tasks';
+                        method = 'POST';
+                    }
+
+                    // Make HTTP request (POST or PUT)
+                    $http({
+                        method: method,
+                        url: url,
+                        data: taskData
+                    })
+                    .then(function (response) {
+                        $scope.showNotification(response.data.notification);
+                        $scope.loadTasks();
+                        $scope.closeTaskModal();
+                    });
+                };
+
+                // Delete a task
+                $scope.deleteTask = function (taskId) {
+                    if (confirm('Are you sure you want to delete this task?')) {
+                        $http.delete('/tasks/' + taskId)
+                            .then(function (response) {
+                                $scope.showNotification(response.data.notification);
+                                $scope.loadTasks();
+                            });
+                    }
+                };
+
+                // Update the assigned employees when checkboxes change
+                $scope.updateAssignedEmployees = function () {
+                    $scope.task.assignedEmployeeIds = [];
+                    angular.forEach($scope.employees, function (employee) {
+                        if (employee.selected) {
+                            $scope.task.assignedEmployeeIds.push(employee.id);
+                        }
+                    });
+                };
+
+                // Load tasks and employees
+                $scope.loadTasks();
+                $scope.loadEmployees();
+            });
+    </script>
+</body>
+</html>
