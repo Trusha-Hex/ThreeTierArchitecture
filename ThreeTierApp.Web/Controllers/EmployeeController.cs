@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using ThreeTierApp.Core.Services;
 
 namespace ThreeTierApp.Web.Controllers
 {
@@ -18,10 +19,12 @@ namespace ThreeTierApp.Web.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly TaskDetailsService _service;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, TaskDetailsService service) 
         {
             _employeeService = employeeService;
+            _service = service;
         }
 
         [AllowAnonymous]
@@ -84,7 +87,7 @@ namespace ThreeTierApp.Web.Controllers
 
 
         [HttpGet("employees/{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
             try
@@ -311,6 +314,47 @@ namespace ThreeTierApp.Web.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = $"Error during logout: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("employees/{employeeId}/tasks")]
+        public async Task<ActionResult<IEnumerable<TaskDetails>>> GetTasksForEmployee(int employeeId)
+        {
+            try
+            {
+                // Ensure the logged-in employee ID matches the requested employee ID (for Employee role).
+                //var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+                // If the logged-in user is not an Admin and is not the same as the requested employee, return unauthorized
+                //if (userRole != "Admin" && loggedInUserId != employeeId)
+                //{
+                //    return Unauthorized(new { message = "You do not have permission to view these tasks." });
+                //}
+
+                // Fetch all tasks and filter by the employee ID
+                var tasks = await _service.GetAllTasksAsync(); // Assuming this service fetches all tasks
+
+                if (tasks == null || !tasks.Any())  // Check for null or empty task list
+                {
+                    return NotFound(new { message = "No tasks found for the employee." });
+                }
+
+                var employeeTasks = tasks.Where(t => t.AssignedEmployeeIds != null && t.AssignedEmployeeIds.Contains(employeeId)).ToList();
+
+                if (!employeeTasks.Any())
+                {
+                    return NotFound(new { message = "No tasks found for the employee." });
+                }
+
+                return Ok(employeeTasks);
+            }
+            catch (Exception ex)
+            {
+                // Log the error for better visibility
+                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                return BadRequest(new { message = $"Error retrieving tasks: {ex.Message}" });
             }
         }
 

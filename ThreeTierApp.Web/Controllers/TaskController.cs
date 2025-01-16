@@ -19,14 +19,6 @@ namespace ThreeTierApp.Web.Controllers
             _service = service;
         }
 
-        // This is for displaying tasks in the Index view
-        // [HttpGet("tasks/")]
-        // public async Task<IActionResult> Index()
-        // {
-        //     var tasks = await _service.GetAllTasksAsync();
-        //     return View(tasks); // Returning the tasks as part of the Index view
-        // }
-
         [HttpGet("tasks/")]
         public async Task<IActionResult> GetTasks()
         {
@@ -71,6 +63,13 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = "AssignedEmployeeIds cannot be empty.", notification = "Please assign at least one employee to the task." });
             }
 
+            if (taskDetails == null)
+            {
+                return BadRequest(new { message = "Task data cannot be null.", notification = "Invalid data provided." });
+            }
+
+            taskDetails.IsCompleted = taskDetails.IsCompleted;
+
             // Example validation for employee IDs
             foreach (var employeeId in taskDetails.AssignedEmployeeIds)
             {
@@ -90,6 +89,8 @@ namespace ThreeTierApp.Web.Controllers
         public async Task<ActionResult> UpdateTask(int id, [FromBody] TaskDetails taskDetails)
         {
             if (id != taskDetails.Id) return BadRequest(new { message = "Task ID mismatch", notification = "The task ID provided does not match the request." });
+
+            taskDetails.IsCompleted = taskDetails.IsCompleted;
 
             await _service.UpdateTaskAsync(taskDetails);
             return NoContent();

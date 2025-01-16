@@ -67,7 +67,7 @@
         }
 
             td:nth-child(2), th:nth-child(2) {
-                width: 20%;
+                width: 15%;
             }
 
             td:nth-child(3), th:nth-child(3) {
@@ -87,7 +87,7 @@
             }
 
             td:nth-child(9), th:nth-child(9) {
-                width: 10%;
+                width: 30%;
             }
 
         tr:nth-child(even) {
@@ -273,6 +273,24 @@
         </tbody>
     </table>
 
+    <div class="modal fade" id="tasksModal" tabindex="-1" aria-labelledby="tasksModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tasksModalLabel">Assigned Tasks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="tasks-list"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -370,7 +388,9 @@
                         </button>
                         <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
                             <i class="fas fa-trash"></i>
-                        </button>`
+                        </button>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal" onclick="setEmployeeIdForTasks(${employee.id})">Tasks Assigned</button>
+        `
                     ]).draw(false); // Draw the updated table
                 });
             });
@@ -550,6 +570,45 @@
                 });
             }
         }
+
+           function setEmployeeIdForTasks(employeeId) {
+            console.log("Employee ID being set:", employeeId);
+            // Store the employee ID in the modal's data attribute before opening it
+            $('#tasksModal').data('employeeId', employeeId);
+        }
+
+
+
+
+        // Fetch assigned tasks when modal is opened
+        function fetchAssignedTasks(employeeId) {
+            $.get(`https://localhost:65391/employees/${employeeId}/tasks`, function(tasks) {
+                const tasksList = $('#tasks-list');
+                tasksList.empty(); // Clear any previous task listings
+
+                if (tasks && tasks.length > 0) {
+                    tasks.forEach(task => {
+                        tasksList.append(`<li>${task.title}</li>`); // Add each task's name to the list
+                    });
+                } else {
+                    tasksList.append('<li>No tasks assigned.</li>');
+                }
+            });
+        }
+
+        $('#tasksModal').on('show.bs.modal', function () {
+            const employeeId = $(this).data('employeeId');
+
+            if (employeeId) {
+                console.log("Fetching tasks for Employee ID:", employeeId); // Check if employeeId is found
+                fetchAssignedTasks(employeeId);  // Fetch tasks using employeeId
+            } else {
+                console.error('No employee ID found.');
+            }
+        });
+
+
+
 
 
         // Clear the form fields
