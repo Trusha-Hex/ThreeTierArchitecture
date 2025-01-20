@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using ThreeTierApp.Core.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ThreeTierApp.DAL.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace ThreeTierApp
 {
@@ -65,7 +66,7 @@ namespace ThreeTierApp
 
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -77,6 +78,7 @@ namespace ThreeTierApp
                 app.UseHsts();
             }
 
+            logger.LogInformation("Application started successfully.");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

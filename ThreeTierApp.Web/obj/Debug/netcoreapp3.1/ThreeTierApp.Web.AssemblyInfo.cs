@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThreeTierApp.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32855d6a93951ba77035492cdfa4b1e8f6b7d87e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc118407c29b6ec51a45b05bae9bfab2aea1c7e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThreeTierApp.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThreeTierApp.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

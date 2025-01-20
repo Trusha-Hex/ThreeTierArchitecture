@@ -12,6 +12,7 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using ThreeTierApp.Core.Services;
+using Microsoft.Extensions.Logging;
 
 namespace ThreeTierApp.Web.Controllers
 {
@@ -20,22 +21,26 @@ namespace ThreeTierApp.Web.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly TaskDetailsService _service;
+        private readonly ILogger<EmployeeController> _logger; // Inject logger
 
-        public EmployeeController(IEmployeeService employeeService, TaskDetailsService service) 
+        public EmployeeController(IEmployeeService employeeService, TaskDetailsService service, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
             _service = service;
+            _logger = logger; // Assign logger
         }
 
         [AllowAnonymous]
         public IActionResult Login()
         {
+            _logger.LogInformation("Login page accessed.");
             return View();
         }
 
         [Authorize]
         public IActionResult Index()
         {
+            _logger.LogInformation("Index page accessed by user {User}.", User.Identity.Name);
             return View();
         }
 
@@ -46,34 +51,33 @@ namespace ThreeTierApp.Web.Controllers
         {
             try
             {
-                // Get the logged-in user's ID and role
+                _logger.LogInformation("Attempting to fetch all employees.");
                 var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-                // Fetch all employees
                 var employees = await _employeeService.GetAllEmployeesAsync();
+                _logger.LogInformation("Employees fetched successfully for user {User}.", loggedInUserId);
 
-                // Logic for Admin: Admin can see all employees
                 if (userRole == "Admin")
                 {
                     return Ok(employees);
                 }
 
-                // Logic for Manager: Managers can see all employees except Admins
                 if (userRole == "Manager")
                 {
                     var filteredEmployees = employees.Where(e => e.Role != "Admin").ToList();
                     return Ok(filteredEmployees);
                 }
 
-                // Logic for Employee: Employees can only see their own record
                 if (userRole == "Employee")
                 {
                     var employee = employees.FirstOrDefault(e => e.Id == loggedInUserId);
                     if (employee != null)
                     {
-                        return Ok(new List<Employee> { employee }); // Return a list with only their own record
+                        return Ok(new List<Employee> { employee });
                     }
+
+                    _logger.LogWarning("Employee not found for ID {EmployeeId}.", loggedInUserId);
                     return NotFound(new { message = "Employee not found" });
                 }
 
@@ -81,7 +85,8 @@ namespace ThreeTierApp.Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = $"Error retrieving employees: {ex.Message}" });
+                _logger.LogError(ex, "Error occurred while retrieving employees.");
+                return BadRequest(new { message = "Error retrieving employees." });
             }
         }
 

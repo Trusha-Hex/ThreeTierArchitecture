@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ewFzBvajsSU=",
+  "dgSpecHash": "gUX5RfnQnok=",
   "success": true,
   "projectFilePath": "E:\\Trusha\\Training\\ThreeTierApp\\ThreeTierApp.Web\\ThreeTierApp.Web.csproj",
   "expectedPackageFiles": [
@@ -69,6 +69,9 @@
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\mysqlconnector\\0.61.0\\mysqlconnector.0.61.0.nupkg.sha512",
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\nlog\\5.3.4\\nlog.5.3.4.nupkg.sha512",
+    "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\nlog.extensions.logging\\5.3.15\\nlog.extensions.logging.5.3.15.nupkg.sha512",
+    "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\nlog.web.aspnetcore\\5.3.15\\nlog.web.aspnetcore.5.3.15.nupkg.sha512",
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\npgsql\\4.1.3\\npgsql.4.1.3.nupkg.sha512",
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\3.1.1\\npgsql.entityframeworkcore.postgresql.3.1.1.nupkg.sha512",
     "C:\\Users\\Hex-Dev-7\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\3.1.1\\pomelo.entityframeworkcore.mysql.3.1.1.nupkg.sha512",

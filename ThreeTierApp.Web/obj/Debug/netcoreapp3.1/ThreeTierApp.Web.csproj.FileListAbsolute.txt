@@ -92,3 +92,8 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.pdb
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.genruntimeconfig.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\nlog.config
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\NLog.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.MvcApplicationPartsAssemblyInfo.cs
