@@ -3,58 +3,72 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using ZeroFormatter;
 
 namespace ThreeTierApp.DAL.Models
 {
     [Table("employees")]
-    public class Employee  
+    [ZeroFormattable]  
+    public class Employee
     {
-        // Ignore the inherited Id property to avoid serialization conflict
         [Key]
         [Column("id")]
-        public new int Id { get; set; }  // Ensure it's an int
+        [IgnoreFormat]
+        public virtual int Id { get; set; }  
 
-        [Required] // Ensures this field is not null
+        [Required] 
         [Column("name")]
-        public string Name { get; set; }
+        [Index(0)]  
+        public virtual string Name { get; set; }
 
         [Required]
         [Column("username")]
-        [MaxLength(50)] // Restricts username length to 50 characters
-        public string Username { get; set; }
+        [MaxLength(50)] 
+        [Index(1)]
+        public virtual string Username { get; set; }
 
         [Required]
-        [EmailAddress] // Ensures the field is a valid email format
+        [EmailAddress]
         [Column("email")]
-        public string Email { get; set; }
+        [Index(2)] 
+        public virtual string Email { get; set; }
 
         [Required]
         [Column("password_hash")]
-        public string PasswordHash { get; set; } // Store the hashed password
+        [IgnoreFormat]
+        public virtual string PasswordHash { get; set; }
 
         [Column("department")]
-        public string Department { get; set; }
+        [IgnoreFormat]
+        public virtual string Department { get; set; }
 
         [Column("salary")]
+        [IgnoreFormat]
         [Range(0, double.MaxValue, ErrorMessage = "Salary must be a positive value.")]
-        public decimal Salary { get; set; }
+        public virtual decimal Salary { get; set; }
 
         [Column("role")]
-        public string Role { get; set; } // e.g., Admin, Manager, Employee
+        [IgnoreFormat]
+        public virtual string Role { get; set; }
 
         [Column("date_of_joining")]
-        public DateTime DateOfJoining { get; set; } = DateTime.UtcNow; // Default to current UTC date
+        [IgnoreFormat]
+        public virtual DateTime DateOfJoining { get; set; } = DateTime.UtcNow; 
 
         [Column("is_active")]
-        public bool IsActive { get; set; } = true; // For soft deletes or account activation status
+        [IgnoreFormat]
+        public virtual bool IsActive { get; set; } = true; 
 
         [Column("last_login")]
-        public DateTime? LastLogin { get; set; } // Nullable to track login history
+        [IgnoreFormat]
+        public virtual DateTime? LastLogin { get; set; }
 
         [Column("created_at")]
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow; // Automatically set on creation
+        [IgnoreFormat]
+        public virtual DateTime? CreatedAt { get; set; } = DateTime.UtcNow; 
 
         [Column("updated_at")]
-        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow; // Automatically update when modified
+        [IgnoreFormat]
+        public virtual DateTime? UpdatedAt { get; set; } = DateTime.UtcNow; 
     }
 }

@@ -146,6 +146,18 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.1.0, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.24, )"
+            },
+            "ZeroFormatter.Interfaces.NETCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
+            },
+            "ZeroFormatter.NETCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
             }
           },
           "imports": [

@@ -13,6 +13,12 @@ using ThreeTierApp.Core.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ThreeTierApp.DAL.Repositories;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
+using NLog;
+using StackExchange.Redis;
+using System;
+using ThreeTierApp.DAL.Models;
+using ZeroFormatter;
 
 namespace ThreeTierApp
 {
@@ -27,6 +33,21 @@ namespace ThreeTierApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var redisConnectionString = configuration.GetConnectionString("Redis");
+
+                if (string.IsNullOrEmpty(redisConnectionString))
+                {
+                    throw new InvalidOperationException("Redis connection string is missing in configuration.");
+                }
+
+                var options = ConfigurationOptions.Parse(redisConnectionString, true);
+                return ConnectionMultiplexer.Connect(options);
+            });
+
             // Add Controllers with Views
             services.AddControllersWithViews();
 
@@ -34,6 +55,8 @@ namespace ThreeTierApp
 
             // Register TaskRepositoryWrapper
             services.AddScoped<ITaskRepository, TaskRepositoryWrapper>();
+
+            services.AddScoped<ICacheService, RedisCacheService>();
 
             // Register TaskDetailsService
             services.AddScoped<TaskDetailsService>();
@@ -68,6 +91,8 @@ namespace ThreeTierApp
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            LogManager.LoadConfiguration("nlog.config");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

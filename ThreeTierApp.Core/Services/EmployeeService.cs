@@ -6,16 +6,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using ThreeTierApp.DAL.Repositories;
+using ZeroFormatter;
+using StackExchange.Redis;
 
 namespace ThreeTierApp.Core.Services
 {
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _repository;
+        private readonly ICacheService _cacheService;
 
-        public EmployeeService(IEmployeeRepository repository)
+        public EmployeeService(IEmployeeRepository repository, ICacheService cacheService)
         {
             _repository = repository;
+            _cacheService = cacheService;
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
@@ -25,8 +29,23 @@ namespace ThreeTierApp.Core.Services
 
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            string cacheKey = $"employee:{id}";
+
+            // Fetch from cache
+            var employee = await _cacheService.GetCacheData<Employee>(cacheKey);
+            if (employee != null)
+                return employee;
+
+            // Fetch from repository and update cache
+            employee = await _repository.GetByIdAsync(id);
+            if (employee != null)
+            {
+                await _cacheService.SetCacheData(cacheKey, employee, TimeSpan.FromMinutes(10));
+            }
+
+            return employee;
         }
+
 
         public async Task<Employee> GetEmployeeByEmailOrUsernameAsync(string emailOrUsername)
         {
@@ -37,51 +56,42 @@ namespace ThreeTierApp.Core.Services
         {
             var validationErrors = ValidateEmployeeForAddOrUpdate(employee);
             if (validationErrors.Errors.Any())
-            {
                 return validationErrors;
-            }
 
             employee.PasswordHash = HashPassword(employee.PasswordHash);
             employee.CreatedAt = DateTime.UtcNow;
             employee.UpdatedAt = DateTime.UtcNow;
 
             await _repository.AddAsync(employee);
+
+            // Cache the new employee
+            await _cacheService.SetCacheData($"employee:{employee.Id}", employee, TimeSpan.FromMinutes(10));
+
             return null;
         }
 
         public async Task<ValidationErrorResponse> UpdateEmployeeAsync(Employee employee)
         {
-            if (employee.Id <= 0)
-                throw new ArgumentException("Employee ID must be greater than 0.");
-
             var validationErrors = ValidateEmployeeForAddOrUpdate(employee);
-
             if (validationErrors.Errors.Any())
-            {
                 return validationErrors;
-            }
 
-            var existingEmployee = await _repository.GetByIdAsync(employee.Id);
-            if (existingEmployee == null)
-                throw new KeyNotFoundException($"Employee with ID {employee.Id} not found.");
-
-            employee.UpdatedAt = DateTime.UtcNow;
             await _repository.UpdateAsync(employee);
+
+            // Update the cache
+            await _cacheService.SetCacheData($"employee:{employee.Id}", employee, TimeSpan.FromMinutes(10));
 
             return null;
         }
 
         public async Task DeleteEmployeeAsync(int id)
         {
-            if (id <= 0)
-                throw new ArgumentException("Employee ID must be greater than 0.");
-
-            var existingEmployee = await _repository.GetByIdAsync(id);
-            if (existingEmployee == null)
-                throw new KeyNotFoundException($"Employee with ID {id} not found.");
-
             await _repository.DeleteAsync(id);
+
+            // Remove from cache
+            await _cacheService.DeleteCacheData($"employee:{id}");
         }
+
 
         private ValidationErrorResponse ValidateEmployeeForAddOrUpdate(Employee employee)
         {
@@ -112,10 +122,20 @@ namespace ThreeTierApp.Core.Services
 
         public async Task<bool> UpdateStatusAsync(int employeeId, bool isActive)
         {
-            Console.WriteLine($"Service: Updating employee {employeeId} to {isActive}");
-            return await _repository.UpdateStatusAsync(employeeId, isActive);
+            var result = await _repository.UpdateStatusAsync(employeeId, isActive);
+
+            if (result)
+            {
+                // Update cache
+                var employee = await _cacheService.GetCacheData<Employee>($"employee:{employeeId}");
+                if (employee != null)
+                {
+                    employee.IsActive = isActive;
+                    await _cacheService.SetCacheData($"employee:{employeeId}", employee, TimeSpan.FromMinutes(10));
+                }
+            }
+
+            return result;
         }
-
-
     }
 }
