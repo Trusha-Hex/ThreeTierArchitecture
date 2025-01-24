@@ -333,33 +333,54 @@
                     $('#taskModal').modal('hide');
                 };
 
-                // Save task (create or update)
-                $scope.saveTask = function () {
-                    const taskData = {
-                        Id: $scope.task.id || null,  // Add Id for consistency; for create, it will be null
-                        Title: $scope.task.title,
-                        Description: $scope.task.description,
-                        AssignedEmployeeIds: $scope.task.assignedEmployeeIds,
-                        DueDate: $scope.task.dueDate,
-                        IsCompleted: $scope.task.isCompleted
-                    };
+            $scope.saveTask = function () {
+            // Create task data, omit Id for POST request
+            const taskData = {
+                Title: $scope.task.title,
+                Description: $scope.task.description,
+                AssignedEmployeeIds: $scope.task.assignedEmployeeIds,
+                DueDate: $scope.task.dueDate,
+                IsCompleted: $scope.task.isCompleted
+            };
 
-                    const method = $scope.task.id ? 'PUT' : 'POST';
-                    const url = $scope.task.id ? '/tasks/' + $scope.task.id : '/tasks';
+            // Set method and URL based on whether task ID exists
+            const method = $scope.task.id ? 'PUT' : 'POST';
+            const url = $scope.task.id ? '/tasks/' + $scope.task.id : '/tasks';
 
-                    $http({
-                        method: method,
-                        url: url,
-                        data: taskData,
-                    }).then(function () {
-                        $scope.showNotification('Task saved successfully!');
-                        $scope.loadTasks();
-                        $scope.closeTaskModal();
-                    }).catch(function (error) {
-                        console.error('Error saving task:', error);
-                        $scope.showNotification('Failed to save task.');
+            // If it's a PUT request, include the ID in the payload
+            if ($scope.task.id) {
+                taskData.Id = $scope.task.id;
+            }
+
+            $http({
+                method: method,
+                url: url,
+                data: taskData,
+            }).then(function () {
+                $scope.showNotification('Task saved successfully!');
+                $scope.loadTasks();
+                $scope.closeTaskModal();
+            }).catch(function (error) {
+                console.error('Error saving task:', error);
+                $scope.showNotification('Failed to save task.');
+            });
+        };
+
+                $scope.deleteTask = function (taskId) {
+            // Confirm deletion
+            if (confirm('Are you sure you want to delete this task?')) {
+                $http.delete('/tasks/' + taskId)  // Use the appropriate delete API endpoint
+                    .then(function (response) {
+                        $scope.showNotification('Task deleted successfully!');
+                        $scope.loadTasks();  // Reload tasks after deletion
+                    })
+                    .catch(function (error) {
+                        console.error('Error deleting task:', error);
+                        $scope.showNotification('Failed to delete task.');
                     });
-                };
+            }
+        };
+
 
                 $scope.closeEmployeeModal = function () {
                     $('#employeeModal').modal('hide');

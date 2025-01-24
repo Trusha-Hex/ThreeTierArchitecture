@@ -24,7 +24,7 @@ namespace ThreeTierApp.Core.Services
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllEmployeeAsync();
         }
 
         public async Task<Employee> GetEmployeeByIdAsync(int id)
@@ -37,7 +37,7 @@ namespace ThreeTierApp.Core.Services
                 return employee;
 
             // Fetch from repository and update cache
-            employee = await _repository.GetByIdAsync(id);
+            employee = await _repository.GetEmployeeByIdAsync(id);
             if (employee != null)
             {
                 await _cacheService.SetCacheData(cacheKey, employee);
@@ -62,7 +62,7 @@ namespace ThreeTierApp.Core.Services
             employee.CreatedAt = DateTime.UtcNow;
             employee.UpdatedAt = DateTime.UtcNow;
 
-            await _repository.AddAsync(employee);
+            await _repository.AddEmployeeAsync(employee);
 
             // Cache the new employee
             await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
@@ -76,7 +76,7 @@ namespace ThreeTierApp.Core.Services
             if (validationErrors.Errors.Any())
                 return validationErrors;
 
-            await _repository.UpdateAsync(employee);
+            await _repository.UpdateEmployeeAsync(employee);
 
             // Update the cache
             await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
@@ -86,7 +86,7 @@ namespace ThreeTierApp.Core.Services
 
         public async Task DeleteEmployeeAsync(int id)
         {
-            await _repository.DeleteAsync(id);
+            await _repository.DeleteEmployeeAsync(id);
 
             // Remove from cache
             await _cacheService.DeleteCacheData($"employee:{id}");
@@ -122,7 +122,7 @@ namespace ThreeTierApp.Core.Services
 
         public async Task<bool> UpdateStatusAsync(int employeeId, bool isActive)
         {
-            var result = await _repository.UpdateStatusAsync(employeeId, isActive);
+            var result = await _repository.UpdateEmployeeStatusAsync(employeeId, isActive);
 
             if (result)
             {

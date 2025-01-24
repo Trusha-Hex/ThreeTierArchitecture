@@ -18,29 +18,29 @@ namespace ThreeTierApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllAsync()
+        public async Task<IEnumerable<Employee>> GetAllEmployeeAsync()
         {
             return await _context.Employees.ToListAsync();
         }
 
-        public async Task<Employee> GetByIdAsync(int id)
+        public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
             return await _context.Employees.FindAsync(id);
         }
 
-        public async Task AddAsync(Employee employee)
+        public async Task AddEmployeeAsync(Employee employee)
         {
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Employee employee)
+        public async Task UpdateEmployeeAsync(Employee employee)
         {
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteEmployeeAsync(int id)
         {
             var employee = await _context.Employees.FindAsync(id);
             if (employee != null)
@@ -56,7 +56,7 @@ namespace ThreeTierApp.DAL.Repositories
                 .FirstOrDefaultAsync(e => e.Email == emailOrUsername || e.Username == emailOrUsername);
         }
 
-        public async Task<bool> UpdateStatusAsync(int employeeId, bool isActive)
+        public async Task<bool> UpdateEmployeeStatusAsync(int employeeId, bool isActive)
         {
             var employee = await _context.Employees.FindAsync(employeeId);
             if (employee == null) return false;

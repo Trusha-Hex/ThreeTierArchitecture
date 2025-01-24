@@ -15,27 +15,27 @@ namespace ThreeTierApp.Core.Repositories
             _taskRepository = taskRepository;
         }
 
-        public Task<IEnumerable<TaskDetails>> GetAllAsync() =>
-            _taskRepository.GetAllAsync();
+        public Task<IEnumerable<TaskDetails>> GetAllTaskAsync() =>
+            _taskRepository.GetAllTaskAsync();
 
-        public Task<TaskDetails> GetByIdAsync(int id) =>
-            _taskRepository.GetByIdAsync(id);
+        public Task<TaskDetails> GetTaskByIdAsync(int id) =>
+            _taskRepository.GetTaskByIdAsync(id);
 
-        public Task<bool> CreateAsync(TaskDetails task)
+        public Task<bool> CreateTaskAsync(TaskDetails task)
         {
-            return _taskRepository.AddAsync(task)
+            return _taskRepository.AddTaskAsync(task)
                 .ContinueWith(_ => true); // Simplified boolean return
         }
 
-        public Task<bool> UpdateAsync(TaskDetails task)
+        public Task<bool> UpdateTaskAsync(TaskDetails task)
         {
-            return _taskRepository.UpdateAsync(task)
+            return _taskRepository.UpdateTaskAsync(task)
                 .ContinueWith(_ => true);
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public Task<bool> DeleteTaskAsync(int id)
         {
-            return _taskRepository.DeleteAsync(id)
+            return _taskRepository.DeleteTaskAsync(id)
                 .ContinueWith(_ => true);
         }
     }

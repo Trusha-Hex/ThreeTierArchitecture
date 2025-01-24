@@ -6,10 +6,10 @@ namespace ThreeTierApp.Core.Interfaces
 {
     public interface ITaskRepository
     {
-        Task<IEnumerable<TaskDetails>> GetAllAsync();
-        Task<TaskDetails> GetByIdAsync(int id);
-        Task<bool> CreateAsync(TaskDetails task);
-        Task<bool> UpdateAsync(TaskDetails task);
-        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<TaskDetails>> GetAllTaskAsync();
+        Task<TaskDetails> GetTaskByIdAsync(int id);
+        Task<bool> CreateTaskAsync(TaskDetails task);
+        Task<bool> UpdateTaskAsync(TaskDetails task);
+        Task<bool> DeleteTaskAsync(int id);
     }
 }

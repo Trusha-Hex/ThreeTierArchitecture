@@ -15,21 +15,21 @@ namespace ThreeTierApp.Core.Repositories
             _employeeRepository = employeeRepository;
         }
 
-        public Task<IEnumerable<Employee>> GetAllAsync() => _employeeRepository.GetAllAsync();
+        public Task<IEnumerable<Employee>> GetAllEmployeeAsync() => _employeeRepository.GetAllEmployeeAsync();
 
-        public Task<Employee> GetByIdAsync(int id) => _employeeRepository.GetByIdAsync(id);
+        public Task<Employee> GetEmployeeByIdAsync(int id) => _employeeRepository.GetEmployeeByIdAsync(id);
 
-        public Task AddAsync(Employee employee) => _employeeRepository.AddAsync(employee);
+        public Task AddEmployeeAsync(Employee employee) => _employeeRepository.AddEmployeeAsync(employee);
 
-        public Task UpdateAsync(Employee employee) => _employeeRepository.UpdateAsync(employee);
+        public Task UpdateEmployeeAsync(Employee employee) => _employeeRepository.UpdateEmployeeAsync(employee);
 
-        public Task DeleteAsync(int id) => _employeeRepository.DeleteAsync(id);
+        public Task DeleteEmployeeAsync(int id) => _employeeRepository.DeleteEmployeeAsync(id);
 
         public Task<Employee> GetEmployeeByEmailOrUsernameAsync(string emailOrUsername) =>
             _employeeRepository.GetEmployeeByEmailOrUsernameAsync(emailOrUsername);
 
-        public Task<bool> UpdateStatusAsync(int employeeId, bool isActive) =>
-         _employeeRepository.UpdateStatusAsync(employeeId, isActive);
+        public Task<bool> UpdateEmployeeStatusAsync(int employeeId, bool isActive) =>
+         _employeeRepository.UpdateEmployeeStatusAsync(employeeId, isActive);
         
     }
 }

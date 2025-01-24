@@ -15,31 +15,31 @@ namespace ThreeTierApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<TaskDetails>> GetAllAsync()
+        public async Task<IEnumerable<TaskDetails>> GetAllTaskAsync()
         {
             return await _context.TaskDetails.ToListAsync();
         }
 
-        public async Task<TaskDetails> GetByIdAsync(int id)
+        public async Task<TaskDetails> GetTaskByIdAsync(int id)
         {
             return await _context.TaskDetails.FindAsync(id);
         }
 
-        public async Task AddAsync(TaskDetails taskDetails)
+        public async Task AddTaskAsync(TaskDetails taskDetails)
         {
             await _context.TaskDetails.AddAsync(taskDetails);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(TaskDetails taskDetails)
+        public async Task UpdateTaskAsync(TaskDetails taskDetails)
         {
             _context.TaskDetails.Update(taskDetails);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteTaskAsync(int id)
         {
-            var taskDetails = await GetByIdAsync(id);
+            var taskDetails = await GetTaskByIdAsync(id);
             if (taskDetails != null)
             {
                 _context.TaskDetails.Remove(taskDetails);

@@ -61,7 +61,8 @@ namespace ThreeTierApp.DAL.Models
         public virtual DateTime DateOfJoining { get; set; } = DateTime.UtcNow; 
 
         [Column("is_active")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(8)]
         public virtual bool IsActive { get; set; } = true; 
 
         [Column("last_login")]

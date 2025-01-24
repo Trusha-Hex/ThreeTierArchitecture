@@ -3915,3 +3915,815 @@ FROM `employees` AS `e`
 2025-01-24 17:39:16.2912 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 2209.5179ms
 2025-01-24 17:39:16.2912 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
 2025-01-24 17:39:16.2912 INFO Request finished in 2233.7098ms 200 application/json; charset=utf-8
+2025-01-24 17:52:04.6836 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 17:52:05.1903 INFO Now listening on: https://localhost:65391
+2025-01-24 17:52:05.1903 INFO Now listening on: http://localhost:65392
+2025-01-24 17:52:05.1961 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 17:52:05.1961 INFO Hosting environment: Development
+2025-01-24 17:52:05.1961 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 17:52:06.0272 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 17:52:06.2883 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 17:52:06.3417 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 17:52:08.8701 INFO Login page accessed.
+2025-01-24 17:52:08.8895 INFO Executing ViewResult, running view Login.
+2025-01-24 17:52:08.9382 INFO Executed ViewResult - view Login executed in 53.8724ms.
+2025-01-24 17:52:08.9382 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2597.8603ms
+2025-01-24 17:52:08.9468 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 17:52:08.9630 INFO Request finished in 2936.7645ms 200 text/html; charset=utf-8
+2025-01-24 17:52:08.9894 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 17:52:08.9948 INFO Request finished in 5.4929ms 200 application/javascript; charset=utf-8
+2025-01-24 18:02:57.4427 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:02:57.4478 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:02:57.4725 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:02:57.5021 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:02:57.9180 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:02:57.9731 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:02:58.4407 INFO Executed DbCommand (67ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:02:58.5417 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:02:58.5417 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:02:58.5417 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:02:58.5600 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1084.9951ms
+2025-01-24 18:02:58.5600 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:02:58.5600 INFO Request finished in 1124.6413ms 200 application/json; charset=utf-8
+2025-01-24 18:02:58.5747 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:02:58.6169 INFO Authorization was successful.
+2025-01-24 18:02:58.6181 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:02:58.6181 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:02:58.6363 INFO Index page accessed by user John Doe.
+2025-01-24 18:02:58.6363 INFO Executing ViewResult, running view Index.
+2025-01-24 18:02:58.6556 INFO Executed ViewResult - view Index executed in 17.5843ms.
+2025-01-24 18:02:58.6556 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 28.5043ms
+2025-01-24 18:02:58.6556 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:02:58.6556 INFO Request finished in 86.7004ms 200 text/html; charset=utf-8
+2025-01-24 18:02:58.6997 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:02:58.6997 INFO Request finished in 5.4381ms 200 application/javascript; charset=utf-8
+2025-01-24 18:02:58.8836 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737721978812  
+2025-01-24 18:02:58.8874 INFO Authorization was successful.
+2025-01-24 18:02:58.8874 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:02:58.8993 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:02:58.8993 INFO Attempting to fetch all employees.
+2025-01-24 18:02:59.0868 INFO Employees fetched from cache.
+2025-01-24 18:02:59.0868 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:02:59.1183 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 215.2182ms
+2025-01-24 18:02:59.1183 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:02:59.1183 INFO Request finished in 238.1908ms 200 application/json; charset=utf-8
+2025-01-24 18:03:02.2885 INFO Request starting HTTP/2 PUT https://localhost:65391/update-status/4?isActive=false application/json 0
+2025-01-24 18:03:02.2999 INFO Authorization was successful.
+2025-01-24 18:03:02.2999 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:03:02.3152 INFO Route matched with {action = "UpdateStatus", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateStatus(Int32, System.String) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:03:02.3670 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:03:02.3988 INFO Executed DbCommand (6ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:03:02.5199 INFO Executed DbCommand (2ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+UPDATE `employees` SET `is_active` = @p0
+WHERE `id` = @p1;
+SELECT ROW_COUNT();
+2025-01-24 18:03:02.5508 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:03:02.5508 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web) in 230.2555ms
+2025-01-24 18:03:02.5592 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:03:02.5592 INFO Request finished in 272.1363ms 200 application/json; charset=utf-8
+2025-01-24 18:03:04.9024 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:03:04.9024 INFO Authorization was successful.
+2025-01-24 18:03:04.9024 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:03:04.9174 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:03:04.9315 INFO Index page accessed by user John Doe.
+2025-01-24 18:03:04.9315 INFO Executing ViewResult, running view Index.
+2025-01-24 18:03:04.9315 INFO Executed ViewResult - view Index executed in 4.399ms.
+2025-01-24 18:03:04.9315 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 16.6683ms
+2025-01-24 18:03:04.9315 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:03:04.9315 INFO Request finished in 37.1068ms 200 text/html; charset=utf-8
+2025-01-24 18:03:04.9820 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:03:04.9820 INFO Request finished in 1.737ms 200 application/javascript; charset=utf-8
+2025-01-24 18:03:05.0293 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737721984994  
+2025-01-24 18:03:05.0293 INFO Authorization was successful.
+2025-01-24 18:03:05.0425 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:03:05.0425 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:03:05.0425 INFO Attempting to fetch all employees.
+2025-01-24 18:03:05.0571 INFO Employees fetched from cache.
+2025-01-24 18:03:05.0571 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:03:05.0571 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 10.7841ms
+2025-01-24 18:03:05.0571 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:03:05.0571 INFO Request finished in 32.5148ms 200 application/json; charset=utf-8
+2025-01-24 18:05:55.6872 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 18:05:56.1447 INFO Now listening on: https://localhost:65391
+2025-01-24 18:05:56.1447 INFO Now listening on: http://localhost:65392
+2025-01-24 18:05:56.1501 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 18:05:56.1501 INFO Hosting environment: Development
+2025-01-24 18:05:56.1501 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 18:05:56.9662 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 18:05:57.1865 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:05:57.2658 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:05:59.7889 INFO Login page accessed.
+2025-01-24 18:05:59.8086 INFO Executing ViewResult, running view Login.
+2025-01-24 18:05:59.8621 INFO Executed ViewResult - view Login executed in 59.3768ms.
+2025-01-24 18:05:59.8621 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2596.2603ms
+2025-01-24 18:05:59.8621 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:05:59.8701 INFO Request finished in 2905.2649ms 200 text/html; charset=utf-8
+2025-01-24 18:06:00.0698 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:06:00.0827 INFO Request finished in 12.8602ms 200 application/javascript; charset=utf-8
+2025-01-24 18:06:52.0809 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:06:52.0956 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:06:52.1165 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:06:52.1482 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:06:52.5710 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:06:52.6174 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:06:53.0503 INFO Executed DbCommand (57ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:06:53.1528 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:06:53.1528 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:06:53.1528 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:06:53.1734 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1054.6333ms
+2025-01-24 18:06:53.1734 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:06:53.1830 INFO Request finished in 1102.11ms 200 application/json; charset=utf-8
+2025-01-24 18:06:53.1830 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:06:53.2079 INFO Authorization was successful.
+2025-01-24 18:06:53.2079 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:06:53.2142 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:06:53.2142 INFO Index page accessed by user John Doe.
+2025-01-24 18:06:53.2142 INFO Executing ViewResult, running view Index.
+2025-01-24 18:06:53.2403 INFO Executed ViewResult - view Index executed in 16.8551ms.
+2025-01-24 18:06:53.2403 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 25.3599ms
+2025-01-24 18:06:53.2403 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:06:53.2528 INFO Request finished in 65.3291ms 200 text/html; charset=utf-8
+2025-01-24 18:06:53.2834 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:06:53.2916 INFO Request finished in 8.1415ms 200 application/javascript; charset=utf-8
+2025-01-24 18:06:53.4849 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722213402  
+2025-01-24 18:06:53.4975 INFO Authorization was successful.
+2025-01-24 18:06:53.4975 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:06:53.4975 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:06:53.5174 INFO Attempting to fetch all employees.
+2025-01-24 18:06:53.6396 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:06:53.6910 INFO Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+2025-01-24 18:06:53.9249 INFO Employees fetched successfully for user 16.
+2025-01-24 18:06:53.9249 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:06:53.9428 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 433.5127ms
+2025-01-24 18:06:53.9428 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:06:53.9428 INFO Request finished in 460.2561ms 200 application/json; charset=utf-8
+2025-01-24 18:06:59.5912 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:06:59.6091 INFO Authorization was successful.
+2025-01-24 18:06:59.6091 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:06:59.6091 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:06:59.6226 INFO Index page accessed by user John Doe.
+2025-01-24 18:06:59.6226 INFO Executing ViewResult, running view Index.
+2025-01-24 18:06:59.6226 INFO Executed ViewResult - view Index executed in 3.369ms.
+2025-01-24 18:06:59.6226 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 10.7797ms
+2025-01-24 18:06:59.6226 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:06:59.6226 INFO Request finished in 41.0499ms 200 text/html; charset=utf-8
+2025-01-24 18:06:59.6534 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:06:59.6534 INFO Request finished in 7.2114ms 200 application/javascript; charset=utf-8
+2025-01-24 18:06:59.7190 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722219681  
+2025-01-24 18:06:59.7190 INFO Authorization was successful.
+2025-01-24 18:06:59.7273 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:06:59.7273 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:06:59.7453 INFO Attempting to fetch all employees.
+2025-01-24 18:06:59.7453 INFO Employees fetched from cache.
+2025-01-24 18:06:59.7588 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:06:59.7588 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 23.121ms
+2025-01-24 18:06:59.7588 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:06:59.7588 INFO Request finished in 46.7437ms 200 application/json; charset=utf-8
+2025-01-24 18:07:03.9485 INFO Request starting HTTP/2 PUT https://localhost:65391/update-status/4?isActive=true application/json 0
+2025-01-24 18:07:03.9485 INFO Authorization was successful.
+2025-01-24 18:07:03.9485 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:07:03.9627 INFO Route matched with {action = "UpdateStatus", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateStatus(Int32, System.String) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:07:03.9865 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:07:04.0217 INFO Executed DbCommand (10ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:07:04.1489 INFO Executed DbCommand (2ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+UPDATE `employees` SET `is_active` = @p0
+WHERE `id` = @p1;
+SELECT ROW_COUNT();
+2025-01-24 18:07:04.1790 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:07:04.1809 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web) in 216.8357ms
+2025-01-24 18:07:04.1809 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:07:04.1809 INFO Request finished in 234.9463ms 200 application/json; charset=utf-8
+2025-01-24 18:07:05.6177 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:07:05.6514 INFO Authorization was successful.
+2025-01-24 18:07:05.6514 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:07:05.6514 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:07:05.6514 INFO Index page accessed by user John Doe.
+2025-01-24 18:07:05.6514 INFO Executing ViewResult, running view Index.
+2025-01-24 18:07:05.6669 INFO Executed ViewResult - view Index executed in 3.6752ms.
+2025-01-24 18:07:05.6669 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 8.316ms
+2025-01-24 18:07:05.6669 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:07:05.6669 INFO Request finished in 51.9762ms 200 text/html; charset=utf-8
+2025-01-24 18:07:05.6869 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:07:05.6869 INFO Request finished in 0.8141ms 200 application/javascript; charset=utf-8
+2025-01-24 18:07:05.7464 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722225726  
+2025-01-24 18:07:05.7464 INFO Authorization was successful.
+2025-01-24 18:07:05.7464 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:07:05.7608 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:07:05.7608 INFO Attempting to fetch all employees.
+2025-01-24 18:07:05.7608 INFO Employees fetched from cache.
+2025-01-24 18:07:05.7608 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:07:05.7774 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 15.1636ms
+2025-01-24 18:07:05.7774 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:07:05.7774 INFO Request finished in 37.7575ms 200 application/json; charset=utf-8
+2025-01-24 18:08:50.1195 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 18:08:50.8273 INFO Now listening on: https://localhost:65391
+2025-01-24 18:08:50.8273 INFO Now listening on: http://localhost:65392
+2025-01-24 18:08:50.8273 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 18:08:50.8273 INFO Hosting environment: Development
+2025-01-24 18:08:50.8373 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 18:08:51.6707 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 18:08:51.8711 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:08:51.9235 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:08:54.4197 INFO Login page accessed.
+2025-01-24 18:08:54.4419 INFO Executing ViewResult, running view Login.
+2025-01-24 18:08:54.4921 INFO Executed ViewResult - view Login executed in 56.3292ms.
+2025-01-24 18:08:54.4944 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2569.6487ms
+2025-01-24 18:08:54.4944 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:08:54.5154 INFO Request finished in 2845.6311ms 200 text/html; charset=utf-8
+2025-01-24 18:08:54.5319 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:08:54.5319 INFO Request finished in 3.3548ms 200 application/javascript; charset=utf-8
+2025-01-24 18:08:59.7907 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:08:59.7907 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:08:59.8300 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:08:59.8665 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:09:00.2863 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:09:00.3327 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:09:00.7462 INFO Executed DbCommand (51ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:09:00.8409 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:09:00.8409 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:09:00.8543 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:09:00.8543 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1032.335ms
+2025-01-24 18:09:00.8543 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:09:00.8784 INFO Request finished in 1087.7211ms 200 application/json; charset=utf-8
+2025-01-24 18:09:00.8842 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:09:00.9046 INFO Authorization was successful.
+2025-01-24 18:09:00.9046 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:00.9046 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:00.9191 INFO Index page accessed by user John Doe.
+2025-01-24 18:09:00.9191 INFO Executing ViewResult, running view Index.
+2025-01-24 18:09:00.9389 INFO Executed ViewResult - view Index executed in 17.7958ms.
+2025-01-24 18:09:00.9389 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 28.0189ms
+2025-01-24 18:09:00.9389 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:00.9465 INFO Request finished in 62.3222ms 200 text/html; charset=utf-8
+2025-01-24 18:09:00.9734 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:09:00.9734 INFO Request finished in 1.1084ms 200 application/javascript; charset=utf-8
+2025-01-24 18:09:01.0530 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722340991  
+2025-01-24 18:09:01.0554 INFO Authorization was successful.
+2025-01-24 18:09:01.0554 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:01.0554 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:01.0841 INFO Attempting to fetch all employees.
+2025-01-24 18:09:01.3087 INFO Employees fetched from cache.
+2025-01-24 18:09:01.3087 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:09:01.3366 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 263.8909ms
+2025-01-24 18:09:01.3366 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:01.3366 INFO Request finished in 287.1768ms 200 application/json; charset=utf-8
+2025-01-24 18:09:03.4951 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:09:03.5124 INFO Authorization was successful.
+2025-01-24 18:09:03.5124 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:03.5124 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:03.5124 INFO Index page accessed by user John Doe.
+2025-01-24 18:09:03.5124 INFO Executing ViewResult, running view Index.
+2025-01-24 18:09:03.5260 INFO Executed ViewResult - view Index executed in 3.8696ms.
+2025-01-24 18:09:03.5260 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 10.2965ms
+2025-01-24 18:09:03.5260 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:03.5260 INFO Request finished in 35.6463ms 200 text/html; charset=utf-8
+2025-01-24 18:09:03.5499 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:09:03.5499 INFO Request finished in 0.8316ms 200 application/javascript; charset=utf-8
+2025-01-24 18:09:03.5952 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722343575  
+2025-01-24 18:09:03.6059 INFO Authorization was successful.
+2025-01-24 18:09:03.6059 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:03.6059 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:03.6177 INFO Attempting to fetch all employees.
+2025-01-24 18:09:03.6177 INFO Employees fetched from cache.
+2025-01-24 18:09:03.6177 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:09:03.6177 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 14.1498ms
+2025-01-24 18:09:03.6177 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:03.6177 INFO Request finished in 36.8352ms 200 application/json; charset=utf-8
+2025-01-24 18:09:05.0447 INFO Request starting HTTP/2 PUT https://localhost:65391/update-status/4?isActive=true application/json 0
+2025-01-24 18:09:05.0447 INFO Authorization was successful.
+2025-01-24 18:09:05.0447 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:05.0656 INFO Route matched with {action = "UpdateStatus", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateStatus(Int32, System.String) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:05.1141 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:09:05.1486 INFO Executed DbCommand (6ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:09:05.2029 INFO Employee 4 status updated to True.
+2025-01-24 18:09:05.2398 INFO Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+2025-01-24 18:09:05.2470 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:09:05.2470 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web) in 180.335ms
+2025-01-24 18:09:05.2470 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:05.2470 INFO Request finished in 205.8557ms 200 application/json; charset=utf-8
+2025-01-24 18:09:07.0679 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:09:07.0740 INFO Authorization was successful.
+2025-01-24 18:09:07.0740 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:07.0740 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:07.0740 INFO Index page accessed by user John Doe.
+2025-01-24 18:09:07.0740 INFO Executing ViewResult, running view Index.
+2025-01-24 18:09:07.0740 INFO Executed ViewResult - view Index executed in 2.4422ms.
+2025-01-24 18:09:07.0740 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 6.8044ms
+2025-01-24 18:09:07.0740 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:07.0740 INFO Request finished in 17.5119ms 200 text/html; charset=utf-8
+2025-01-24 18:09:07.1048 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:09:07.1048 INFO Request finished in 1.1423ms 200 application/javascript; charset=utf-8
+2025-01-24 18:09:07.1669 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722347147  
+2025-01-24 18:09:07.1669 INFO Authorization was successful.
+2025-01-24 18:09:07.1669 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:07.1669 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:07.1669 INFO Attempting to fetch all employees.
+2025-01-24 18:09:07.1855 INFO Employees fetched from cache.
+2025-01-24 18:09:07.1855 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:09:07.1855 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 11.3501ms
+2025-01-24 18:09:07.1855 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:07.1855 INFO Request finished in 23.1322ms 200 application/json; charset=utf-8
+2025-01-24 18:09:08.8977 INFO Request starting HTTP/2 PUT https://localhost:65391/update-status/4?isActive=false application/json 0
+2025-01-24 18:09:08.9031 INFO Authorization was successful.
+2025-01-24 18:09:08.9031 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:08.9031 INFO Route matched with {action = "UpdateStatus", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateStatus(Int32, System.String) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:08.9259 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:09:08.9445 INFO Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:09:09.0423 INFO Executed DbCommand (1ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+UPDATE `employees` SET `is_active` = @p0
+WHERE `id` = @p1;
+SELECT ROW_COUNT();
+2025-01-24 18:09:09.0900 INFO Employee 4 status updated to False.
+2025-01-24 18:09:09.0900 INFO Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+2025-01-24 18:09:09.1030 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:09:09.1030 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web) in 191.6023ms
+2025-01-24 18:09:09.1030 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:09.1030 INFO Request finished in 213.5207ms 200 application/json; charset=utf-8
+2025-01-24 18:09:10.4799 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:09:10.4799 INFO Authorization was successful.
+2025-01-24 18:09:10.4950 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:10.4950 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:10.4950 INFO Index page accessed by user John Doe.
+2025-01-24 18:09:10.4950 INFO Executing ViewResult, running view Index.
+2025-01-24 18:09:10.5150 INFO Executed ViewResult - view Index executed in 7.9873ms.
+2025-01-24 18:09:10.5150 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 16.3147ms
+2025-01-24 18:09:10.5150 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:10.5150 INFO Request finished in 38.13ms 200 text/html; charset=utf-8
+2025-01-24 18:09:10.5374 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:09:10.5374 INFO Request finished in 1.7922ms 200 application/javascript; charset=utf-8
+2025-01-24 18:09:10.5836 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722350564  
+2025-01-24 18:09:10.5907 INFO Authorization was successful.
+2025-01-24 18:09:10.5907 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:10.5907 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:10.5907 INFO Attempting to fetch all employees.
+2025-01-24 18:09:10.5907 INFO Employees fetched from cache.
+2025-01-24 18:09:10.6050 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:09:10.6050 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 13.294ms
+2025-01-24 18:09:10.6050 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:10.6050 INFO Request finished in 26.0539ms 200 application/json; charset=utf-8
+2025-01-24 18:09:19.6823 INFO Request starting HTTP/2 PUT https://localhost:65391/update-status/4?isActive=true application/json 0
+2025-01-24 18:09:19.6823 INFO Authorization was successful.
+2025-01-24 18:09:19.6823 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:19.6823 INFO Route matched with {action = "UpdateStatus", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateStatus(Int32, System.String) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:19.7001 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:09:19.7341 INFO Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:09:19.7483 INFO Executed DbCommand (1ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+UPDATE `employees` SET `is_active` = @p0
+WHERE `id` = @p1;
+SELECT ROW_COUNT();
+2025-01-24 18:09:19.7483 INFO Employee 4 status updated to True.
+2025-01-24 18:09:19.7652 INFO Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+2025-01-24 18:09:19.7652 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:09:19.7761 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web) in 78.5808ms
+2025-01-24 18:09:19.7761 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.UpdateStatus (ThreeTierApp.Web)'
+2025-01-24 18:09:19.7761 INFO Request finished in 97.9174ms 200 application/json; charset=utf-8
+2025-01-24 18:09:20.9241 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:09:20.9344 INFO Authorization was successful.
+2025-01-24 18:09:20.9344 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:20.9344 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:20.9344 INFO Index page accessed by user John Doe.
+2025-01-24 18:09:20.9474 INFO Executing ViewResult, running view Index.
+2025-01-24 18:09:20.9474 INFO Executed ViewResult - view Index executed in 3.6422ms.
+2025-01-24 18:09:20.9474 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 12.6033ms
+2025-01-24 18:09:20.9474 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:09:20.9474 INFO Request finished in 32.746ms 200 text/html; charset=utf-8
+2025-01-24 18:09:20.9766 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:09:20.9780 INFO Request finished in 1.4288ms 200 application/javascript; charset=utf-8
+2025-01-24 18:09:21.0243 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722361000  
+2025-01-24 18:09:21.0243 INFO Authorization was successful.
+2025-01-24 18:09:21.0243 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:21.0243 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:09:21.0243 INFO Attempting to fetch all employees.
+2025-01-24 18:09:21.0497 INFO Employees fetched from cache.
+2025-01-24 18:09:21.0497 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:09:21.0497 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 17.1438ms
+2025-01-24 18:09:21.0497 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:09:21.0555 INFO Request finished in 31.2139ms 200 application/json; charset=utf-8
+2025-01-24 18:15:15.2025 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 18:15:15.6932 INFO Now listening on: https://localhost:65391
+2025-01-24 18:15:15.6961 INFO Now listening on: http://localhost:65392
+2025-01-24 18:15:15.6961 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 18:15:15.6961 INFO Hosting environment: Development
+2025-01-24 18:15:15.6961 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 18:15:16.5006 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 18:15:16.7396 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:15:16.7930 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:19.3313 INFO Login page accessed.
+2025-01-24 18:15:19.3515 INFO Executing ViewResult, running view Login.
+2025-01-24 18:15:19.4007 INFO Executed ViewResult - view Login executed in 53.4857ms.
+2025-01-24 18:15:19.4007 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2609.0382ms
+2025-01-24 18:15:19.4007 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:15:19.4287 INFO Request finished in 2929.5047ms 200 text/html; charset=utf-8
+2025-01-24 18:15:19.4356 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:15:19.4485 INFO Request finished in 12.9407ms 200 application/javascript; charset=utf-8
+2025-01-24 18:15:27.2744 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:15:27.2927 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:15:27.3176 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:27.3469 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:15:27.7514 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:15:27.7994 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:28.2385 INFO Executed DbCommand (57ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:15:28.3366 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:15:28.3397 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:15:28.3397 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:15:28.3563 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1037.4094ms
+2025-01-24 18:15:28.3563 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:15:28.3563 INFO Request finished in 1096.0849ms 200 application/json; charset=utf-8
+2025-01-24 18:15:28.3747 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:15:28.3952 INFO Authorization was successful.
+2025-01-24 18:15:28.3952 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:15:28.3988 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:28.3988 INFO Index page accessed by user John Doe.
+2025-01-24 18:15:28.3988 INFO Executing ViewResult, running view Index.
+2025-01-24 18:15:28.4289 INFO Executed ViewResult - view Index executed in 17.0431ms.
+2025-01-24 18:15:28.4289 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 29.3187ms
+2025-01-24 18:15:28.4289 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:15:28.4411 INFO Request finished in 66.3994ms 200 text/html; charset=utf-8
+2025-01-24 18:15:28.4562 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:15:28.4562 INFO Request finished in 3.4462ms 200 application/javascript; charset=utf-8
+2025-01-24 18:15:28.5518 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737722728486  
+2025-01-24 18:15:28.5518 INFO Authorization was successful.
+2025-01-24 18:15:28.5562 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:15:28.5800 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:28.5966 INFO Attempting to fetch all employees.
+2025-01-24 18:15:28.9020 INFO Employees fetched from cache.
+2025-01-24 18:15:28.9020 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:15:28.9300 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 342.2854ms
+2025-01-24 18:15:28.9308 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:15:28.9308 INFO Request finished in 380.5591ms 200 application/json; charset=utf-8
+2025-01-24 18:15:29.4922 INFO Request starting HTTP/2 GET https://localhost:65391/Task/Index  
+2025-01-24 18:15:29.5103 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:15:29.5103 INFO Route matched with {action = "Index", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:15:29.5562 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:29.5836 INFO Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:15:29.7348 INFO Executing ViewResult, running view Index.
+2025-01-24 18:15:29.7459 INFO Executed ViewResult - view Index executed in 11.714ms.
+2025-01-24 18:15:29.7459 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web) in 226.5372ms
+2025-01-24 18:15:29.7459 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:15:29.7459 INFO Request finished in 257.011ms 200 text/html; charset=utf-8
+2025-01-24 18:15:29.7842 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:15:29.7934 INFO Request finished in 9.1624ms 200 application/javascript; charset=utf-8
+2025-01-24 18:15:29.8696 INFO Request starting HTTP/2 GET https://localhost:65391/employees  
+2025-01-24 18:15:29.8696 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:15:29.8696 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:15:29.8696 INFO Authorization was successful.
+2025-01-24 18:15:29.8696 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:15:29.8696 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:29.8696 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:15:29.8696 INFO Attempting to fetch all employees.
+2025-01-24 18:15:29.8883 INFO Employees fetched from cache.
+2025-01-24 18:15:29.8883 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:15:29.8883 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 12.5016ms
+2025-01-24 18:15:29.8883 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:15:29.8883 INFO Request finished in 24.2461ms 200 application/json; charset=utf-8
+2025-01-24 18:15:29.9062 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:29.9275 INFO Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:15:29.9326 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:15:29.9489 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 64.5888ms
+2025-01-24 18:15:29.9489 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:15:29.9489 INFO Request finished in 80.8298ms 200 application/json; charset=utf-8
+2025-01-24 18:15:37.2589 INFO Request starting HTTP/2 GET https://localhost:65391/employees/15  
+2025-01-24 18:15:37.3248 INFO Request starting HTTP/2 GET https://localhost:65391/employees/16  
+2025-01-24 18:15:37.3615 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web)'
+2025-01-24 18:15:37.3615 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web)'
+2025-01-24 18:15:37.3893 INFO Route matched with {action = "GetEmployeeById", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[ThreeTierApp.DAL.Models.Employee]] GetEmployeeById(Int32) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:37.3893 INFO Route matched with {action = "GetEmployeeById", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[ThreeTierApp.DAL.Models.Employee]] GetEmployeeById(Int32) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:15:37.4051 INFO Fetching employee with ID 16.
+2025-01-24 18:15:37.4051 INFO Fetching employee with ID 15.
+2025-01-24 18:15:37.4264 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:37.4398 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:37.4617 INFO Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:15:37.4617 INFO Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE `e`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:15:37.4931 INFO Employee with ID 16 fetched successfully.
+2025-01-24 18:15:37.4931 INFO Employee with ID 15 fetched successfully.
+2025-01-24 18:15:37.4931 INFO Executing ObjectResult, writing value of type 'ThreeTierApp.DAL.Models.Employee'.
+2025-01-24 18:15:37.4931 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web) in 104.3769ms
+2025-01-24 18:15:37.4931 INFO Executing ObjectResult, writing value of type 'ThreeTierApp.DAL.Models.Employee'.
+2025-01-24 18:15:37.4931 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web)'
+2025-01-24 18:15:37.4931 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web) in 102.3728ms
+2025-01-24 18:15:37.4931 INFO Request finished in 178.5872ms 200 application/json; charset=utf-8
+2025-01-24 18:15:37.5098 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetEmployeeById (ThreeTierApp.Web)'
+2025-01-24 18:15:37.5098 INFO Request finished in 252.4578ms 200 application/json; charset=utf-8
+2025-01-24 18:15:53.8615 INFO Request starting HTTP/2 PUT https://localhost:65391/tasks/2 application/json;charset=UTF-8 156
+2025-01-24 18:15:53.8615 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.UpdateTask (ThreeTierApp.Web)'
+2025-01-24 18:15:53.8738 INFO Route matched with {action = "UpdateTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] UpdateTask(Int32, ThreeTierApp.DAL.Models.TaskDetails) on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:15:53.9167 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:54.0989 INFO Executed DbCommand (2ms) [Parameters=[@p6='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = DateTime), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+UPDATE `tasks` SET `assigned_employee_ids` = @p0, `created_at` = @p1, `description` = @p2, `due_date` = @p3, `is_completed` = @p4, `title` = @p5
+WHERE `id` = @p6;
+SELECT `updated_at`
+FROM `tasks`
+WHERE ROW_COUNT() = 1 AND `id` = @p6;
+2025-01-24 18:15:54.1476 INFO Executing HttpStatusCodeResult, setting HTTP status code 204
+2025-01-24 18:15:54.1476 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.UpdateTask (ThreeTierApp.Web) in 268.2368ms
+2025-01-24 18:15:54.1492 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.UpdateTask (ThreeTierApp.Web)'
+2025-01-24 18:15:54.1492 INFO Request finished in 289.0194ms 204 
+2025-01-24 18:15:54.1492 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:15:54.1492 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:15:54.1492 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:15:54.1492 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:15:54.2013 INFO Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:15:54.2013 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:15:54.2013 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 46.4787ms
+2025-01-24 18:15:54.2013 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:15:54.2129 INFO Request finished in 56.7589ms 200 application/json; charset=utf-8
+2025-01-24 18:16:27.9565 INFO Request starting HTTP/2 POST https://localhost:65391/tasks application/json;charset=UTF-8 145
+2025-01-24 18:16:27.9862 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web)'
+2025-01-24 18:16:28.0084 INFO Route matched with {action = "AddTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] AddTask(ThreeTierApp.DAL.Models.TaskDetails) on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:16:28.2137 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:16:28.5551 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web) in 544.4289ms
+2025-01-24 18:16:28.5563 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web)'
+2025-01-24 18:16:28.5563 INFO Request finished in 600.9687ms 400 application/json; charset=utf-8
+2025-01-24 18:21:33.0513 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 18:21:33.5386 INFO Now listening on: https://localhost:65391
+2025-01-24 18:21:33.5412 INFO Now listening on: http://localhost:65392
+2025-01-24 18:21:33.5412 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 18:21:33.5412 INFO Hosting environment: Development
+2025-01-24 18:21:33.5412 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 18:21:34.3652 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 18:21:34.5793 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:21:34.6339 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:21:37.1220 INFO Login page accessed.
+2025-01-24 18:21:37.1421 INFO Executing ViewResult, running view Login.
+2025-01-24 18:21:37.1887 INFO Executed ViewResult - view Login executed in 51.2824ms.
+2025-01-24 18:21:37.1887 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2560.5827ms
+2025-01-24 18:21:37.2108 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:21:37.2176 INFO Request finished in 2853.8332ms 200 text/html; charset=utf-8
+2025-01-24 18:21:37.2438 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:21:37.2438 INFO Request finished in 4.3551ms 200 application/javascript; charset=utf-8
+2025-01-24 18:21:42.1950 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:21:42.2089 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:21:42.2344 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:21:42.2696 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:21:42.6963 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:21:42.7537 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:21:43.1724 INFO Executed DbCommand (55ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:21:43.2751 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:21:43.2751 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:21:43.2751 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:21:43.2967 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1058.9426ms
+2025-01-24 18:21:43.2967 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:21:43.3070 INFO Request finished in 1112.1807ms 200 application/json; charset=utf-8
+2025-01-24 18:21:43.3070 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:21:43.3414 INFO Authorization was successful.
+2025-01-24 18:21:43.3414 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:21:43.3414 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:21:43.3556 INFO Index page accessed by user John Doe.
+2025-01-24 18:21:43.3556 INFO Executing ViewResult, running view Index.
+2025-01-24 18:21:43.3740 INFO Executed ViewResult - view Index executed in 17.1452ms.
+2025-01-24 18:21:43.3740 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 27.7879ms
+2025-01-24 18:21:43.3740 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:21:43.3740 INFO Request finished in 66.7591ms 200 text/html; charset=utf-8
+2025-01-24 18:21:43.4141 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:21:43.4160 INFO Request finished in 1.8331ms 200 application/javascript; charset=utf-8
+2025-01-24 18:21:43.4966 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737723103432  
+2025-01-24 18:21:43.4966 INFO Authorization was successful.
+2025-01-24 18:21:43.4966 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:21:43.5134 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:21:43.5134 INFO Attempting to fetch all employees.
+2025-01-24 18:21:43.7811 INFO Employees fetched from cache.
+2025-01-24 18:21:43.7811 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:21:43.8019 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 287.0227ms
+2025-01-24 18:21:43.8019 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:21:43.8019 INFO Request finished in 307.6625ms 200 application/json; charset=utf-8
+2025-01-24 18:21:47.7119 INFO Request starting HTTP/2 GET https://localhost:65391/Task/Index  
+2025-01-24 18:21:47.7369 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:21:47.7369 INFO Route matched with {action = "Index", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:21:47.7891 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:21:47.8141 INFO Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:21:47.9219 INFO Executing ViewResult, running view Index.
+2025-01-24 18:21:47.9312 INFO Executed ViewResult - view Index executed in 9.9276ms.
+2025-01-24 18:21:47.9312 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web) in 188.3834ms
+2025-01-24 18:21:47.9312 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:21:47.9312 INFO Request finished in 225.8345ms 200 text/html; charset=utf-8
+2025-01-24 18:21:48.0314 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:21:48.0314 INFO Request finished in 6.8021ms 200 application/javascript; charset=utf-8
+2025-01-24 18:21:48.3365 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:21:48.3365 INFO Request starting HTTP/2 GET https://localhost:65391/employees  
+2025-01-24 18:21:48.3365 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:21:48.3365 INFO Authorization was successful.
+2025-01-24 18:21:48.3365 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:21:48.3365 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:21:48.3586 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:21:48.3774 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:21:48.3964 INFO Attempting to fetch all employees.
+2025-01-24 18:21:48.4118 INFO Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:21:48.4254 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:21:48.4254 INFO Employees fetched from cache.
+2025-01-24 18:21:48.4347 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:21:48.4347 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 77.4356ms
+2025-01-24 18:21:48.4347 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 74.4853ms
+2025-01-24 18:21:48.4347 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:21:48.4347 INFO Request finished in 104.2372ms 200 application/json; charset=utf-8
+2025-01-24 18:21:48.4347 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:21:48.4347 INFO Request finished in 107.6597ms 200 application/json; charset=utf-8
+2025-01-24 18:22:28.9474 INFO Request starting HTTP/2 POST https://localhost:65391/tasks application/json;charset=UTF-8 135
+2025-01-24 18:22:28.9474 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web)'
+2025-01-24 18:22:28.9474 INFO Route matched with {action = "AddTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] AddTask(ThreeTierApp.DAL.Models.TaskDetails) on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:22:28.9943 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:22:29.2532 INFO Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime), @p3='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `tasks` (`assigned_employee_ids`, `description`, `due_date`, `title`)
+VALUES (@p0, @p1, @p2, @p3);
+SELECT `id`, `created_at`, `is_completed`, `updated_at`
+FROM `tasks`
+WHERE ROW_COUNT() = 1 AND `id` = LAST_INSERT_ID();
+2025-01-24 18:22:29.3064 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:22:29.3373 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web) in 374.2782ms
+2025-01-24 18:22:29.3373 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.AddTask (ThreeTierApp.Web)'
+2025-01-24 18:22:29.3373 INFO Request finished in 393.8958ms 201 application/json; charset=utf-8
+2025-01-24 18:22:29.4583 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:22:29.4583 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:22:29.4583 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:22:29.4661 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:22:29.4661 INFO Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:22:29.4773 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:22:29.4773 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 18.0302ms
+2025-01-24 18:22:29.4773 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:22:29.4773 INFO Request finished in 30.9861ms 200 application/json; charset=utf-8
+2025-01-24 18:25:34.2183 INFO User profile is available. Using 'C:\Users\Hex-Dev-7\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-24 18:25:34.7015 INFO Now listening on: https://localhost:65391
+2025-01-24 18:25:34.7015 INFO Now listening on: http://localhost:65392
+2025-01-24 18:25:34.7015 INFO Application started. Press Ctrl+C to shut down.
+2025-01-24 18:25:34.7015 INFO Hosting environment: Development
+2025-01-24 18:25:34.7015 INFO Content root path: E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web
+2025-01-24 18:25:35.6790 INFO Request starting HTTP/2 GET https://localhost:65391/  
+2025-01-24 18:25:35.8663 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:25:35.9373 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:25:38.4697 INFO Login page accessed.
+2025-01-24 18:25:38.4959 INFO Executing ViewResult, running view Login.
+2025-01-24 18:25:38.5403 INFO Executed ViewResult - view Login executed in 50.8829ms.
+2025-01-24 18:25:38.5403 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 2605.5946ms
+2025-01-24 18:25:38.5403 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:25:38.5631 INFO Request finished in 2885.1874ms 200 text/html; charset=utf-8
+2025-01-24 18:25:38.5843 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:25:38.5871 INFO Request finished in 2.84ms 200 application/javascript; charset=utf-8
+2025-01-24 18:25:50.2814 INFO Request starting HTTP/2 POST https://localhost:65391/login application/json 62
+2025-01-24 18:25:50.2814 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:25:50.3133 INFO Route matched with {action = "Login", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ThreeTierApp.Web.Models.LoginModel) on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:25:50.3530 INFO Attempting login for user john.doe@example.com.
+2025-01-24 18:25:50.7823 WARN The property 'AssignedEmployeeIds' on entity type 'TaskDetails' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2025-01-24 18:25:50.8264 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:25:51.2455 INFO Executed DbCommand (56ms) [Parameters=[@__emailOrUsername_0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SELECT `e`.`id`, `e`.`created_at`, `e`.`date_of_joining`, `e`.`department`, `e`.`email`, `e`.`is_active`, `e`.`last_login`, `e`.`name`, `e`.`password_hash`, `e`.`role`, `e`.`salary`, `e`.`updated_at`, `e`.`username`
+FROM `employees` AS `e`
+WHERE (`e`.`email` = @__emailOrUsername_0) OR (`e`.`username` = @__emailOrUsername_0)
+LIMIT 1
+2025-01-24 18:25:51.3530 INFO AuthenticationScheme: Cookies signed in.
+2025-01-24 18:25:51.3530 INFO User john.doe@example.com logged in successfully.
+2025-01-24 18:25:51.3530 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:25:51.3698 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web) in 1052.5902ms
+2025-01-24 18:25:51.3698 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Login (ThreeTierApp.Web)'
+2025-01-24 18:25:51.3698 INFO Request finished in 1097.5193ms 200 application/json; charset=utf-8
+2025-01-24 18:25:51.3899 INFO Request starting HTTP/2 GET https://localhost:65391/Employee/Index  
+2025-01-24 18:25:51.4172 INFO Authorization was successful.
+2025-01-24 18:25:51.4172 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:25:51.4172 INFO Route matched with {action = "Index", controller = "Employee"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:25:51.4172 INFO Index page accessed by user John Doe.
+2025-01-24 18:25:51.4330 INFO Executing ViewResult, running view Index.
+2025-01-24 18:25:51.4488 INFO Executed ViewResult - view Index executed in 16.9366ms.
+2025-01-24 18:25:51.4488 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web) in 25.6269ms
+2025-01-24 18:25:51.4488 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.Index (ThreeTierApp.Web)'
+2025-01-24 18:25:51.4643 INFO Request finished in 74.4133ms 200 text/html; charset=utf-8
+2025-01-24 18:25:51.4785 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:25:51.4785 INFO Request finished in 1.4684ms 200 application/javascript; charset=utf-8
+2025-01-24 18:25:51.5725 INFO Request starting HTTP/2 GET https://localhost:65391/employees?_=1737723351503  
+2025-01-24 18:25:51.5725 INFO Authorization was successful.
+2025-01-24 18:25:51.5725 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:25:51.5946 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:25:51.6032 INFO Attempting to fetch all employees.
+2025-01-24 18:25:51.8820 INFO Employees fetched from cache.
+2025-01-24 18:25:51.8853 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:25:51.9038 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 306.6121ms
+2025-01-24 18:25:51.9038 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:25:51.9038 INFO Request finished in 333.238ms 200 application/json; charset=utf-8
+2025-01-24 18:25:52.7257 INFO Request starting HTTP/2 GET https://localhost:65391/Task/Index  
+2025-01-24 18:25:52.9477 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:25:52.9692 INFO Route matched with {action = "Index", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:25:53.0321 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:25:53.0510 INFO Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:25:53.1565 INFO Executing ViewResult, running view Index.
+2025-01-24 18:25:53.1647 INFO Executed ViewResult - view Index executed in 8.9493ms.
+2025-01-24 18:25:53.1647 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web) in 173.9516ms
+2025-01-24 18:25:53.1647 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.Index (ThreeTierApp.Web)'
+2025-01-24 18:25:53.1647 INFO Request finished in 442.9059ms 200 text/html; charset=utf-8
+2025-01-24 18:25:53.2030 INFO Request starting HTTP/2 GET https://localhost:65391/_framework/aspnetcore-browser-refresh.js  
+2025-01-24 18:25:53.2030 INFO Request finished in 6.0124ms 200 application/javascript; charset=utf-8
+2025-01-24 18:25:53.2808 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:25:53.2808 INFO Request starting HTTP/2 GET https://localhost:65391/employees  
+2025-01-24 18:25:53.2808 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:25:53.2808 INFO Authorization was successful.
+2025-01-24 18:25:53.2808 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:25:53.2808 INFO Route matched with {action = "GetAllEmployees", controller = "Employee"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ThreeTierApp.DAL.Models.Employee]]] GetAllEmployees() on controller ThreeTierApp.Web.Controllers.EmployeeController (ThreeTierApp.Web).
+2025-01-24 18:25:53.2808 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:25:53.2930 INFO Attempting to fetch all employees.
+2025-01-24 18:25:53.3057 INFO Employees fetched from cache.
+2025-01-24 18:25:53.3057 INFO Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThreeTierApp.DAL.Models.Employee, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-01-24 18:25:53.3057 INFO Executed action ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web) in 20.4817ms
+2025-01-24 18:25:53.3057 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:25:53.3057 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.EmployeeController.GetAllEmployees (ThreeTierApp.Web)'
+2025-01-24 18:25:53.3057 INFO Request finished in 31.4879ms 200 application/json; charset=utf-8
+2025-01-24 18:25:53.3298 INFO Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:25:53.3298 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:25:53.3411 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 50.5137ms
+2025-01-24 18:25:53.3411 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:25:53.3411 INFO Request finished in 63.8688ms 200 application/json; charset=utf-8
+2025-01-24 18:25:57.5127 INFO Request starting HTTP/2 DELETE https://localhost:65391/tasks/14  
+2025-01-24 18:25:57.5127 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.DeleteTask (ThreeTierApp.Web)'
+2025-01-24 18:25:57.5242 INFO Route matched with {action = "DeleteTask", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] DeleteTask(Int32) on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:25:57.5242 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:25:57.5706 INFO Executed DbCommand (11ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+WHERE `t`.`id` = @__p_0
+LIMIT 1
+2025-01-24 18:25:57.7095 INFO Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+DELETE FROM `tasks`
+WHERE `id` = @p0;
+SELECT ROW_COUNT();
+2025-01-24 18:25:57.7354 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:25:57.7354 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.DeleteTask (ThreeTierApp.Web) in 212.4723ms
+2025-01-24 18:25:57.7354 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.DeleteTask (ThreeTierApp.Web)'
+2025-01-24 18:25:57.7354 INFO Request finished in 228.2495ms 200 application/json; charset=utf-8
+2025-01-24 18:25:57.7446 INFO Request starting HTTP/2 GET https://localhost:65391/tasks  
+2025-01-24 18:25:57.7446 INFO Executing endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:25:57.7446 INFO Route matched with {action = "GetTasks", controller = "Task"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks() on controller ThreeTierApp.Web.Controllers.TaskController (ThreeTierApp.Web).
+2025-01-24 18:25:57.7446 INFO Entity Framework Core 3.1.1 initialized 'AppDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+2025-01-24 18:25:57.7599 INFO Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`id`, `t`.`assigned_employee_ids`, `t`.`created_at`, `t`.`description`, `t`.`due_date`, `t`.`is_completed`, `t`.`title`, `t`.`updated_at`
+FROM `tasks` AS `t`
+2025-01-24 18:25:57.7599 INFO Executing ObjectResult, writing value of type '<>f__AnonymousType5`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.IEnumerable`1[[ThreeTierApp.DAL.Models.TaskDetails, ThreeTierApp.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-01-24 18:25:57.7599 INFO Executed action ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web) in 13.2399ms
+2025-01-24 18:25:57.7599 INFO Executed endpoint 'ThreeTierApp.Web.Controllers.TaskController.GetTasks (ThreeTierApp.Web)'
+2025-01-24 18:25:57.7599 INFO Request finished in 23.928ms 200 application/json; charset=utf-8

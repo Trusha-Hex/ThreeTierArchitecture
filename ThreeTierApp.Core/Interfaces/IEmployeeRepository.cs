@@ -6,12 +6,12 @@ namespace ThreeTierApp.Core.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<IEnumerable<Employee>> GetAllAsync();
-        Task<Employee> GetByIdAsync(int id);
-        Task AddAsync(Employee employee);
-        Task UpdateAsync(Employee employee);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Employee>> GetAllEmployeeAsync();
+        Task<Employee> GetEmployeeByIdAsync(int id);
+        Task AddEmployeeAsync(Employee employee);
+        Task UpdateEmployeeAsync(Employee employee);
+        Task DeleteEmployeeAsync(int id);
         Task<Employee> GetEmployeeByEmailOrUsernameAsync(string emailOrUsername);
-        Task<bool> UpdateStatusAsync(int employeeId, bool isActive);
+        Task<bool> UpdateEmployeeStatusAsync(int employeeId, bool isActive);
     }
 }

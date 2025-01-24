@@ -331,13 +331,30 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest("Invalid value for 'isActive'. Must be 'true' or 'false'.");
             }
 
+            // Update employee status
             var result = await _employeeService.UpdateStatusAsync(employeeId, isActiveBool);
 
             if (result)
+            {
+                // If the employee status was updated successfully, proceed with cache update
+                _logger.LogInformation("Employee {EmployeeId} status updated to {IsActive}.", employeeId, isActiveBool);
+
+                // Delete the old cache entry for the employee to ensure freshness
+                await _cacheService.DeleteCacheData($"employee:{employeeId}");
+
+                // Update the cache with the updated employee data
+                var updatedEmployee = await _employeeService.GetEmployeeByIdAsync(employeeId);
+                await _cacheService.SetCacheData($"employee:{employeeId}", updatedEmployee);
+
+                // Optionally update the cache for all employees if needed
+                await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
+
                 return Ok(new { message = "Employee status updated successfully." });
+            }
 
             return NotFound(new { message = "Employee not found." });
         }
+
 
         [HttpPost("logout")]
         [Authorize]
