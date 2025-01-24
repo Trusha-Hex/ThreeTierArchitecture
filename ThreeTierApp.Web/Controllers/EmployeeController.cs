@@ -59,7 +59,7 @@ namespace ThreeTierApp.Web.Controllers
 
                 // Attempt to retrieve from cache
                 var cachedEmployees = await _cacheService.GetCacheData<List<Employee>>("employees");
-                if (cachedEmployees != null)
+                 if (cachedEmployees != null)
                 {
                     _logger.LogInformation("Employees fetched from cache.");
                     return Ok(cachedEmployees);
@@ -69,8 +69,8 @@ namespace ThreeTierApp.Web.Controllers
                 var employees = await _employeeService.GetAllEmployeesAsync();
                 if (employees != null && employees.Any())
                 {
-                    var cacheExpiration = TimeSpan.FromMinutes(30);
-                    await _cacheService.SetCacheData("employees", employees, cacheExpiration);  // Set cache with data
+                    var cacheExpiration = TimeSpan.FromMinutes(1);
+                    await _cacheService.SetCacheData("employees", employees, cacheExpiration);  
                 }
 
                 _logger.LogInformation("Employees fetched successfully for user {User}.", loggedInUserId);
@@ -205,103 +205,65 @@ namespace ThreeTierApp.Web.Controllers
 
         [HttpPost("employees")]
         [Authorize]
-        public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
+        public async Task<ActionResult> AddEmployee([FromBody] Employee employee)
         {
             if (employee == null)
             {
-                _logger.LogWarning("Employee data is missing for add operation.");
                 return BadRequest(new { message = "Employee data is required." });
             }
 
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            // Admin: Can add any employee
             if (userRole == "Admin")
             {
-                _logger.LogInformation("Admin {User} is attempting to add a new employee.", User.Identity.Name);
                 var result = await _employeeService.AddEmployeeAsync(employee);
                 if (result != null)
                 {
-                    _logger.LogError("Error while adding employee: {Result}", result);
                     return BadRequest(new { message = result });
                 }
 
-                // Clear the cache after adding a new employee
                 await _cacheService.DeleteCacheData("employees");
 
-                _logger.LogInformation("Employee {EmployeeName} added successfully by Admin.", employee.Name);
-                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+                return CreatedAtAction(
+                    nameof(GetEmployeeById),
+                    new { id = employee.Id },
+                    new { message = $"Employee {employee.Name} added successfully!", data = employee });
             }
 
-            // Manager/Employee: Cannot add employees
-            _logger.LogWarning("Unauthorized add employee attempt by {User}.", User.Identity.Name);
             return Unauthorized(new { message = "You do not have permission to add employees." });
         }
+
+
 
         [HttpPut("employees/{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
-            try
+            if (id != employee.Id)
             {
-                var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userRole = User.FindFirstValue(ClaimTypes.Role);
-
-                // Ensure the employee ID matches the URL parameter
-                if (id != employee.Id)
-                {
-                    _logger.LogWarning("Employee ID mismatch: {Id} in URL, {EmployeeId} in body.", id, employee.Id);
-                    return BadRequest(new { message = "Employee ID mismatch" });
-                }
-
-                // Admin: Can update any employee
-                if (userRole == "Admin")
-                {
-                    _logger.LogInformation("Admin {User} is updating employee {EmployeeId}.", User.Identity.Name, id);
-                    var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
-                    if (validationResult != null)
-                    {
-                        return BadRequest(validationResult);
-                    }
-
-                    // Clear cache
-                    await _cacheService.DeleteCacheData($"employee:{id}");
-                    await _cacheService.DeleteCacheData("employees");
-
-                    _logger.LogInformation("Employee {EmployeeId} updated successfully.", id);
-                    return NoContent();
-                }
-
-                // Manager/Employee: Cannot update other employees
-                if (userRole == "Manager" || userRole == "Employee")
-                {
-                    if (loggedInUserId != employee.Id)
-                    {
-                        _logger.LogWarning("Unauthorized update attempt by {User} for employee {EmployeeId}.", User.Identity.Name, id);
-                        return Unauthorized(new { message = "You do not have permission to update this employee." });
-                    }
-                    var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
-                    if (validationResult != null)
-                    {
-                        return BadRequest(validationResult);
-                    }
-
-                    // Clear cache
-                    await _cacheService.DeleteCacheData($"employee:{id}");
-                    await _cacheService.DeleteCacheData("employees");
-
-                    _logger.LogInformation("Employee {EmployeeId} updated successfully by {User}.", id, User.Identity.Name);
-                    return NoContent();
-                }
-
-                return Unauthorized(new { message = "Unauthorized role to update employee." });
+                return BadRequest(new { message = "Employee ID mismatch." });
             }
-            catch (Exception ex)
+
+            var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            if (userRole == "Admin" || loggedInUserId == employee.Id)
             {
-                _logger.LogError(ex, "Error occurred while updating employee {EmployeeId}.", id);
-                return BadRequest(new { message = $"Error updating employee: {ex.Message}" });
+                var validationResult = await _employeeService.UpdateEmployeeAsync(employee);
+                if (validationResult != null)
+                {
+                    return BadRequest(new { message = validationResult });
+                }
+
+                await _cacheService.DeleteCacheData($"employee:{id}");
+                await _cacheService.DeleteCacheData("employees");
+
+                return Ok(new { message = $"Employee {employee.Name} updated successfully!" });
             }
+
+            return Unauthorized(new { message = "You do not have permission to update this employee." });
         }
+
 
         [HttpDelete("employees/{id}")]
         [Authorize]
@@ -312,45 +274,22 @@ namespace ThreeTierApp.Web.Controllers
                 var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-                // Admin: Can delete any employee
-                if (userRole == "Admin")
+                if (userRole == "Admin" || loggedInUserId == id)
                 {
-                    _logger.LogInformation("Admin {User} is deleting employee {EmployeeId}.", User.Identity.Name, id);
-                    await _employeeService.DeleteEmployeeAsync(id);  // No need to capture result here
+                    _logger.LogInformation("{UserRole} {User} is deleting employee {EmployeeId}.", userRole, User.Identity.Name, id);
 
-                    // Clear cache
-                    await _cacheService.DeleteCacheData($"employee:{id}");
-                    await _cacheService.DeleteCacheData("employees");
-
-                    _logger.LogInformation("Employee {EmployeeId} deleted successfully.", id);
-                    return NoContent();
-                }
-
-                // Manager/Employee: Cannot delete other employees
-                if (userRole == "Manager" || userRole == "Employee")
-                {
-                    if (loggedInUserId != id)
-                    {
-                        _logger.LogWarning("Unauthorized delete attempt by {User} for employee {EmployeeId}.", User.Identity.Name, id);
-                        return Unauthorized(new { message = "You do not have permission to delete this employee." });
-                    }
-
-                    await _employeeService.DeleteEmployeeAsync(id);  // No need to capture result here
+                    await _employeeService.DeleteEmployeeAsync(id);
 
                     // Clear cache
                     await _cacheService.DeleteCacheData($"employee:{id}");
                     await _cacheService.DeleteCacheData("employees");
 
                     _logger.LogInformation("Employee {EmployeeId} deleted successfully by {User}.", id, User.Identity.Name);
-                    return NoContent();
+                    return NoContent(); // Success response
                 }
 
-                return Unauthorized(new { message = "Unauthorized role to delete employee." });
-            }
-            catch (ArgumentException ex)
-            {
-                _logger.LogError(ex, "Invalid employee ID while deleting employee {EmployeeId}.", id);
-                return BadRequest(new { message = ex.Message });
+                _logger.LogWarning("Unauthorized delete attempt by {User} for employee {EmployeeId}.", User.Identity.Name, id);
+                return Unauthorized(new { message = "You do not have permission to delete this employee." });
             }
             catch (KeyNotFoundException ex)
             {
@@ -363,6 +302,7 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
             }
         }
+
 
 
         [HttpPut("update-status/{employeeId}")]

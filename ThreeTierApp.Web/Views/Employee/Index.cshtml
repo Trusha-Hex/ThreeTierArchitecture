@@ -357,37 +357,78 @@
 
     <script>
         const apiBaseUrl = "https://localhost:65391/employees";
+        // let employeesTable = $('#employees-table').DataTable();
+        // function loadEmployees() {
+        //     $.get(apiBaseUrl, function(data) {
+        //         employeesTable.clear(); 
 
-        let employeesTable = $('#employees-table').DataTable();
+        //         data.forEach(employee => {
+        //             employeesTable.row.add([
+        //                 employee.id,
+        //                 employee.name,
+        //                 employee.username,
+        //                 employee.email,
+        //                 employee.department,
+        //                 employee.salary,
+        //                 employee.role,
+        //                 `<div class="form-check form-switch">
+        //                     <input class="form-check-input" type="checkbox" id="active-toggle-${employee.id}" ${employee.isActive ? 'checked' : ''} onchange="toggleActive(${employee.id}, this)">
+        //                 </div>`,
+        //                 `<button class="btn btn-warning" onclick="editEmployee(${employee.id})">
+        //                     <i class="fas fa-edit"></i>
+        //                 </button>
+        //                 <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
+        //                     <i class="fas fa-trash"></i>
+        //                 </button>
+        //                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal" onclick="setEmployeeIdForTasks(${employee.id})">Tasks Assigned</button>
+        // `
+        //             ]).draw(false); 
+        //         });
+        //     });
+        // }
 
-        function loadEmployees() {
-            $.get(apiBaseUrl, function(data) {
-                employeesTable.clear(); 
-
-                data.forEach(employee => {
-                    employeesTable.row.add([
-                        employee.id,
-                        employee.name,
-                        employee.username,
-                        employee.email,
-                        employee.department,
-                        employee.salary,
-                        employee.role,
-                        `<div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="active-toggle-${employee.id}" ${employee.isActive ? 'checked' : ''} onchange="toggleActive(${employee.id}, this)">
-                        </div>`,
-                        `<button class="btn btn-warning" onclick="editEmployee(${employee.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal" onclick="setEmployeeIdForTasks(${employee.id})">Tasks Assigned</button>
-        `
-                    ]).draw(false); 
-                });
-            });
-        }
+        const employeesTable = $('#employees-table').DataTable({
+            ajax: {
+                url: apiBaseUrl,
+                type: "GET",
+                dataSrc: ""
+            },
+            columns: [
+                { data: "id" },
+                { data: "name" },
+                { data: "username" },
+                { data: "email" },
+                { data: "department" },
+                { data: "salary" },
+                { data: "role" },
+                {
+                    data: "isActive",
+                    render: function(data, type, row) {
+                        return `
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="active-toggle-${row.id}" ${data ? "checked" : ""} onchange="toggleActive(${row.id}, this)">
+                            </div>
+                        `;
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `
+                            <button class="btn btn-warning" onclick="editEmployee(${row.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteEmployee(${row.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal" onclick="setEmployeeIdForTasks(${row.id})">
+                                Tasks Assigned
+                            </button>
+                        `;
+                    }
+                }
+            ]
+        });
 
         function toggleActive(employeeId, toggle) {
             const isActive = toggle.checked;
@@ -422,7 +463,7 @@
             setTimeout(() => alertBox.fadeOut(), 3000);
         }
 
-            $("#add-btn").click(function() {
+        $("#add-btn").click(function () {
             const name = $("#employee-name").val();
             const username = $("#employee-username").val();
             const email = $("#employee-email").val();
@@ -435,20 +476,19 @@
             $(".error-message").hide();
 
             if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
-                console.log("Validation failed: ", { name, username, email, password, department, salary });
                 isValid = false;
                 $("#error-message").text("All fields are required and salary must be greater than 0.").show();
             }
 
             if (isValid) {
                 const employee = {
-                    name: name,
-                    username: username,
-                    email: email,
-                    passwordHash: password, // Store the hashed password
-                    department: department,
-                    salary: salary,
-                    role: role
+                    name,
+                    username,
+                    email,
+                    passwordHash: password, // Store hashed password
+                    department,
+                    salary,
+                    role,
                 };
 
                 $.ajax({
@@ -456,22 +496,21 @@
                     type: "POST",
                     data: JSON.stringify(employee),
                     contentType: "application/json",
-                    success: function(response) {
-                        loadEmployees(); // Refresh the table
+                    success: function (response) {
+                        employeesTable.ajax.reload(); // Reload table data using DataTables
                         clearForm();
-                        $("#employeeModal").modal("hide");
-                        showAlert('success', response.message || "Employee added successfully!"); // Show success message from API response
+                        $("#employeeModal").modal("hide"); // Close the modal
+                        showAlert("success", response.message || "Employee added successfully!"); // Success alert
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         const errorMessage = xhr.responseJSON?.message || "Failed to add employee.";
-                        showAlert('danger', errorMessage); // Show error message from API response
-                    }
+                        showAlert("danger", errorMessage); // Error alert
+                    },
                 });
             }
         });
 
-        // Update employee
-        $("#update-btn").click(function() {
+        $("#update-btn").click(function () {
             const id = $("#employee-id").val();
             const name = $("#employee-name").val();
             const username = $("#employee-username").val();
@@ -492,13 +531,13 @@
             if (isValid) {
                 const employee = {
                     id: parseInt(id),
-                    name: name,
-                    username: username,
-                    email: email,
-                    passwordHash: password, // Store the hashed password
-                    department: department,
-                    salary: salary,
-                    role: role
+                    name,
+                    username,
+                    email,
+                    passwordHash: password,
+                    department,
+                    salary,
+                    role,
                 };
 
                 $.ajax({
@@ -506,21 +545,22 @@
                     type: "PUT",
                     data: JSON.stringify(employee),
                     contentType: "application/json",
-                    success: function() {
-                        loadEmployees(); // Refresh the table
+                    success: function () {
+                        employeesTable.ajax.reload(); // Reload table data
                         clearForm();
                         $("#add-btn").show();
                         $("#update-btn").hide();
-                        $("#employeeModal").modal("hide");
-                        showAlert('success', "Employee updated successfully!"); // Success message for editing
+                        $("#employeeModal").modal("hide"); // Close the modal
+                        showAlert("success", "Employee updated successfully!"); // Success alert
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         const errorMessage = xhr.responseJSON?.message || "Failed to update employee.";
-                        showAlert('danger', errorMessage); // Show error message for update
-                    }
+                        showAlert("danger", errorMessage); // Error alert
+                    },
                 });
             }
         });
+
 
         // Edit employee
         function editEmployee(id) {
@@ -545,19 +585,22 @@
         function deleteEmployee(id) {
             if (confirm("Are you sure you want to delete this employee?")) {
                 $.ajax({
-                    url: `${apiBaseUrl}/${id}`,
+                    url: `${apiBaseUrl}/${id}`, // Ensure endpoint matches the API route
                     type: "DELETE",
-                    success: function() {
-                        loadEmployees(); // Refresh the table
-                        showAlert('success', "Employee deleted successfully!"); // Correct notification message
+                    success: function () {
+                        // Refresh table
+                        employeesTable.ajax.reload(); // Refresh DataTable directly
+                        showAlert("success", "Employee deleted successfully!");
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         const errorMessage = xhr.responseJSON?.message || "Failed to delete employee.";
-                        showAlert('danger', errorMessage); // Show error message
-                    }
+                        console.error("Delete Error:", xhr); // Log the error for debugging
+                        showAlert("danger", errorMessage);
+                    },
                 });
             }
         }
+
 
            function setEmployeeIdForTasks(employeeId) {
             console.log("Employee ID being set:", employeeId);

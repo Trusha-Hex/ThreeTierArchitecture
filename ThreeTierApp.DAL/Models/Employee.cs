@@ -35,20 +35,24 @@ namespace ThreeTierApp.DAL.Models
 
         [Required]
         [Column("password_hash")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(3)]
         public virtual string PasswordHash { get; set; }
 
         [Column("department")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(4)]
         public virtual string Department { get; set; }
 
         [Column("salary")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(5)]
         [Range(0, double.MaxValue, ErrorMessage = "Salary must be a positive value.")]
         public virtual decimal Salary { get; set; }
 
         [Column("role")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(6)]
         public virtual string Role { get; set; }
 
         [Column("date_of_joining")]

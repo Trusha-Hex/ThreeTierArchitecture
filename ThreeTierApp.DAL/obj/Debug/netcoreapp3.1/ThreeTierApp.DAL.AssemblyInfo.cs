@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThreeTierApp.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fcff71030c8bfbfdeee3625dfc94b15e8f12e9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6a84fd2976b6efcbeed8def9b32bc6081ec2578")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThreeTierApp.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThreeTierApp.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -103,7 +103,7 @@ namespace ThreeTierApp
                 app.UseHsts();
             }
 
-            logger.LogInformation("Application started successfully.");
+            //logger.LogInformation("Application started successfully.");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
