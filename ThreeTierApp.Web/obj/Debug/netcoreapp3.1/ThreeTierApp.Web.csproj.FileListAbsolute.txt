@@ -102,3 +102,4 @@ E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTi
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.dll
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.pdb
 E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\obj\Debug\netcoreapp3.1\ThreeTierApp.Web.genruntimeconfig.cache
+E:\Trusha\Training\ThreeTierApp\ThreeTierApp.Web\bin\Debug\netcoreapp3.1\Logs\logfile-2025-01-24.json

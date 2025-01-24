@@ -13,7 +13,8 @@ namespace ThreeTierApp.DAL.Models
     {
         [Key]
         [Column("id")]
-        [IgnoreFormat]
+        //[IgnoreFormat]
+        [Index(7)]
         public virtual int Id { get; set; }  
 
         [Required] 

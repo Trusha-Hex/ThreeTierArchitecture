@@ -69,8 +69,7 @@ namespace ThreeTierApp.Web.Controllers
                 var employees = await _employeeService.GetAllEmployeesAsync();
                 if (employees != null && employees.Any())
                 {
-                    var cacheExpiration = TimeSpan.FromMinutes(1);
-                    await _cacheService.SetCacheData("employees", employees, cacheExpiration);  
+                    await _cacheService.SetCacheData("employees", employees);  
                 }
 
                 _logger.LogInformation("Employees fetched successfully for user {User}.", loggedInUserId);
@@ -133,9 +132,7 @@ namespace ThreeTierApp.Web.Controllers
                     return NotFound(new { message = "Employee not found" });
                 }
 
-                // Set cache
-                var cacheExpiration = TimeSpan.FromMinutes(30);
-                await _cacheService.SetCacheData($"employee:{id}", employee, cacheExpiration);
+                await _cacheService.SetCacheData($"employee:{id}", employee);
 
                 _logger.LogInformation("Employee with ID {EmployeeId} fetched successfully.", id);
                 return Ok(employee);
@@ -222,7 +219,8 @@ namespace ThreeTierApp.Web.Controllers
                     return BadRequest(new { message = result });
                 }
 
-                await _cacheService.DeleteCacheData("employees");
+                // Update cache after adding
+                await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
 
                 return CreatedAtAction(
                     nameof(GetEmployeeById),
@@ -232,6 +230,7 @@ namespace ThreeTierApp.Web.Controllers
 
             return Unauthorized(new { message = "You do not have permission to add employees." });
         }
+
 
 
 
@@ -255,14 +254,16 @@ namespace ThreeTierApp.Web.Controllers
                     return BadRequest(new { message = validationResult });
                 }
 
-                await _cacheService.DeleteCacheData($"employee:{id}");
-                await _cacheService.DeleteCacheData("employees");
+                // Update cache after updating
+                await _cacheService.SetCacheData($"employee:{id}", employee);
+                await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
 
                 return Ok(new { message = $"Employee {employee.Name} updated successfully!" });
             }
 
             return Unauthorized(new { message = "You do not have permission to update this employee." });
         }
+
 
 
         [HttpDelete("employees/{id}")]
@@ -280,12 +281,12 @@ namespace ThreeTierApp.Web.Controllers
 
                     await _employeeService.DeleteEmployeeAsync(id);
 
-                    // Clear cache
+                    // Update cache after deleting
                     await _cacheService.DeleteCacheData($"employee:{id}");
-                    await _cacheService.DeleteCacheData("employees");
+                    await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
 
                     _logger.LogInformation("Employee {EmployeeId} deleted successfully by {User}.", id, User.Identity.Name);
-                    return NoContent(); // Success response
+                    return NoContent();
                 }
 
                 _logger.LogWarning("Unauthorized delete attempt by {User} for employee {EmployeeId}.", User.Identity.Name, id);
@@ -302,6 +303,7 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
             }
         }
+
 
 
 

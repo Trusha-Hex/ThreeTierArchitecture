@@ -40,7 +40,7 @@ namespace ThreeTierApp.Core.Services
             employee = await _repository.GetByIdAsync(id);
             if (employee != null)
             {
-                await _cacheService.SetCacheData(cacheKey, employee, TimeSpan.FromMinutes(10));
+                await _cacheService.SetCacheData(cacheKey, employee);
             }
 
             return employee;
@@ -65,7 +65,7 @@ namespace ThreeTierApp.Core.Services
             await _repository.AddAsync(employee);
 
             // Cache the new employee
-            await _cacheService.SetCacheData($"employee:{employee.Id}", employee, TimeSpan.FromMinutes(10));
+            await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
 
             return null;
         }
@@ -79,7 +79,7 @@ namespace ThreeTierApp.Core.Services
             await _repository.UpdateAsync(employee);
 
             // Update the cache
-            await _cacheService.SetCacheData($"employee:{employee.Id}", employee, TimeSpan.FromMinutes(10));
+            await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
 
             return null;
         }
@@ -131,7 +131,7 @@ namespace ThreeTierApp.Core.Services
                 if (employee != null)
                 {
                     employee.IsActive = isActive;
-                    await _cacheService.SetCacheData($"employee:{employeeId}", employee, TimeSpan.FromMinutes(10));
+                    await _cacheService.SetCacheData($"employee:{employeeId}", employee);
                 }
             }
 
