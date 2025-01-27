@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using ZeroFormatter;
+using ThreeTierApp.DAL.Enums;
 
 namespace ThreeTierApp.DAL.Models
 {
@@ -43,7 +44,7 @@ namespace ThreeTierApp.DAL.Models
         [Column("department")]
         //[IgnoreFormat]
         [Index(4)]
-        public virtual string Department { get; set; }
+        public virtual int Department { get; set; }
 
         [Column("salary")]
         //[IgnoreFormat]
@@ -54,7 +55,7 @@ namespace ThreeTierApp.DAL.Models
         [Column("role")]
         //[IgnoreFormat]
         [Index(6)]
-        public virtual string Role { get; set; }
+        public virtual int Role { get; set; }
 
         [Column("date_of_joining")]
         [IgnoreFormat]
@@ -75,6 +76,15 @@ namespace ThreeTierApp.DAL.Models
 
         [Column("updated_at")]
         [IgnoreFormat]
-        public virtual DateTime? UpdatedAt { get; set; } = DateTime.UtcNow; 
+        public virtual DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [NotMapped] // Ensures these properties are not mapped to database columns
+        [IgnoreFormat]
+        public virtual string RoleName => Enum.GetName(typeof(Role), (Role)Role);
+
+        [NotMapped]
+        [IgnoreFormat]
+        public virtual string DepartmentName => Enum.GetName(typeof(Department), (Department)Department);
+
     }
 }

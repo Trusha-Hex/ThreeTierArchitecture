@@ -323,7 +323,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="employee-department">Department:</label>
-                                <input type="text" id="employee-department" class="form-control">
+                                <select id="employee-department" class="form-select">
+                                    <option value="0">HR</option>
+                                    <option value="1">IT</option>
+                                    <option value="2">Sales</option>
+                                    <option value="3">Finance</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -337,10 +342,9 @@
                     <div class="form-group">
                         <label for="employee-role">Role:</label>
                         <select id="employee-role" class="form-select">
-                            <option value="Admin">Admin</option>
-                            <option value="Manager">Manager</option>
-                            <option value="HR">HR</option>
-                            <option value="Employee">Employee</option>
+                            <option value="0">Admin</option>
+                            <option value="1">Manager</option>
+                            <option value="2">Employee</option>
                         </select>
                     </div>
                 </div>
@@ -355,37 +359,9 @@
         </div>
     </div>
 
+
     <script>
         const apiBaseUrl = "https://localhost:65391/employees";
-        // let employeesTable = $('#employees-table').DataTable();
-        // function loadEmployees() {
-        //     $.get(apiBaseUrl, function(data) {
-        //         employeesTable.clear(); 
-
-        //         data.forEach(employee => {
-        //             employeesTable.row.add([
-        //                 employee.id,
-        //                 employee.name,
-        //                 employee.username,
-        //                 employee.email,
-        //                 employee.department,
-        //                 employee.salary,
-        //                 employee.role,
-        //                 `<div class="form-check form-switch">
-        //                     <input class="form-check-input" type="checkbox" id="active-toggle-${employee.id}" ${employee.isActive ? 'checked' : ''} onchange="toggleActive(${employee.id}, this)">
-        //                 </div>`,
-        //                 `<button class="btn btn-warning" onclick="editEmployee(${employee.id})">
-        //                     <i class="fas fa-edit"></i>
-        //                 </button>
-        //                 <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">
-        //                     <i class="fas fa-trash"></i>
-        //                 </button>
-        //                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal" onclick="setEmployeeIdForTasks(${employee.id})">Tasks Assigned</button>
-        // `
-        //             ]).draw(false); 
-        //         });
-        //     });
-        // }
 
         const employeesTable = $('#employees-table').DataTable({
             ajax: {
@@ -398,9 +374,9 @@
                 { data: "name" },
                 { data: "username" },
                 { data: "email" },
-                { data: "department" },
+                { data: "departmentName" },
                 { data: "salary" },
-                { data: "role" },
+                { data: "roleName" },
                 {
                     data: "isActive",
                     render: function(data, type, row) {
@@ -463,19 +439,19 @@
             setTimeout(() => alertBox.fadeOut(), 3000);
         }
 
-        $("#add-btn").click(function () {
+                $("#add-btn").click(function () {
             const name = $("#employee-name").val();
             const username = $("#employee-username").val();
             const email = $("#employee-email").val();
             const password = $("#employee-password").val();
-            const department = $("#employee-department").val();
+            const department = parseInt($("#employee-department").val());  // Get department as integer
             const salary = parseFloat($("#employee-salary").val());
-            const role = $("#employee-role").val();
+            const role = parseInt($("#employee-role").val());  // Get role as integer
 
             let isValid = true;
             $(".error-message").hide();
 
-            if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
+            if (!name || !username || !email || !password || isNaN(department) || isNaN(role) || isNaN(salary) || salary <= 0) {
                 isValid = false;
                 $("#error-message").text("All fields are required and salary must be greater than 0.").show();
             }
@@ -486,9 +462,9 @@
                     username,
                     email,
                     passwordHash: password, // Store hashed password
-                    department,
+                    department,  // Send department as an integer
                     salary,
-                    role,
+                    role,  // Send role as an integer
                 };
 
                 $.ajax({

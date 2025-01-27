@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using ThreeTierApp.Core.Services;
 using Microsoft.Extensions.Logging;
+using ThreeTierApp.DAL.Enums;
 
 namespace ThreeTierApp.Web.Controllers
 {
@@ -48,7 +49,7 @@ namespace ThreeTierApp.Web.Controllers
 
         // Get All Employees (only Admin can access)
         [HttpGet("employees")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
             try
@@ -57,32 +58,29 @@ namespace ThreeTierApp.Web.Controllers
                 var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-                // Attempt to retrieve from cache
+                //Attempt to retrieve from cache
                 var cachedEmployees = await _cacheService.GetCacheData<List<Employee>>("employees");
-                 if (cachedEmployees != null)
+                if (cachedEmployees != null)
                 {
                     _logger.LogInformation("Employees fetched from cache.");
-                    return Ok(cachedEmployees);
+                    return Ok(cachedEmployees); // Directly return the cached employees without modifying the Role or Department
                 }
+
 
                 // Cache miss: Fetch from database
                 var employees = await _employeeService.GetAllEmployeesAsync();
                 if (employees != null && employees.Any())
                 {
-                    await _cacheService.SetCacheData("employees", employees);  
+                    await _cacheService.SetCacheData("employees", employees);
                 }
 
                 _logger.LogInformation("Employees fetched successfully for user {User}.", loggedInUserId);
 
+                // Convert Role and Department integers to string values
+
                 if (userRole == "Admin")
                 {
                     return Ok(employees);
-                }
-
-                if (userRole == "Manager")
-                {
-                    var filteredEmployees = employees.Where(e => e.Role != "Admin").ToList();
-                    return Ok(filteredEmployees);
                 }
 
                 if (userRole == "Employee")
@@ -98,7 +96,6 @@ namespace ThreeTierApp.Web.Controllers
                 }
 
                 _logger.LogWarning("Unauthorized attempt to access employee data for user {User}.", User.Identity.Name);
-
                 return Unauthorized(new { message = "Unauthorized role" });
             }
             catch (Exception ex)
@@ -158,6 +155,7 @@ namespace ThreeTierApp.Web.Controllers
                     return BadRequest(new { message = "Email/Username and Password are required." });
                 }
 
+                // Fetch the employee based on email or username
                 var employee = await _employeeService.GetEmployeeByEmailOrUsernameAsync(loginModel.EmailOrUsername);
                 if (employee == null)
                 {
@@ -165,6 +163,7 @@ namespace ThreeTierApp.Web.Controllers
                     return Unauthorized(new { message = "Invalid credentials." });
                 }
 
+                // Verify the password hash
                 var hashedPassword = HashPassword(loginModel.Password);
                 if (employee.PasswordHash != hashedPassword)
                 {
@@ -172,13 +171,22 @@ namespace ThreeTierApp.Web.Controllers
                     return Unauthorized(new { message = "Invalid credentials." });
                 }
 
-                var claims = new List<Claim>
+                // Ensure that the Role is mapped correctly as a string for claims
+                string roleString = Enum.GetName(typeof(Role), employee.Role); // Convert role to string
+
+                if (string.IsNullOrEmpty(roleString))
                 {
-                    new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
-                    new Claim(ClaimTypes.Name, employee.Name),
-                    new Claim(ClaimTypes.Email, employee.Email),
-                    new Claim(ClaimTypes.Role, employee.Role ?? "Employee")
-                };
+                    _logger.LogWarning("Invalid role for user {Username}.", loginModel.EmailOrUsername);
+                    return Unauthorized(new { message = "Invalid role configuration for the user." });
+                }
+
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+            new Claim(ClaimTypes.Name, employee.Name),
+            new Claim(ClaimTypes.Email, employee.Email),
+            new Claim(ClaimTypes.Role, roleString) // Use the string name of the enum here
+        };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
@@ -195,13 +203,16 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
+
+
+
         private string HashPassword(string password)
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
         }
 
         [HttpPost("employees")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> AddEmployee([FromBody] Employee employee)
         {
             if (employee == null)
@@ -211,8 +222,8 @@ namespace ThreeTierApp.Web.Controllers
 
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            if (userRole == "Admin")
-            {
+            //if (userRole == "Admin")
+            //{
                 var result = await _employeeService.AddEmployeeAsync(employee);
                 if (result != null)
                 {
@@ -226,13 +237,10 @@ namespace ThreeTierApp.Web.Controllers
                     nameof(GetEmployeeById),
                     new { id = employee.Id },
                     new { message = $"Employee {employee.Name} added successfully!", data = employee });
-            }
+            //}
 
-            return Unauthorized(new { message = "You do not have permission to add employees." });
+            //return Unauthorized(new { message = "You do not have permission to add employees." });
         }
-
-
-
 
         [HttpPut("employees/{id}")]
         [Authorize]
@@ -273,9 +281,16 @@ namespace ThreeTierApp.Web.Controllers
             try
             {
                 var loggedInUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userRole = User.FindFirstValue(ClaimTypes.Role);
+                var userRoleString = User.FindFirstValue(ClaimTypes.Role); // Get the role as a string
 
-                if (userRole == "Admin" || loggedInUserId == id)
+                // Convert the role string to the Enum value
+                if (!Enum.TryParse(userRoleString, out Role userRole))
+                {
+                    _logger.LogWarning("Invalid role value {UserRole} for user {User}.", userRoleString, User.Identity.Name);
+                    return Unauthorized(new { message = "Invalid role." });
+                }
+
+                if (userRole == Role.Admin || loggedInUserId == id)
                 {
                     _logger.LogInformation("{UserRole} {User} is deleting employee {EmployeeId}.", userRole, User.Identity.Name, id);
 
@@ -303,9 +318,6 @@ namespace ThreeTierApp.Web.Controllers
                 return BadRequest(new { message = $"Error deleting employee: {ex.Message}" });
             }
         }
-
-
-
 
         [HttpPut("update-status/{employeeId}")]
         [Authorize]

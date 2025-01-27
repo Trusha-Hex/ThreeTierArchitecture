@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThreeTierApp.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a2a374accc819503b22884a9ae27c3d5bd8b0e0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e14451ea0c85a71634c11c4ec47a19c51aeb1a22")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThreeTierApp.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThreeTierApp.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

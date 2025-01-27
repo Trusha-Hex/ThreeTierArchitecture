@@ -19,6 +19,7 @@ using StackExchange.Redis;
 using System;
 using ThreeTierApp.DAL.Models;
 using ZeroFormatter;
+//using ThreeTierApp.Binders;
 
 namespace ThreeTierApp
 {
@@ -85,6 +86,15 @@ namespace ThreeTierApp
             services.AddDbContext<AppDbContext>(options =>
                options.UseMySql(_configuration.GetConnectionString("DefaultConnection"))
            );
+
+            //services.AddMvc(options =>
+            //{
+            //    // Register your custom model binder provider
+            //    options.ModelBinderProviders.Insert(0, new EmployeeModelBinderProvider());
+            //});
+
+            services.AddControllers();
+
         }
 
 

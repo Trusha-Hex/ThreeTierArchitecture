@@ -8,6 +8,7 @@ using System;
 using ThreeTierApp.DAL.Repositories;
 using ZeroFormatter;
 using StackExchange.Redis;
+using ThreeTierApp.DAL.Enums;
 
 namespace ThreeTierApp.Core.Services
 {
@@ -100,8 +101,8 @@ namespace ThreeTierApp.Core.Services
             if (string.IsNullOrWhiteSpace(employee.Name))
                 validationErrors.Errors.Add("Name", "Employee name cannot be empty.");
 
-            if (string.IsNullOrWhiteSpace(employee.Department))
-                validationErrors.Errors.Add("Department", "Employee department cannot be empty.");
+            //if (string.IsNullOrWhiteSpace(employee.Department))
+            //    validationErrors.Errors.Add("Department", "Employee department cannot be empty.");
 
             if (employee.Salary <= 0)
                 validationErrors.Errors.Add("Salary", "Employee salary must be greater than 0.");

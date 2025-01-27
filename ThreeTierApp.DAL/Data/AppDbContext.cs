@@ -60,6 +60,14 @@ namespace ThreeTierApp.DAL.Data
                 .HasColumnType("datetime")
                 .IsRequired(false);
 
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Department)
+                .HasConversion<int>();
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Role)
+                .HasConversion<int>();
+
             modelBuilder.Entity<TaskDetails>()
                  .Property(t => t.AssignedEmployeeIds)
                  .HasConversion(
