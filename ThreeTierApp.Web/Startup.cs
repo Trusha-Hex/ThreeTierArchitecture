@@ -59,6 +59,8 @@ namespace ThreeTierApp
 
             services.AddScoped<ICacheService, RedisCacheService>();
 
+            services.AddScoped<ITaskNotificationService, TaskNotificationService>();
+
             // Register TaskDetailsService
             services.AddScoped<TaskDetailsService>();
 

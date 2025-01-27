@@ -9,6 +9,7 @@ using ThreeTierApp.DAL.Repositories;
 using ZeroFormatter;
 using StackExchange.Redis;
 using ThreeTierApp.DAL.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThreeTierApp.Core.Services
 {
@@ -138,5 +139,7 @@ namespace ThreeTierApp.Core.Services
 
             return result;
         }
+        
+
     }
 }

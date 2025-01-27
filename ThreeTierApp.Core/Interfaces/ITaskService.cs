@@ -11,5 +11,6 @@ namespace ThreeTierApp.Core.Interfaces
         Task<bool> CreateTaskAsync(TaskDetails task);
         Task<bool> UpdateTaskAsync(TaskDetails task);
         Task<bool> DeleteTaskAsync(int id);
+        Task<List<Employee>> GetEmployeesByIdsAsync(List<int> employeeIds);
     }
 }

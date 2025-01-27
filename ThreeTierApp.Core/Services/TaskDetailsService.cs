@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;  // Add this line
 using System.Threading.Tasks;
+using ThreeTierApp.DAL.Data;
 using ThreeTierApp.DAL.Models;
 using ThreeTierApp.DAL.Repositories;
 
@@ -9,10 +11,12 @@ namespace ThreeTierApp.Core.Services
     public class TaskDetailsService
     {
         private readonly TaskDetailsRepository _repository;
+        private readonly AppDbContext _context;
 
-        public TaskDetailsService(TaskDetailsRepository repository)
+        public TaskDetailsService(TaskDetailsRepository repository, AppDbContext context)
         {
             _repository = repository;
+            _context = context;
         }
 
         public async Task<IEnumerable<TaskDetails>> GetAllTasksAsync()
@@ -45,6 +49,16 @@ namespace ThreeTierApp.Core.Services
             var allTasks = await _repository.GetAllTaskAsync();
             return allTasks.Where(task =>
                 task.AssignedEmployeeIds != null && task.AssignedEmployeeIds.Contains(employeeId));
+        }
+
+        public async Task<List<Employee>> GetEmployeesByIdsAsync(List<int> employeeIds)
+        {
+            // Fetch employees by their IDs
+            var employees = await _context.Employees
+                .Where(e => employeeIds.Contains(e.Id))
+                .ToListAsync();
+
+            return employees;
         }
     }
 }

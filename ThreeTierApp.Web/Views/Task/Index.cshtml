@@ -117,6 +117,7 @@
                                 <button ng-click="viewAssignedEmployees(task)" class="btn btn-sm btn-info">View Employees</button>
                                 <button ng-click="openTaskModal(task)" class="btn btn-sm btn-warning">Edit</button>
                                 <button ng-click="deleteTask(task.id)" class="btn btn-sm btn-danger">Delete</button>
+                                <button ng-if="isDueDatePassed(task)" ng-click="sendReminder(task)" class="btn btn-sm btn-secondary">Reminder</button>
                             </td>
                         </tr>
                     </tbody>
@@ -380,6 +381,36 @@
                     });
             }
         };
+
+        $scope.isDueDatePassed = function (task) {
+            const currentDate = new Date();
+            const dueDate = new Date(task.dueDate);
+            return dueDate < currentDate && !task.isCompleted;
+        };
+
+        $scope.sendReminder = function (task) {
+            // Construct the URL dynamically with the task ID
+            const url = `https://localhost:65391/tasks/send-overdue-notification/${task.id}`;
+
+            // Make an HTTP POST request to the API
+            $http.post(url)
+                .then(function (response) {
+                    // Handle successful response
+                    console.log('Response:', response.data);
+                    $scope.showNotification(response.data.notification);
+                })
+                .catch(function (error) {
+                    // Handle error response
+                    console.error('Error:', error);
+                    if (error.data) {
+                        $scope.showNotification(error.data.notification || 'Failed to send reminder email.');
+                    } else {
+                        $scope.showNotification('Failed to send reminder email.');
+                    }
+                });
+        };
+
+
 
 
                 $scope.closeEmployeeModal = function () {

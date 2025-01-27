@@ -255,7 +255,6 @@ namespace ThreeTierApp.Web.Controllers
             return Unauthorized(new { message = "You do not have permission to add employees." });
         }
 
-
         [HttpPut("employees/{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)

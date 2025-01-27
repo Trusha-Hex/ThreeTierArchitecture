@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using ThreeTierApp.Core.Services;
 using ThreeTierApp.DAL.Models;
 using System.Linq;
+using System;
+using ThreeTierApp.Core.Interfaces;
 
 
 namespace ThreeTierApp.Web.Controllers
@@ -13,10 +15,12 @@ namespace ThreeTierApp.Web.Controllers
     public class TaskController : Controller
     {
         private readonly TaskDetailsService _service;
+        private readonly ITaskNotificationService _notificationService;
 
-        public TaskController(TaskDetailsService service)
+        public TaskController(TaskDetailsService service, ITaskNotificationService notificationService)
         {
             _service = service;
+            _notificationService = notificationService;
         }
 
         [HttpGet("tasks/")]
@@ -102,5 +106,46 @@ namespace ThreeTierApp.Web.Controllers
             await _service.DeleteTaskAsync(id);
             return Ok(new { message = "Task deleted successfully.", notification = "The task has been removed from the system." });
         }
+
+        [HttpPost("tasks/send-overdue-notification/{taskId}")]
+        public async Task<IActionResult> SendOverdueNotification(int taskId)
+        {
+            // Fetch the task details using taskId
+            var task = await _service.GetTaskByIdAsync(taskId);
+            if (task == null)
+            {
+                return NotFound(new { message = "Task not found.", notification = "No task found with the provided ID." });
+            }
+
+            // Check if the task is overdue
+            if (task.DueDate == null || task.DueDate >= DateTime.Now || task.IsCompleted)
+            {
+                return BadRequest(new { message = "Task is not overdue or already completed.", notification = "The task is not overdue or already completed." });
+            }
+
+            // Get employee records based on AssignedEmployeeIds
+            var employees = await _service.GetEmployeesByIdsAsync(task.AssignedEmployeeIds);
+            if (employees == null || !employees.Any())
+            {
+                return BadRequest(new { message = "No employees found.", notification = "Could not retrieve employees' emails." });
+            }
+
+            // Extract emails from employee records
+            var employeeEmails = employees.Select(e => e.Email).ToList();
+
+            // Compose the subject and body for the email
+            var subject = $"Task Overdue: {task.Title}";
+            var body = $"Dear Employee, \n\nThe task '{task.Title}' is overdue. Please review and take necessary actions. \n\nTask Description: {task.Description}";
+
+            // Send the email notification to the assigned employees
+            var emailSent = await _notificationService.SendEmailNotificationAsync(employeeEmails, subject, body);
+            if (!emailSent)
+            {
+                return StatusCode(500, new { message = "Failed to send email notification.", notification = "There was an issue sending the email." });
+            }
+
+            return Ok(new { message = "Email notification sent successfully.", notification = "Task overdue notification sent to the assigned employees." });
+        }
     }
 }
+
