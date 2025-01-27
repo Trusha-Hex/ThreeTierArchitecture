@@ -439,7 +439,7 @@
             setTimeout(() => alertBox.fadeOut(), 3000);
         }
 
-                $("#add-btn").click(function () {
+        $("#add-btn").click(function () {
             const name = $("#employee-name").val();
             const username = $("#employee-username").val();
             const email = $("#employee-email").val();
@@ -492,28 +492,29 @@
             const username = $("#employee-username").val();
             const email = $("#employee-email").val();
             const password = $("#employee-password").val();
-            const department = $("#employee-department").val();
+            const department = parseInt($("#employee-department").val()); // Ensure department is an integer
             const salary = parseFloat($("#employee-salary").val());
-            const role = $("#employee-role").val();
+            const role = parseInt($("#employee-role").val()); // Ensure role is an integer
 
             let isValid = true;
             $(".error-message").hide();
 
-            if (!name || !username || !email || !password || !department || isNaN(salary) || salary <= 0) {
+            // Validation for all fields and salary
+            if (!name || !username || !email || !password || isNaN(department) || !department || isNaN(role) || isNaN(salary) || salary <= 0) {
                 isValid = false;
-                $("#error-message").text("All fields are required and salary must be greater than 0.").show();
+                $("#error-message").text("All fields are required, and salary must be greater than 0. Department and Role must be valid integers.").show();
             }
 
             if (isValid) {
                 const employee = {
-                    id: parseInt(id),
+                    id: parseInt(id),      // Employee ID as integer
                     name,
                     username,
                     email,
                     passwordHash: password,
-                    department,
+                    department,            // Department as integer
                     salary,
-                    role,
+                    role,                  // Role as integer
                 };
 
                 $.ajax({
@@ -523,9 +524,9 @@
                     contentType: "application/json",
                     success: function () {
                         employeesTable.ajax.reload(); // Reload table data
-                        clearForm();
-                        $("#add-btn").show();
-                        $("#update-btn").hide();
+                        clearForm(); // Clear the form fields
+                        $("#add-btn").show(); // Show the "Add" button
+                        $("#update-btn").hide(); // Hide the "Update" button
                         $("#employeeModal").modal("hide"); // Close the modal
                         showAlert("success", "Employee updated successfully!"); // Success alert
                     },
@@ -536,6 +537,7 @@
                 });
             }
         });
+
 
 
         // Edit employee

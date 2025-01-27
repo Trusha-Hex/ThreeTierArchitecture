@@ -49,7 +49,7 @@ namespace ThreeTierApp.Web.Controllers
 
         // Get All Employees (only Admin can access)
         [HttpGet("employees")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
             try
@@ -71,7 +71,13 @@ namespace ThreeTierApp.Web.Controllers
                 var employees = await _employeeService.GetAllEmployeesAsync();
                 if (employees != null && employees.Any())
                 {
-                    await _cacheService.SetCacheData("employees", employees);
+                    // Cache each employee individually with employee.Id as the key
+                    foreach (var employee in employees)
+                    {
+                        await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
+                    }
+
+                    _logger.LogInformation("Employees fetched and cached.");
                 }
 
                 _logger.LogInformation("Employees fetched successfully for user {User}.", loggedInUserId);
@@ -203,16 +209,13 @@ namespace ThreeTierApp.Web.Controllers
             }
         }
 
-
-
-
         private string HashPassword(string password)
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
         }
 
         [HttpPost("employees")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult> AddEmployee([FromBody] Employee employee)
         {
             if (employee == null)
@@ -222,25 +225,36 @@ namespace ThreeTierApp.Web.Controllers
 
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            //if (userRole == "Admin")
-            //{
+            if (userRole == "Admin")
+            {
                 var result = await _employeeService.AddEmployeeAsync(employee);
                 if (result != null)
                 {
                     return BadRequest(new { message = result });
                 }
 
-                // Update cache after adding
-                await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
+                // Update cache after adding the new employee by caching the individual employee
+                await _cacheService.SetCacheData($"employee:{employee.Id}", employee);
+
+                // Optionally, you can also fetch and cache all employees if needed
+                var allEmployees = await _employeeService.GetAllEmployeesAsync();
+                if (allEmployees != null && allEmployees.Any())
+                {
+                    foreach (var emp in allEmployees)
+                    {
+                        await _cacheService.SetCacheData($"employee:{emp.Id}", emp);
+                    }
+                }
 
                 return CreatedAtAction(
                     nameof(GetEmployeeById),
                     new { id = employee.Id },
                     new { message = $"Employee {employee.Name} added successfully!", data = employee });
-            //}
+            }
 
-            //return Unauthorized(new { message = "You do not have permission to add employees." });
+            return Unauthorized(new { message = "You do not have permission to add employees." });
         }
+
 
         [HttpPut("employees/{id}")]
         [Authorize]
@@ -262,17 +276,24 @@ namespace ThreeTierApp.Web.Controllers
                     return BadRequest(new { message = validationResult });
                 }
 
-                // Update cache after updating
+                // Update cache after updating the individual employee
                 await _cacheService.SetCacheData($"employee:{id}", employee);
-                await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
+
+                // Optionally, you can also fetch and cache all employees if needed
+                var allEmployees = await _employeeService.GetAllEmployeesAsync();
+                if (allEmployees != null && allEmployees.Any())
+                {
+                    foreach (var emp in allEmployees)
+                    {
+                        await _cacheService.SetCacheData($"employee:{emp.Id}", emp);
+                    }
+                }
 
                 return Ok(new { message = $"Employee {employee.Name} updated successfully!" });
             }
 
             return Unauthorized(new { message = "You do not have permission to update this employee." });
         }
-
-
 
         [HttpDelete("employees/{id}")]
         [Authorize]
@@ -298,7 +319,6 @@ namespace ThreeTierApp.Web.Controllers
 
                     // Update cache after deleting
                     await _cacheService.DeleteCacheData($"employee:{id}");
-                    await _cacheService.SetCacheData("employees", await _employeeService.GetAllEmployeesAsync());
 
                     _logger.LogInformation("Employee {EmployeeId} deleted successfully by {User}.", id, User.Identity.Name);
                     return NoContent();

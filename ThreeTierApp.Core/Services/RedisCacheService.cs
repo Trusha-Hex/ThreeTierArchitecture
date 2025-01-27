@@ -15,11 +15,12 @@ namespace ThreeTierApp.Core.Services
             _redisDatabase = redis.GetDatabase();
         }
 
+        // Get cache data for a specific employee by employee.id
         public async Task<T> GetCacheData<T>(string key)
         {
             try
             {
-                var cachedData = await _redisDatabase.StringGetAsync(key);
+                var cachedData = await _redisDatabase.HashGetAsync("employees", key); // Fetch data from 'employees' hash by employee.id
                 return cachedData.HasValue
                     ? ZeroFormatterSerializer.Deserialize<T>(cachedData) // Deserialize using ZeroFormatter
                     : default;
@@ -31,14 +32,15 @@ namespace ThreeTierApp.Core.Services
             }
         }
 
+        // Set cache data using employee.id as the key
         public async Task SetCacheData<T>(string key, T data)
         {
             try
             {
                 var serializedData = ZeroFormatterSerializer.Serialize(data); // Serialize data using ZeroFormatter
 
-                // Set data without expiration
-                await _redisDatabase.StringSetAsync(key, serializedData);
+                // Store the serialized data in the Redis hash with 'employees' as the hash key
+                await _redisDatabase.HashSetAsync("employees", key, serializedData);
             }
             catch (BadImageFormatException ex)
             {
@@ -58,11 +60,13 @@ namespace ThreeTierApp.Core.Services
             }
         }
 
+        // Delete cache data using employee.id as the key
         public async Task DeleteCacheData(string key)
         {
             try
             {
-                await _redisDatabase.KeyDeleteAsync(key);
+                // Remove the employee data from the 'employees' hash by employee.id
+                await _redisDatabase.HashDeleteAsync("employees", key);
             }
             catch (Exception ex)
             {
